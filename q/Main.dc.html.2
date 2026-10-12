@@ -1,0 +1,171 @@
+<div style="display: flex; flex-direction: column; gap: 4px; background: #E4E1B8; border-radius: 12px; padding: 14px"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">Jours de repos, à froid</span><span style="font-weight: 700; font-size: 18px">La routine souplesse</span><span style="font-size: 15px; line-height: 1.4">Le meilleur moment pour gagner en amplitude, 2 à 3 fois par semaine, après 1 minute de réchauffement.</span></div>
+<div style="display: flex; flex-direction: column; border: 2px solid #12110C; border-radius: 14px; background: #FFFFFF; color: #12110C; overflow: hidden">
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 16px 14px 12px"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">Guidée au chrono · 16 positions</span><span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1.05; text-transform: uppercase">Routine souplesse 10 min</span></div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 0 14px 16px">
+<span style="font-size: 15px; line-height: 1.45">À faire à froid, les jours sans séance, après 1 minute pour te réchauffer. Tiens chaque position sans à-coup, en respirant lentement : ça doit tirer, jamais faire mal.</span>
+<div style="display: flex; flex-direction: column; gap: 6px; background: {{spBg}}; color: {{spFg}}; border-radius: 14px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">{{spStep}}</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1.05; text-transform: uppercase">{{spName}}</span>
+<span style="font-size: 15px; line-height: 1.4">{{spCue}}</span>
+<span aria-live="polite" style="font-family: Anton, Impact, sans-serif; font-size: 60px; line-height: 1; align-self: center">{{spTime}}</span>
+<span style="font-size: 14px; font-weight: 700; align-self: center">{{spNext}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<button onClick="{{spStart}}" style="min-height: 54px; background: #F2E415; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{spStartLabel}}</button>
+<button onClick="{{spSkip}}" style="min-height: 54px; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Suivant</button>
+<button onClick="{{spReset}}" style="min-height: 54px; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Reprendre</button>
+</div>
+</div>
+</div>
+<div id="sommeil" style="display: flex; flex-direction: column; gap: 12px; background: #E4E1B8; border-radius: 16px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">Le pilier oublié</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase">Le sommeil, ton meilleur complément (et il est gratuit)</span>
+<span style="font-size: 15px; line-height: 1.45">C'est la nuit que le muscle se répare. Dormir moins de 6 heures dérègle aussi l'appétit : plus de faim, plus d'envies de sucré. Et fatigué, même la meilleure discipline flanche. Aucune poudre ne rattrape une mauvaise nuit.</span>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15px; line-height: 1.4"><b>Horaires réguliers</b>, même le week-end.</span>
+<span style="font-size: 15px; line-height: 1.4"><b>Lumière le matin</b>, écrans en pause 30 minutes avant de dormir.</span>
+<span style="font-size: 15px; line-height: 1.4"><b>Dernier café vers 14 h</b> : il agit encore 6 à 8 heures après.</span>
+<span style="font-size: 15px; line-height: 1.4"><b>Chambre fraîche</b> (environ 18 °C), sombre et calme. L'alcool endort, mais abîme la nuit.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; border: 2px solid #12110C; border-radius: 14px; padding: 14px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">Mini-audit sommeil · 5 questions</span>
+<sc-for list="{{slList}}" as="q" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 16px; font-weight: 700">{{q.n}}. {{q.title}}</span><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><sc-for list="{{q.opts}}" as="o" hint-placeholder-count="3"><button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 46px; padding: 6px 10px; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button></sc-for></div></div>
+</sc-for>
+<sc-if value="{{slDone}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; background: #12110C; color: #E4E1B8; border-radius: 12px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">{{slVerdict}}</span>
+<sc-for list="{{slRes}}" as="r" hint-placeholder-count="3"><div style="display: flex; flex-direction: column; gap: 3px; border-top: 1px solid #3F3C22; padding-top: 10px"><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">{{r.title}}</span><span style="font-size: 15px; line-height: 1.45">{{r.text}}</span></div></sc-for>
+<button onClick="{{slReset}}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; background: transparent; color: #F2E415; border: 2px solid #F2E415; border-radius: 999px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Recommencer</button>
+</div>
+</sc-if>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #12110C; color: #E4E1B8; border-radius: 14px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">Les autres piliers de la récup</span>
+<span style="font-size: 15px; line-height: 1.45"><b style="color: #FFFFFF">Marche</b> : 20 à 30 minutes les jours de repos récupèrent mieux qu'un canapé.</span>
+<span style="font-size: 15px; line-height: 1.45"><b style="color: #FFFFFF">Courbatures</b> : normales au début, elles ne prouvent rien. Pas besoin d'en avoir pour progresser.</span>
+</div>
+</section>
+<section id="manger" style="display: flex; flex-direction: column; gap: 18px; padding: 44px 20px; background: #12110C; color: #E4E1B8">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: {{accent}}">Pilier 3 · Bien manger</div>
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 44px; line-height: 1; text-transform: uppercase; color: #FFFFFF">Les résultats se construisent aussi dans l'assiette</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Pas de régime, pas de culpabilité : des protéines à chaque repas, de l'eau au bon moment, et le bon sens plutôt que le marketing.</p>
+<div id="quiz" style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 18px; font-weight: 700; color: #FFFFFF">Tu sais vraiment ce que tu manges ?</span>
+<div style="display: flex; flex-direction: column; gap: 12px; background: #E4E1B8; color: #12110C; border: 2px solid #12110C; border-radius: 16px; padding: 16px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">Quiz · Qui est qui dans ton assiette ?</span>
+<span style="font-weight: 700; font-size: 15px; white-space: nowrap">{{qScore}} / {{qDone}}</span>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px">
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase">{{qFood}}</span>
+<span style="font-size: 14px; font-weight: 700; color: #4A4620; white-space: nowrap">{{qPos}}</span>
+</div>
+<span style="font-size: 15px">C'est surtout…</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{qOpts}}" as="o" hint-placeholder-count="4">
+<button onClick="{{o.pick}}" style="min-height: 50px; padding: 6px 8px; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+<sc-if value="{{qAnswered}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px; background: #FFFFFF; border-radius: 10px; padding: 12px">
+<span style="font-weight: 700; font-size: 17px">{{qVerdict}}</span>
+<span style="font-size: 15px; line-height: 1.45">{{qText}}</span>
+</div>
+<button onClick="{{qNext}}" style="min-height: 50px; background: #12110C; color: #F2E415; border: 0; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{qNextLabel}}</button>
+</div>
+</sc-if>
+</div>
+</div>
+<a href="Programme.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: {{accent}}; color: #12110C; border-radius: 16px; padding: 18px; text-decoration: none">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Audit alimentaire</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1.05; text-transform: uppercase">Ton plan alimentaire sur mesure</span>
+<span style="font-size: 15px; line-height: 1.4">Un audit honnête de tes habitudes, tes besoins en protéines, en calories et en eau, et une journée type. Juste après ton audit de préparation.</span>
+<span style="font-weight: 700; font-size: 17px">Faire mon audit →</span>
+</a>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; border: 2px solid #12110C; border-radius: 14px; background: #FFFFFF; color: #12110C; overflow: hidden">
+<button onClick="{{tgHydra}}" aria-expanded="{{opHydra}}" style="display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; min-height: 64px; padding: 12px 14px; background: transparent; border: 0; text-align: left; cursor: pointer; color: #12110C; font-family: 'Roboto Condensed', sans-serif"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700; font-size: 18px">Calculateur d’hydratation</span><span style="font-size: 15px; color: #4A4620">Avant, pendant, après : combien boire, et les électrolytes ?</span></span><span aria-hidden="true" style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 2px solid #12110C; border-radius: 999px; font-size: 22px; font-weight: 700">{{sgHydra}}</span></button>
+<sc-if value="{{opHydra}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 0 14px 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 700">Tu es</span><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><sc-for list="{{hySexeOpts}}" as="o" hint-placeholder-count="2"><button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 46px; padding: 6px 10px; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 700">Ton poids</span><div style="display: flex; gap: 8px"><button aria-label="Un kilo de moins" onClick="{{hyPMinus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">−</button><div aria-live="polite" style="flex-grow: 1; min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #12110C; border-radius: 10px; background: #FFFFFF">{{hyPTxt}}</div><button aria-label="Un kilo de plus" onClick="{{hyPPlus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">+</button></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 700">Durée de la séance</span><div style="display: flex; gap: 8px"><button aria-label="15 minutes de moins" onClick="{{hyDMinus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">−</button><div aria-live="polite" style="flex-grow: 1; min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #12110C; border-radius: 10px; background: #FFFFFF">{{hyDTxt}}</div><button aria-label="15 minutes de plus" onClick="{{hyDPlus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">+</button></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 700">Conditions</span><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><sc-for list="{{hyChaudOpts}}" as="o" hint-placeholder-count="2"><button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 46px; padding: 6px 10px; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15px; font-weight: 700">Tu transpires</span><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><sc-for list="{{hySueurOpts}}" as="o" hint-placeholder-count="2"><button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 46px; padding: 6px 10px; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #12110C; color: #E4E1B8; border-radius: 12px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">Ton plan hydratation</span>
+<sc-for list="{{hyRows}}" as="h" hint-placeholder-count="4"><div style="display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #3F3C22; padding-top: 10px"><div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline"><span style="font-weight: 700; font-size: 16px; color: #FFFFFF">{{h.when}}</span><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; color: #F2E415; white-space: nowrap">{{h.qty}}</span></div><span style="font-size: 14px; line-height: 1.4">{{h.tip}}</span></div></sc-for>
+<div style="display: flex; flex-direction: column; gap: 4px; background: {{hyElBg}}; color: #12110C; border-radius: 10px; padding: 12px"><span style="font-weight: 700; font-size: 16px">{{hyElTitle}}</span><span style="font-size: 14px; line-height: 1.4">{{hyElText}}</span></div>
+<span style="font-size: 13px; color: #A8A36A">Repère simple : une urine jaune clair, c'est bon signe. Foncée, il faut boire davantage.</span>
+</div>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; border: 2px solid #12110C; border-radius: 14px; background: #FFFFFF; color: #12110C; overflow: hidden">
+<button onClick="{{tgSupp}}" aria-expanded="{{opSupp}}" style="display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; min-height: 64px; padding: 12px 14px; background: transparent; border: 0; text-align: left; cursor: pointer; color: #12110C; font-family: 'Roboto Condensed', sans-serif"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700; font-size: 18px">Compléments : ce qui marche vraiment</span><span style="font-size: 15px; color: #4A4620">Quatre produits utiles. Le reste, c’est surtout du marketing.</span></span><span aria-hidden="true" style="width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 2px solid #12110C; border-radius: 999px; font-size: 22px; font-weight: 700">{{sgSupp}}</span></button>
+<sc-if value="{{opSupp}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 0 14px 16px">
+<span style="font-size: 15px; line-height: 1.45">Aucun complément ne remplace l'entraînement et une assiette correcte. Mais quatre d'entre eux ont fait leurs preuves, dans des cas précis.</span>
+<sc-for list="{{supps}}" as="c" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 6px; border: 2px solid #C9C49A; border-radius: 12px; padding: 14px">
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline"><span style="font-weight: 700; font-size: 18px">{{c.name}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: #807C3A; padding: 3px 8px; border-radius: 4px; white-space: nowrap">{{c.tag}}</span></div>
+<span style="font-size: 15px; line-height: 1.45"><b>Pour quoi :</b> {{c.why}}</span>
+<span style="font-size: 15px; line-height: 1.45"><b>Comment :</b> {{c.how}}</span>
+<span style="font-size: 14px; line-height: 1.4; color: #4A4620"><b>Attention :</b> {{c.warn}}</span>
+<a href="#affiliation" style="display: flex; align-items: center; justify-content: center; min-height: 46px; background: #12110C; color: #F2E415; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none">Voir le produit conseillé</a>
+</div>
+</sc-for>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #12110C; color: #E4E1B8; border-radius: 12px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">Ce qu'on ne te conseille pas</span>
+<span style="font-size: 15px; line-height: 1.45">Brûleurs de graisse, produits « détox », BCAA si tu manges déjà assez de protéines, boosters miracles : ton argent sera mieux placé dans une paire d'haltères.</span>
+</div>
+<span style="font-size: 13px; line-height: 1.4; color: #4A4620">Liens affiliés : Alpha touche une petite commission, sans surcoût pour toi. Nous ne recommandons que ce que nous utiliserions nous-mêmes. Demande l'avis de ton médecin en cas de traitement, de grossesse ou de maladie chronique.</span>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+<section id="suivi" style="display: flex; flex-direction: column; gap: 16px; padding: 40px 20px; background: #12110C; color: #E4E1B8">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: {{accent}}">Suivi personnalisé · Sans engagement</div>
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 42px; line-height: 1; text-transform: uppercase; color: #FFFFFF">Ton coach dans la poche</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Sport seul ou sport et diététique. Un suivi mensuel ou hebdomadaire sur WhatsApp, appel en option. Tu arrêtes quand tu veux, gratuitement.</p>
+<a href="Suivi.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 54px; background: {{accent}}; color: #12110C; font-weight: 700; font-size: 19px; border-radius: 999px; text-decoration: none">Voir les formules</a>
+</section>
+<section id="conseils" style="display: flex; flex-direction: column; gap: 18px; padding: 40px 20px; background: #807C3A">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #12110C">Les conseils</div>
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 40px; line-height: 1; text-transform: uppercase">Le coin des bons réflexes</h2>
+<a href="#conseils" style="display: flex; flex-direction: column; gap: 6px; background: #12110C; border-radius: 14px; padding: 16px; text-decoration: none; color: #E4E1B8">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: {{accent}}">Débuter</span>
+<span style="font-size: 21px; font-weight: 700; line-height: 1.2; color: #FFFFFF">Ta première séance sans avoir l'air perdu</span>
+<span style="font-size: 15px; color: #D8D4A8; line-height: 1.4">Échauffement, choix des charges et ce qu'on ne fait jamais le premier jour.</span>
+</a>
+<a href="#conseils" style="display: flex; flex-direction: column; gap: 6px; background: #12110C; border-radius: 14px; padding: 16px; text-decoration: none; color: #E4E1B8">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: {{accent}}">Mains &amp; grip</span>
+<span style="font-size: 21px; font-weight: 700; line-height: 1.2; color: #FFFFFF">Ampoules et callosités : les éviter sans mettre de gants</span>
+<span style="font-size: 15px; color: #D8D4A8; line-height: 1.4">Pourquoi elles apparaissent, comment tenir la barre et quand s'équiper.</span>
+</a>
+<a href="#conseils" style="display: flex; flex-direction: column; gap: 6px; background: #12110C; border-radius: 14px; padding: 16px; text-decoration: none; color: #E4E1B8">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: {{accent}}">Progresser</span>
+<span style="font-size: 21px; font-weight: 700; line-height: 1.2; color: #FFFFFF">Tractions : de zéro à ta première</span>
+<span style="font-size: 15px; color: #D8D4A8; line-height: 1.4">Les exercices qui y mènent, dans l'ordre, sans brûler les étapes.</span>
+</a>
+<a href="#conseils" style="font-weight: 700; font-size: 18px; min-height: 44px; display: flex; align-items: center; color: #12110C">Tous les conseils →</a>
+</section>
+<footer style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px; padding: 44px 20px 32px; background: #12110C; color: #E4E1B8">
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 44px; line-height: 1; text-transform: uppercase; color: #FFFFFF">Entraîne-toi pour toi.<br><span style="color: {{accent}}">Pas pour subir.</span></h2>
+<a href="#manique" style="display: flex; align-items: center; justify-content: center; min-height: 54px; background: {{accent}}; color: #12110C; font-weight: 700; font-size: 19px; border-radius: 999px; text-decoration: none">Voir la manique</a>
+<nav style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 17px">
+<a href="#manique" style="color: #E4E1B8; min-height: 44px; display: flex; align-items: center">Produits</a>
+<a href="#conseils" style="color: #E4E1B8; min-height: 44px; display: flex; align-items: center">Conseils</a>
+<a href="#outils" style="color: #E4E1B8; min-height: 44px; display: flex; align-items: center">Outils</a>
+<a href="#contact" style="color: #E4E1B8; min-height: 44px; display: flex; align-items: center">Prendre contact</a>
+</nav>
+<img src="/img/logo-alt.png" alt="Alpha Since 1982" style="height: 96px; width: auto; max-width: 100%; object-fit: contain; align-self: center; display: block">
+<span style="font-size: 14px; color: #A8A36A">alphasince.fr · Les estimations des outils ne remplacent pas l'avis d'un coach.</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"plFun_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d", "section": "Playlist Fun"}, "plFun_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Fun"}, "plFun_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Fun"}, "plAgressif_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/105BF63e6XMWdFjD4s4X0D", "section": "Playlist Boost"}, "plAgressif_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Boost"}, "plAgressif_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Boost"}, "plChill_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/7JabddFr3Q6JPsND4v9Swf", "section": "Playlist Chill"}, "plChill_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Chill"}, "plChill_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Chill"},"accent":{"editor":"color","default":"#F2E415","options":["#F2E415","#FFFFFF","#A8A36A"]},"$preview":{"width":390,"height":11650}}'>

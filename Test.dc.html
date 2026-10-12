@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Alpha Since — Test physique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/img/logo.png">
+<style>#dc-root .sc-host>*{margin-left:auto!important;margin-right:auto!important}@media (max-width:420px){#dc-root .sc-host>*{width:100vw!important;max-width:100vw}}</style>
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Roboto+Condensed:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#12110C;font-family:'Roboto Condensed','Arial Narrow',system-ui,sans-serif}
+a{color:#12110C}
+</style>
+</helmet>
+<div style="width: 390px; height: 3300px; box-sizing: border-box; position: relative; display: flex; flex-direction: column; background: {{pageBg}}; color: {{pageFg}}; font-family: 'Roboto Condensed', 'Arial Narrow', system-ui, sans-serif; overflow: hidden">
+<header style="display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; padding: 12px 20px; background: #807C3A; color: #12110C">
+<button onClick="{{toggleMenu}}" aria-label="Ouvrir le menu" aria-expanded="{{menuOpen}}" style="justify-self: start; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; cursor: pointer; padding: 0">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#12110C" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+</button>
+<a href="Main.dc.html" aria-label="Alpha Since, accueil" style="display: flex; text-decoration: none; justify-self: center"><img src="/img/logo.png" alt="Alpha Since 1982" style="height: 92px; width: auto; object-fit: contain; flex-shrink: 0; display: block"></a>
+<a href="Main.dc.html#manique" aria-label="Boutique" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; justify-self: end">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#12110C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"></path><circle cx="9" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg>
+</a>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<nav aria-label="Menu principal" style="position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; flex-direction: column; gap: 22px; padding: 14px 20px 32px; background: #12110C; color: #E4E1B8; border-bottom: 4px solid #F2E415">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<a href="Main.dc.html#top" onClick="{{closeMenu}}" aria-label="Alpha Since, accueil" style="display: flex"><img src="/img/logo-alt.png" alt="Alpha Since 1982" style="height: 60px; width: auto; object-fit: contain; flex-shrink: 0; display: block"></a>
+<button onClick="{{closeMenu}}" aria-label="Fermer le menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 2px solid #807C3A; border-radius: 999px; cursor: pointer; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E4E1B8" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+</div>
+<a href="Test.dc.html" onClick="{{closeMenu}}" style="display: flex; align-items: center; justify-content: center; min-height: 54px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 19px; border-radius: 999px; text-decoration: none">Faire mon test physique</a>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">S'entraîner</span><a href="Test.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Test physique</span><span style="font-size: 14px; color: #A8A36A">7 tests reconnus et ton bilan</span></a><a href="Programme.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Ma préparation</span><span style="font-size: 14px; color: #A8A36A">Audit, objectif et programme complet</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Charge max, chrono, disques</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quiz : quel matos pour toi ?</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Playlists Fun, Boost, Chill</span></a></div><div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Récupérer</span><a href="Main.dc.html#recuperer" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quand s’étirer ?</span></a><a href="Main.dc.html#recuperer" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Routine souplesse 10 min</span><span style="font-size: 14px; color: #A8A36A">Guidée au chrono</span></a><a href="Main.dc.html#sommeil" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Mieux dormir</span><span style="font-size: 14px; color: #A8A36A">Mini-audit sommeil</span></a></div><div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Bien manger</span><a href="Main.dc.html#quiz" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quiz nutrition</span></a><a href="Programme.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Plan alimentaire</span><span style="font-size: 14px; color: #A8A36A">Juste après ton audit</span></a><a href="Main.dc.html#manger" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Calculateur d’hydratation</span></a><a href="Main.dc.html#manger" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Compléments : ce qui marche</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Boutique</span><a href="Main.dc.html#manique" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Manique X-Trm Confort</span><span style="font-size: 14px; color: #A8A36A">34,95 €</span></a><a href="Main.dc.html#manique" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Sangle et poignet de force</span><span style="font-size: 14px; color: #A8A36A">Bientôt disponibles</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Coaching</span><a href="Suivi.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Suivi personnalisé</span><span style="font-size: 14px; color: #A8A36A">Sport ou sport + diététique, sans engagement</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Conseils</span><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Débuter</span></a><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Mains et grip</span></a><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Progresser</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Alpha</span><a href="Main.dc.html#quisommesnous" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Qui sommes-nous ?</span></a><a href="Main.dc.html#contact" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Prendre contact</span></a></div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px"><a href="#mentions" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">Mentions légales</a><a href="#cgv" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">CGV</a><a href="#confidentialite" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">Confidentialité</a></div>
+</nav>
+</sc-if>
+<main style="display: flex; flex-direction: column; gap: 20px; padding: 24px 20px 40px">
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #F2E415">Bilan physique · 7 tests reconnus</div>
+<h1 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 54px; line-height: 0.98; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.6px #E4E1B8">Où tu en es vraiment</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5">Endurance, cœur, force, gainage, jambes, explosivité et souplesse. Des tests utilisés par les préparateurs physiques, avec des barèmes selon ton âge et ton sexe. Pas de jugement : juste une photo de départ.</p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{introList}}" as="t" hint-placeholder-count="7">
+<div style="display: flex; gap: 12px; align-items: center; background: #1C1B13; border-radius: 10px; padding: 10px 14px"><span style="font-family: Anton, Impact, sans-serif; font-size: 22px; color: #F2E415; width: 20px">{{t.n}}</span><span style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 16px; color: #FFFFFF">{{t.name}}</span><span style="font-size: 14px; color: #A8A36A">{{t.quality}}</span></span></div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border: 2px solid #807C3A; border-radius: 12px; padding: 14px">
+<span style="font-weight: 700; font-size: 16px; color: #F2E415">Avant de commencer</span>
+<span style="font-size: 15px; line-height: 1.45">Échauffe-toi 10 minutes. Tu peux faire les tests sur plusieurs jours et passer ceux que tu ne peux pas faire. Douleur dans la poitrine, vertige ou essoufflement anormal : tu arrêtes tout de suite. Plus de 40 ans et sédentaire : demande l'avis de ton médecin avant la course et le test de Ruffier-Dickson.</span>
+</div>
+<button onClick="{{start}}" style="min-height: 56px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 20px; border: 0; border-radius: 999px; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Commencer le test</button>
+</div>
+</sc-if>
+<sc-if value="{{isTests}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 40px; line-height: 1; text-transform: uppercase; color: #12110C">Ton profil</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{sexOpts}}" as="o" hint-placeholder-count="2">
+<button onClick="{{o.pick}}" style="min-height: 50px; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 2px solid #C9C49A; border-radius: 12px; padding: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><label for="age" style="font-size: 17px; font-weight: 700">Âge</label><span style="font-family: Anton, Impact, sans-serif; font-size: 30px">{{ageTxt}}</span></div>
+<div style="display: flex; gap: 10px; align-items: center">
+<button aria-label="Diminuer l'âge" onClick="{{ageMinus}}" style="width: 52px; height: 52px; flex-shrink: 0; font-size: 26px; font-weight: 700; background: #E4E1B8; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">−</button>
+<input id="age" type="range" min="12" max="80" step="1" value="{{age}}" onChange="{{ageRange}}" style="flex-grow: 1; min-width: 0; height: 44px; accent-color: #12110C">
+<button aria-label="Augmenter l'âge" onClick="{{agePlus}}" style="width: 52px; height: 52px; flex-shrink: 0; font-size: 26px; font-weight: 700; background: #E4E1B8; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">+</button>
+</div>
+</div>
+<h2 style="margin: 8px 0 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 40px; line-height: 1; text-transform: uppercase; color: #12110C">Les 7 tests</h2>
+<sc-for list="{{tests}}" as="t" hint-placeholder-count="7">
+<div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 2px solid {{t.cardBd}}; border-radius: 14px; padding: 14px; opacity: {{t.opacity}}">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4A4620">{{t.n}} · {{t.quality}}</span><span style="font-size: 20px; font-weight: 700; color: #12110C">{{t.name}}</span></div>
+<button onClick="{{t.toggleSkip}}" aria-pressed="{{t.skipped}}" style="flex-shrink: 0; min-height: 40px; padding: 0 12px; background: {{t.skipBg}}; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{t.skipLabel}}</button>
+</div>
+<span style="font-size: 14px; line-height: 1.45; color: #12110C">{{t.protocol}}</span>
+<sc-if value="{{t.active}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{t.sliders}}" as="sl" hint-placeholder-count="1">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><label for="{{sl.id}}" style="font-size: 15px; font-weight: 700; color: #12110C">{{sl.label}}</label><span style="font-family: Anton, Impact, sans-serif; font-size: 28px; color: #12110C; white-space: nowrap">{{sl.display}}</span></div>
+<div style="display: flex; gap: 10px; align-items: center">
+<button aria-label="{{sl.minusLabel}}" onClick="{{sl.minus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #E4E1B8; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">−</button>
+<input id="{{sl.id}}" type="range" min="{{sl.min}}" max="{{sl.max}}" step="{{sl.step}}" value="{{sl.value}}" onChange="{{sl.onRange}}" style="flex-grow: 1; min-width: 0; height: 44px; accent-color: #12110C">
+<button aria-label="{{sl.plusLabel}}" onClick="{{sl.plus}}" style="width: 48px; height: 48px; flex-shrink: 0; font-size: 24px; font-weight: 700; background: #E4E1B8; color: #12110C; border: 2px solid #12110C; border-radius: 10px; cursor: pointer">+</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{t.hasChoices}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{t.choices}}" as="o" hint-placeholder-count="5">
+<button onClick="{{o.pick}}" style="min-height: 46px; padding: 6px 14px; text-align: left; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 16px; font-weight: 700; color: #8F2C0B; background: #FFFFFF; border-radius: 8px; padding: 10px 12px">{{err}}</span></sc-if>
+<div style="display: flex; gap: 10px">
+<button onClick="{{back}}" style="min-height: 54px; padding: 0 20px; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Retour</button>
+<button onClick="{{showResult}}" style="flex-grow: 1; min-height: 54px; background: #F2E415; color: #12110C; border: 0; border-radius: 999px; font-size: 19px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Voir mon bilan</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isResult}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #F2E415">Ton bilan physique</div>
+<div style="display: flex; flex-direction: column; gap: 6px; background: #F2E415; color: #12110C; border-radius: 16px; padding: 18px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Indice Alpha</span><span style="font-family: Anton, Impact, sans-serif; font-size: 44px; line-height: 1">{{res.score}}/100</span></div>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 32px; line-height: 1.05; text-transform: uppercase">{{res.verdict}}</span>
+<span style="font-size: 16px; line-height: 1.45">{{res.verdictText}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 4px; background: #1C1B13; border-radius: 12px; padding: 12px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">Point fort</span><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">{{res.best}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; background: #1C1B13; border-radius: 12px; padding: 12px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">À travailler</span><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">{{res.worst}}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Test par test</span>
+<sc-for list="{{res.rows}}" as="r" hint-placeholder-count="7">
+<div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #3F3C22; padding-top: 10px">
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline"><span style="font-weight: 700; font-size: 16px; color: #FFFFFF">{{r.name}}</span><span style="font-size: 15px; font-weight: 700; color: #F2E415; white-space: nowrap">{{r.measure}}</span></div>
+<div style="height: 10px; background: #3F3C22; border-radius: 5px; overflow: hidden"><div style="height: 10px; width: {{r.w}}; background: #F2E415"></div></div>
+<div style="display: flex; justify-content: space-between; gap: 10px"><span style="font-size: 14px; font-weight: 700">{{r.level}}</span><span style="font-size: 14px; color: #A8A36A; text-align: right">{{r.extra}}</span></div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{res.hasPaces}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px; border: 2px solid #807C3A; border-radius: 16px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">Tes allures d'entraînement</span>
+<span style="font-size: 15px">Calculées à partir de ta VMA estimée : {{res.vma}} km/h.</span>
+<sc-for list="{{res.paces}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline; border-top: 1px solid #3F3C22; padding-top: 8px"><div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 16px; color: #FFFFFF">{{p.name}}</span><span style="font-size: 13px; color: #A8A36A">{{p.sub}}</span></div><span style="font-family: Anton, Impact, sans-serif; font-size: 24px; color: #F2E415; white-space: nowrap">{{p.pace}}</span></div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px; background: #807C3A; color: #12110C; border-radius: 14px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Notre conseil</span>
+<span style="font-size: 16px; line-height: 1.45; font-weight: 500">{{res.advice}}</span>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #A8A36A">Refais le test dans 6 à 8 semaines, dans les mêmes conditions : c'est la meilleure preuve que ça avance. Les barèmes donnent un ordre d'idée et ne remplacent pas un bilan médical.</p>
+<a href="Programme.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 56px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 19px; border-radius: 999px; text-decoration: none">Créer ma préparation</a>
+<a href="Suivi.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border: 2px solid #E4E1B8; color: #E4E1B8; font-weight: 700; font-size: 18px; border-radius: 999px; text-decoration: none">Être suivi par un coach</a>
+<button onClick="{{restart}}" style="min-height: 48px; background: transparent; color: #A8A36A; border: 0; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif; text-decoration: underline">Modifier mes résultats</button>
+</div>
+</sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 0, sexe: '', age: 30, err: '', skip: {}, v: { run: 1080, p0: 65, p1: 110, p2: 75, pompes: 15, planche: 60, chaise: 45, saut: 180, soup: '' } };
+  }
+  setV(k, val) { var v = Object.assign({}, this.state.v); v[k] = val; this.setState({ v: v, err: '' }); }
+  defs() {
+    return [
+      { k: 'run', name: 'Course de 3 km', quality: 'Endurance', protocol: 'Sur piste ou terrain plat, le plus vite possible mais à allure régulière. Note ton temps.', sliders: [{ k: 'run', label: 'Ton temps', min: 540, max: 2700, step: 5, fmt: 'time' }] },
+      { k: 'ruffier', name: 'Test de Ruffier-Dickson', quality: 'Cœur et récupération', protocol: '1. Allongé 5 min, prends ton pouls sur 1 min (P0). 2. Fais 30 squats complets en 45 s. 3. Pouls tout de suite (P1). 4. Rallongé, pouls au bout d’1 min (P2).', sliders: [{ k: 'p0', label: 'P0 · au repos', min: 35, max: 120, step: 1, fmt: 'bpm' }, { k: 'p1', label: 'P1 · juste après', min: 60, max: 210, step: 1, fmt: 'bpm' }, { k: 'p2', label: 'P2 · 1 min après', min: 40, max: 180, step: 1, fmt: 'bpm' }] },
+      { k: 'pompes', name: 'Pompes', quality: 'Force du haut du corps', protocol: 'Pompes complètes d’affilée, corps gainé, poitrine à un poing du sol. Tu t’arrêtes dès que la technique lâche.', sliders: [{ k: 'pompes', label: 'Pompes réussies', min: 0, max: 100, step: 1, fmt: 'n' }] },
+      { k: 'planche', name: 'Planche', quality: 'Gainage', protocol: 'Sur les avant-bras, corps aligné des épaules aux talons. Chrono coupé quand les fesses tombent ou montent.', sliders: [{ k: 'planche', label: 'Temps tenu', min: 0, max: 600, step: 5, fmt: 'sec' }] },
+      { k: 'chaise', name: 'La chaise', quality: 'Endurance des jambes', protocol: 'Dos contre le mur, cuisses parallèles au sol, genoux à 90°, mains hors des cuisses. Chrono coupé quand tu remontes.', sliders: [{ k: 'chaise', label: 'Temps tenu', min: 0, max: 400, step: 5, fmt: 'sec' }] },
+      { k: 'saut', name: 'Saut en longueur sans élan', quality: 'Explosivité', protocol: 'Pieds joints derrière une ligne, saute le plus loin possible. Mesure jusqu’au talon le plus proche. Meilleur de 3 essais.', sliders: [{ k: 'saut', label: 'Distance', min: 50, max: 330, step: 5, fmt: 'cm' }] },
+      { k: 'soup', name: 'Flexion avant', quality: 'Souplesse', protocol: 'Debout, jambes tendues, penche-toi doucement vers l’avant sans à-coup. Jusqu’où vont tes doigts ?', choices: [['Genoux', 1], ['Milieu des tibias', 2], ['Chevilles', 3], ['Bout des orteils', 4], ['Paumes au sol', 5]] }
+    ];
+  }
+  fmtVal(v, f) {
+    if (f === 'time') { var m = Math.floor(v / 60), s = v % 60; return m + ' min ' + (s < 10 ? '0' : '') + s; }
+    if (f === 'bpm') return v + ' bpm';
+    if (f === 'sec') return v >= 60 ? Math.floor(v / 60) + ' min ' + (v % 60 < 10 ? '0' : '') + (v % 60) + ' s' : v + ' s';
+    if (f === 'cm') return v + ' cm';
+    return String(v);
+  }
+  band(x, th) { return x < th[0] ? 1 : x < th[1] ? 2 : x < th[2] ? 3 : x < th[3] ? 4 : 5; }
+  compute() {
+    var st = this.state, v = st.v, F = st.sexe === 'F', age = st.age, self = this;
+    var af = age < 40 ? 1 : age < 50 ? 0.9 : age < 60 ? 0.8 : 0.7;
+    var sc = function (a) { return a.map(function (x) { return x * af; }); };
+    var LV = ['', 'À construire', 'Sous la moyenne', 'Dans la moyenne', 'Bon', 'Excellent'];
+    var Q = { run: 'Endurance', ruffier: 'Récupération cardiaque', pompes: 'Force du haut du corps', planche: 'Gainage', chaise: 'Endurance des jambes', saut: 'Explosivité', soup: 'Souplesse' };
+    var rows = [], lv = {}, vma = null;
+    var done = function (k) { return !st.skip[k]; };
+    if (done('run')) {
+      var t = v.run, frac = t <= 600 ? 0.95 : t <= 900 ? 0.92 : t <= 1200 ? 0.88 : 0.85;
+      vma = 3 / (t / 3600) / frac;
+      var l = this.band(vma, sc(F ? [9.5, 11.5, 13.5, 15] : [11, 13, 15, 17]));
+      lv.run = l; rows.push({ name: 'Course de 3 km', measure: this.fmtVal(t, 'time'), l: l, extra: 'VMA ≈ ' + vma.toFixed(1).replace('.', ',') + ' km/h · VO2max ≈ ' + Math.round(vma * 3.5) });
+    }
+    if (done('ruffier')) {
+      var idx = ((v.p1 - 70) + 2 * (v.p2 - v.p0)) / 10;
+      var l2 = idx > 8 ? 1 : idx > 6 ? 2 : idx > 4 ? 3 : idx > 2 ? 4 : 5;
+      lv.ruffier = l2; rows.push({ name: 'Ruffier-Dickson', measure: 'Indice ' + idx.toFixed(1).replace('.', ','), l: l2, extra: 'Plus l’indice est bas, mieux c’est' });
+    }
+    if (done('pompes')) { var l3 = this.band(v.pompes, sc(F ? [5, 12, 20, 30] : [10, 20, 30, 40])); lv.pompes = l3; rows.push({ name: 'Pompes', measure: v.pompes + ' pompes', l: l3, extra: '' }); }
+    if (done('planche')) { var l4 = this.band(v.planche, sc([30, 60, 120, 180])); lv.planche = l4; rows.push({ name: 'Planche', measure: this.fmtVal(v.planche, 'sec'), l: l4, extra: '' }); }
+    if (done('chaise')) { var l5 = this.band(v.chaise, sc(F ? [20, 35, 45, 60] : [25, 50, 75, 100])); lv.chaise = l5; rows.push({ name: 'La chaise', measure: this.fmtVal(v.chaise, 'sec'), l: l5, extra: '' }); }
+    if (done('saut')) { var l6 = this.band(v.saut, sc(F ? [140, 170, 190, 200] : [190, 220, 240, 250])); lv.saut = l6; rows.push({ name: 'Saut sans élan', measure: v.saut + ' cm', l: l6, extra: '' }); }
+    if (done('soup') && v.soup !== '') { var l7 = Number(v.soup); lv.soup = l7; rows.push({ name: 'Flexion avant', measure: ['', 'Genoux', 'Tibias', 'Chevilles', 'Orteils', 'Paumes au sol'][l7], l: l7, extra: '' }); }
+    rows = rows.map(function (r) { return { name: r.name, measure: r.measure, level: LV[r.l], w: (r.l * 20) + '%', extra: r.extra }; });
+    var keys = Object.keys(lv), sum = 0;
+    keys.forEach(function (k) { sum += lv[k]; });
+    var score = keys.length ? Math.round(sum / keys.length / 5 * 100) : 0;
+    var sorted = keys.slice().sort(function (a, b) { return lv[b] - lv[a]; });
+    var verdict, vt;
+    if (score >= 80) { verdict = 'Machine'; vt = 'Tu as un excellent niveau général. L’enjeu maintenant : cibler et affiner.'; }
+    else if (score >= 60) { verdict = 'Solide'; vt = 'De bonnes bases partout, avec une ou deux qualités qui peuvent vite progresser.'; }
+    else if (score >= 40) { verdict = 'Bonne base'; vt = 'Tu pars de quelque part, et c’est la zone où l’on progresse le plus vite.'; }
+    else { verdict = 'Tout à construire'; vt = 'Et c’est le meilleur moment : dans quelques semaines, tes progrès vont se voir à chaque test.'; }
+    var ADV = { run: 'Ton moteur est la priorité : 2 à 3 sorties par semaine, surtout en endurance facile, et une séance de fractionné.', ruffier: 'Ton cœur récupère lentement : du cardio régulier à allure modérée l’améliore vite. Si l’indice reste élevé, parles-en à ton médecin.', pompes: 'Travaille le haut du corps 2 fois par semaine : pompes inclinées, développé, rowing.', planche: 'Ajoute 10 minutes de gainage 3 fois par semaine : planche, gainage latéral, dead bug.', chaise: 'Tes jambes manquent d’endurance : squats, fentes et chaise, 2 à 3 fois par semaine.', saut: 'Pour l’explosivité : sauts, bonds et squats rapides, avec une récupération complète.', soup: 'Dix minutes de mobilité après chaque séance : ischios, hanches, mollets. Ton dos te dira merci.' };
+    var paces = [];
+    if (vma) {
+      var pace = function (pct) { var sp = vma * pct, sec = Math.round(3600 / sp); return Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60) + ' /km'; };
+      paces = [{ name: 'Endurance fondamentale', sub: '65-75 % VMA · tu peux parler', pace: pace(0.7) }, { name: 'Seuil', sub: '85 % VMA · phrases courtes', pace: pace(0.85) }, { name: 'Fractionné court', sub: '95-100 % VMA · 200 à 400 m', pace: pace(0.97) }];
+    }
+    return {
+      score: String(score), verdict: verdict, verdictText: vt,
+      best: sorted.length ? Q[sorted[0]] : '—', worst: sorted.length ? Q[sorted[sorted.length - 1]] : '—',
+      rows: rows, advice: sorted.length ? ADV[sorted[sorted.length - 1]] : '',
+      hasPaces: !!vma, vma: vma ? vma.toFixed(1).replace('.', ',') : '', paces: paces
+    };
+  }
+  renderVals() {
+    var self = this, st = this.state, s = st.step;
+    var defs = this.defs();
+    var tests = defs.map(function (d, i) {
+      var skipped = !!st.skip[d.k];
+      var sliders = (d.sliders || []).map(function (sl) {
+        var val = st.v[sl.k];
+        var clamp = function (x) { return Math.max(sl.min, Math.min(sl.max, x)); };
+        return { id: 't-' + sl.k, label: sl.label, min: sl.min, max: sl.max, step: sl.step, value: val, display: self.fmtVal(val, sl.fmt),
+          minusLabel: 'Diminuer : ' + sl.label, plusLabel: 'Augmenter : ' + sl.label,
+          minus: function () { self.setV(sl.k, clamp(val - sl.step)); }, plus: function () { self.setV(sl.k, clamp(val + sl.step)); },
+          onRange: function (e) { self.setV(sl.k, clamp(Number(e.target.value))); } };
+      });
+      var choices = (d.choices || []).map(function (c) { var on = String(st.v[d.k]) === String(c[1]); return { label: c[0], bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setV(d.k, c[1]); } }; });
+      return { n: String(i + 1), name: d.name, quality: d.quality, protocol: d.protocol, sliders: sliders, choices: choices, hasChoices: choices.length > 0,
+        skipped: skipped, active: !skipped, opacity: skipped ? '0.55' : '1', cardBd: skipped ? '#C9C49A' : '#807C3A',
+        skipLabel: skipped ? 'Je le fais' : 'Je passe', skipBg: skipped ? '#F2E415' : '#FFFFFF',
+        toggleSkip: function () { var k = Object.assign({}, st.skip); k[d.k] = !skipped; self.setState({ skip: k, err: '' }); } };
+    });
+    return {
+      menuOpen: !!this.state.menuOpen, toggleMenu: function () { self.setState({ menuOpen: !self.state.menuOpen }); }, closeMenu: function () { self.setState({ menuOpen: false }); },
+      pageBg: s === 1 ? '#E4E1B8' : '#12110C', pageFg: s === 1 ? '#12110C' : '#E4E1B8',
+      isIntro: s === 0, isTests: s === 1, isResult: s === 2,
+      introList: defs.map(function (d, i) { return { n: String(i + 1), name: d.name, quality: d.quality }; }),
+      start: function () { self.setState({ step: 1 }); }, back: function () { self.setState({ step: 0, err: '' }); },
+      restart: function () { self.setState({ step: 1 }); },
+      sexOpts: [['H', 'Homme'], ['F', 'Femme']].map(function (o) { var on = st.sexe === o[0]; return { label: o[1], bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setState({ sexe: o[0], err: '' }); } }; }),
+      age: st.age, ageTxt: st.age + ' ans',
+      ageMinus: function () { self.setState({ age: Math.max(12, st.age - 1) }); }, agePlus: function () { self.setState({ age: Math.min(80, st.age + 1) }); },
+      ageRange: function (e) { self.setState({ age: Number(e.target.value) }); },
+      tests: tests, err: st.err, hasErr: !!st.err,
+      showResult: function () {
+        if (!st.sexe) { self.setState({ err: 'Choisis Homme ou Femme : les barèmes en dépendent.' }); return; }
+        var active = defs.filter(function (d) { return !st.skip[d.k]; });
+        if (!active.length) { self.setState({ err: 'Fais au moins un test pour obtenir ton bilan.' }); return; }
+        if (!st.skip.soup && st.v.soup === '') { self.setState({ err: 'Indique ta flexion avant, ou passe ce test.' }); return; }
+        self.setState({ step: 2, err: '' });
+      },
+      res: s === 2 ? this.compute() : { rows: [], paces: [], hasPaces: false }
+    };
+  }
+}
+</script>
+</body>
+</html>

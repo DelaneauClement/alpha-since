@@ -1,0 +1,33 @@
+/* Alpha Espoir : guide « avant la compétition » */
+.m-jump{display:flex;flex-wrap:wrap;gap:8px}
+.m-jump a{display:flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--khaki);color:var(--cream);text-decoration:none;font-weight:700;font-size:15px}
+.m-sec{padding:48px 0}
+.m-col{display:flex;flex-direction:column;gap:14px;max-width:760px}
+.m-col .a-h2{font-size:clamp(34px,6vw,56px)}
+.m-col .a-kick{margin-bottom:6px}
+.m-col .a-feat{margin-top:0}
+.m-card{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;align-items:center;padding:20px;border-radius:16px;background:#fff;color:var(--ink);border:1px solid var(--sand)}
+.m-card>i{font:400 20px/1 Anton,Impact,sans-serif;text-transform:uppercase;background:var(--ink);color:var(--y);padding:10px 12px;border-radius:10px;white-space:nowrap}
+.m-card h3{grid-column:1/-1;font:400 24px/1.05 Anton,Impact,sans-serif;text-transform:uppercase;margin:0}
+.m-card>i+h3{grid-column:2}
+.m-card p,.m-card ul{grid-column:1/-1;margin:0}
+.m-card p{color:var(--olive);font-size:16px;line-height:1.4}
+.m-card ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.45}
+.m-card li{position:relative;padding-left:18px}
+.m-card li::before{content:'';position:absolute;left:1px;top:.5em;width:8px;height:8px;border-radius:999px;background:var(--khaki)}
+.m-y{background:var(--y);border-color:var(--y)}
+.m-y p{color:var(--ink)}
+.m-y li::before{background:var(--ink)}
+.m-k{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.m-k h3{color:var(--y)}
+.m-k p{color:var(--cream)}
+.m-k li::before{background:var(--y)}
+.m-load{display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:16px;background:var(--ink);color:var(--cream)}
+.m-load div{display:grid;grid-template-columns:68px 1fr;align-items:center}
+.m-load div b{font:400 18px/1 Anton,Impact,sans-serif;text-transform:uppercase;white-space:nowrap}
+.m-load span{display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:max-content;min-height:46px;padding:4px 12px;border-radius:8px;background:var(--khaki);font:400 17px/1 Anton,Impact,sans-serif;text-transform:uppercase}
+.m-load small{font:700 12px/1.2 'Roboto Condensed',sans-serif;text-transform:none}
+.m-load .m-on{background:var(--y);color:var(--ink)}
+.m-load p{margin:8px 0 0;font-size:16px;line-height:1.45}
+.m-sec.t-ink .a-kick{color:var(--mute)}
+.m-sec.t-cream .a-note{color:var(--olive)}

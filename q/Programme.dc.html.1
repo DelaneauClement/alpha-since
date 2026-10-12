@@ -1,0 +1,255 @@
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 15px; font-weight: 700">Où vas-tu t'entraîner ?</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{lieuOpts}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 48px; padding: 8px 12px; text-align: left; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 15px; font-weight: 700">Ton matériel</span>
+<span style="font-size: 14px; color: #4A4620">Plusieurs choix possibles.</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{matOpts}}" as="o" hint-placeholder-count="4">
+<button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 48px; padding: 8px 12px; text-align: left; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 15px; font-weight: 700">Tu préfères progresser…</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{prefOpts}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 48px; padding: 8px 12px; text-align: left; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isResult}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #F2E415">Ta préparation · {{r.goalLabel}}</div>
+<div style="display: flex; flex-direction: column; gap: 8px; background: {{r.verdictBg}}; color: #12110C; border-radius: 16px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Notre avis honnête</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 36px; line-height: 1; text-transform: uppercase">{{r.verdict}}</span>
+<span style="font-size: 16px; line-height: 1.45">{{r.verdictText}}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; border: 2px solid #807C3A; border-radius: 16px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">Temps estimé pour</span>
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">{{r.milestone}}</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 48px; line-height: 1.1; color: #F2E415">{{r.weeks}}</span>
+<span style="font-size: 15px">{{r.months}} · à {{r.freq}} séance(s) par semaine</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Ton point de départ</span>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; font-size: 15px"><span>Endurance</span><span style="font-weight: 700">{{r.endTxt}}</span></div><div style="height: 10px; background: #3F3C22; border-radius: 5px; overflow: hidden"><div style="height: 10px; width: {{r.endW}}; background: #F2E415"></div></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; font-size: 15px"><span>Force et gainage</span><span style="font-weight: 700">{{r.strTxt}}</span></div><div style="height: 10px; background: #3F3C22; border-radius: 5px; overflow: hidden"><div style="height: 10px; width: {{r.strW}}; background: #F2E415"></div></div></div>
+</div>
+<sc-if value="{{r.hasNotes}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">À savoir avant de commencer</span>
+<sc-for list="{{r.notes}}" as="n" hint-placeholder-count="2">
+<div style="display: flex; gap: 10px; align-items: flex-start; background: #1C1B13; border-radius: 10px; padding: 12px 14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="8" x2="12" y2="13"></line><line x1="12" y1="16.5" x2="12" y2="16.6"></line></svg><span style="font-size: 15px; line-height: 1.45">{{n.text}}</span></div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px; background: #807C3A; color: #12110C; border-radius: 14px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Ta semaine 1</span>
+<span style="font-size: 16px; line-height: 1.45; font-weight: 500">{{r.week1}}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Les trois phases</span>
+<sc-for list="{{r.phases}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #3F3C22; padding-top: 10px"><div style="display: flex; justify-content: space-between; gap: 10px"><span style="font-weight: 700; font-size: 17px; color: #F2E415">{{p.name}}</span><span style="font-size: 15px; font-weight: 700">{{p.weeks}}</span></div><span style="font-size: 15px; line-height: 1.4">{{p.desc}}</span></div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Ta semaine type, séance par séance</span>
+<span style="font-size: 14px; color: #A8A36A">Touche une séance pour voir les exercices, séries, répétitions et repos.</span>
+<sc-for list="{{r.sessions}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; background: #1C1B13; border-radius: 12px; overflow: hidden">
+<button onClick="{{s.toggle}}" aria-expanded="{{s.open}}" style="display: flex; gap: 12px; align-items: center; width: 100%; min-height: 60px; padding: 12px 14px; background: transparent; border: 0; color: #E4E1B8; text-align: left; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">
+<span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1; color: #F2E415; width: 22px">{{s.n}}</span>
+<span style="display: flex; flex-direction: column; flex-grow: 1"><span style="font-weight: 700; font-size: 18px; color: #FFFFFF">{{s.title}}</span><span style="font-size: 14px; color: #A8A36A">{{s.count}}</span></span>
+<span aria-hidden="true" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 2px solid #807C3A; border-radius: 999px; font-size: 22px; font-weight: 700">{{s.sign}}</span>
+</button>
+<sc-if value="{{s.open}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; padding: 0 14px 12px">
+<sc-for list="{{s.rows}}" as="x" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid #3F3C22">
+<span style="font-weight: 700; font-size: 16px; color: #FFFFFF">{{x.ex}}</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<span style="background: #F2E415; color: #12110C; font-weight: 700; font-size: 14px; padding: 3px 8px; border-radius: 6px">{{x.dose}}</span>
+<span style="background: #3F3C22; color: #E4E1B8; font-weight: 700; font-size: 14px; padding: 3px 8px; border-radius: 6px">Repos : {{x.rest}}</span>
+</div>
+<sc-if value="{{x.hasNote}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; line-height: 1.4; color: #D8D4A8">{{x.note}}</span></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; background: #12110C; color: #E4E1B8; border-radius: 16px; padding: 18px">
+<div style="display: flex; gap: 12px; align-items: center">
+<span aria-hidden="true" style="width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #F2E415; border-radius: 999px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12110C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="17" cy="16" r="3"></circle></svg></span>
+<span style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">La playlist Alpha</span><span style="font-weight: 700; font-size: 19px; color: #FFFFFF">Choisis ton ambiance</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{plMoods}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 58px; padding: 10px 14px; text-align: left; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 12px; cursor: pointer; font-family: 'Roboto Condensed', sans-serif"><span style="font-size: 18px; font-weight: 700">{{o.label}}</span><span style="font-size: 14px; line-height: 1.35">{{o.sub}}</span></button>
+</sc-for>
+</div>
+<span style="font-size: 14px; font-weight: 700; color: #A8A36A">Ton appli</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{plPlats}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 48px; padding: 4px 6px; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+<a href="{{plUrl}}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 54px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 18px; border-radius: 999px; text-decoration: none; text-align: center; padding: 0 12px">{{plCta}}</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Comment progresser</span>
+<sc-for list="{{r.prog}}" as="pr" hint-placeholder-count="4">
+<div style="display: flex; gap: 10px; align-items: flex-start"><span aria-hidden="true" style="width: 8px; height: 8px; margin-top: 7px; flex-shrink: 0; background: #F2E415; border-radius: 2px"></span><span style="font-size: 15px; line-height: 1.45">{{pr.text}}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{r.hasPaid}}" hint-placeholder-val="{{ false }}">
+<a href="#programmes" style="display: flex; flex-direction: column; gap: 8px; background: #807C3A; color: #12110C; border: 2px solid #12110C; border-radius: 16px; padding: 18px; text-decoration: none">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Programme complet · 12 semaines</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase">Force &amp; fessiers 40+</span>
+<span style="font-size: 15px; line-height: 1.45">À la maison, au chrono, en commençant par 2 séances par semaine. Toutes les séances détaillées, les tempos, les tests et l'alimentation, en PDF.</span>
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><span style="font-family: Anton, Impact, sans-serif; font-size: 34px">29 €</span><span style="display: flex; align-items: center; min-height: 48px; padding: 0 18px; background: #12110C; color: #F2E415; border-radius: 999px; font-weight: 700; font-size: 17px">Je le veux</span></span>
+</a>
+</sc-if>
+<a href="Suivi.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #F2E415; color: #12110C; border-radius: 16px; padding: 18px; text-decoration: none">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Suivi personnalisé · Sans engagement</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1.05; text-transform: uppercase">Un coach pour tenir le cap</span>
+<span style="font-size: 15px; line-height: 1.4">Suivi sur WhatsApp, programme ajusté à tes retours, appel en option. Résiliable à tout moment.</span>
+<span style="font-weight: 700; font-size: 17px">Voir les formules →</span>
+</a>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #807C3A; color: #12110C; border-radius: 16px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Étape suivante</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase">Ton plan alimentaire</span>
+<span style="font-size: 16px; line-height: 1.45">Les résultats se construisent aussi dans l'assiette. Un audit honnête de tes habitudes, puis tes besoins et une journée type.</span>
+<button onClick="{{startNutri}}" style="min-height: 54px; background: #12110C; color: #F2E415; border: 0; border-radius: 999px; font-size: 19px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Faire mon audit alimentaire</button>
+</div>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #A8A36A">Ces estimations donnent un ordre d'idée. Elles ne remplacent ni l'avis d'un médecin ni le suivi d'un coach.</p>
+<button onClick="{{restart}}" style="min-height: 52px; background: transparent; color: #E4E1B8; border: 2px solid #E4E1B8; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Refaire mon audit</button>
+</div>
+</sc-if>
+<sc-if value="{{isNutri}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A4620">Audit alimentaire</div>
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 40px; line-height: 1; text-transform: uppercase; color: #12110C">Dans ton assiette</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.45">Réponds honnêtement : personne ne regarde et on ne juge pas. Un plan basé sur ta vraie semaine marche mieux qu'un plan basé sur tes bonnes résolutions.</p>
+<sc-for list="{{nutriQs}}" as="q" hint-placeholder-count="10">
+<div style="display: flex; flex-direction: column; gap: 8px; background: #FFFFFF; border: 2px solid #C9C49A; border-radius: 12px; padding: 14px">
+<span style="font-size: 17px; font-weight: 700; color: #12110C">{{q.n}}. {{q.title}}</span>
+<sc-for list="{{q.opts}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" style="min-height: 48px; padding: 8px 14px; text-align: left; background: {{o.bg}}; color: {{o.fg}}; border: 2px solid {{o.bd}}; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{o.label}}</button>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{ false }}">
+<span role="alert" style="font-size: 16px; font-weight: 700; color: #8F2C0B; background: #FFFFFF; border-radius: 8px; padding: 10px 12px">{{err}}</span>
+</sc-if>
+<div style="display: flex; gap: 10px">
+<button onClick="{{toProgram}}" style="min-height: 54px; padding: 0 20px; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Retour</button>
+<button onClick="{{nutriNext}}" style="flex-grow: 1; min-height: 54px; background: #F2E415; color: #12110C; border: 0; border-radius: 999px; font-size: 19px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Voir mon plan</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isNutriRes}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #F2E415">Ton plan alimentaire · {{nr.goalLabel}}</div>
+<div style="display: flex; flex-direction: column; gap: 8px; background: #F2E415; color: #12110C; border-radius: 16px; padding: 18px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Tes habitudes</span><span style="font-family: Anton, Impact, sans-serif; font-size: 40px; line-height: 1">{{nr.score}}/20</span></div>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase">{{nr.verdict}}</span>
+<span style="font-size: 16px; line-height: 1.45">{{nr.verdictText}}</span>
+</div>
+<sc-if value="{{nr.hasStrengths}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Ce que tu fais déjà bien</span>
+<sc-for list="{{nr.strengths}}" as="t" hint-placeholder-count="2">
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><polyline points="5 12 10 17 19 7"></polyline></svg><span style="font-size: 15px">{{t.text}}</span></div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{nr.hasPrios}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Tes priorités, dans l'ordre</span>
+<sc-for list="{{nr.prios}}" as="t" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; align-items: flex-start; background: #1C1B13; border-radius: 12px; padding: 14px"><span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1; color: #F2E415; width: 22px">{{t.n}}</span><div style="display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">{{t.title}}</span><span style="font-size: 15px; line-height: 1.4">{{t.text}}</span></div></div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 4px; border: 2px solid #807C3A; border-radius: 16px; padding: 18px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">Tes besoins estimés</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 46px; line-height: 1.1; color: #F2E415">{{nr.kcal}} kcal</span>
+<span style="font-size: 15px; line-height: 1.4">{{nr.kcalNote}}</span>
+<div style="display: flex; flex-direction: column; margin-top: 10px">
+<sc-for list="{{nr.macros}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid #3F3C22"><div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">{{m.name}}</span><span style="font-size: 14px; color: #A8A36A">{{m.sub}}</span></div><span style="font-family: Anton, Impact, sans-serif; font-size: 26px; color: #FFFFFF; white-space: nowrap">{{m.g}} g</span></div>
+</sc-for>
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-top: 1px solid #3F3C22"><div style="display: flex; flex-direction: column"><span style="font-weight: 700; font-size: 17px; color: #FFFFFF">Eau</span><span style="font-size: 14px; color: #A8A36A">+ 0,5 L par heure d'entraînement</span></div><span style="font-family: Anton, Impact, sans-serif; font-size: 26px; color: #FFFFFF; white-space: nowrap">{{nr.water}} L</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; background: #807C3A; color: #12110C; border-radius: 14px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Sans balance : la méthode de la main</span>
+<span style="font-size: 15px; line-height: 1.45">Par repas principal : <b>{{nr.palms}}</b> de protéines, <b>{{nr.fists}}</b> de féculents, <b>2 poings</b> de légumes et <b>{{nr.thumbs}}</b> de matières grasses.</span>
+<span style="font-size: 14px; line-height: 1.4">Paume = viande, poisson, œufs, tofu · Poing = riz, pâtes, pommes de terre · Pouce = huile, beurre, fromage, oléagineux</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase; color: #FFFFFF">Qui est qui dans ton assiette ?</span>
+<span style="font-size: 15px; line-height: 1.45">La plupart des gens pensent manger des protéines… en mangeant du fromage. On fait les présentations.</span>
+<sc-for list="{{families}}" as="fa" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 6px; background: #1C1B13; border-radius: 12px; padding: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><span style="font-weight: 700; font-size: 18px; color: #F2E415">{{fa.name}}</span><span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #A8A36A">{{fa.role}}</span></div>
+<span style="font-size: 15px; line-height: 1.45">{{fa.text}}</span>
+<span style="font-size: 14px; line-height: 1.4; color: #D8D4A8"><b style="color: #FFFFFF">On en trouve dans :</b> {{fa.where}}</span>
+</div>
+</sc-for>
+<div style="display: flex; flex-direction: column; gap: 10px; border: 2px solid #807C3A; border-radius: 16px; padding: 16px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415">Quiz · Devine la famille</span>
+<span style="font-size: 15px">Touche un aliment pour voir la réponse. Score : {{quizSeen}} / {{quizTotal}} découverts.</span>
+<sc-for list="{{quiz}}" as="qz" hint-placeholder-count="8">
+<div style="display: flex; flex-direction: column; background: #12110C; border: 1px solid #3F3C22; border-radius: 10px; overflow: hidden">
+<button onClick="{{qz.toggle}}" aria-expanded="{{qz.open}}" style="display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 52px; padding: 10px 14px; background: transparent; border: 0; text-align: left; cursor: pointer; color: #FFFFFF; font-family: 'Roboto Condensed', sans-serif"><span style="font-size: 17px; font-weight: 700">{{qz.food}}</span><span style="font-size: 14px; font-weight: 700; color: #A8A36A">{{qz.hint}}</span></button>
+<sc-if value="{{qz.open}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 0 14px 12px">
+<span style="align-self: flex-start; background: #F2E415; color: #12110C; font-weight: 700; font-size: 13px; padding: 3px 8px; border-radius: 6px">{{qz.tag}}</span>
+<span style="font-size: 15px; line-height: 1.45; color: #E4E1B8">{{qz.text}}</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Ta journée type</span>
+<sc-for list="{{nr.day}}" as="d" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 3px; border-top: 1px solid #3F3C22; padding-top: 10px"><span style="font-weight: 700; font-size: 16px; color: #F2E415">{{d.meal}}</span><span style="font-size: 15px; line-height: 1.45">{{d.text}}</span></div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">Autour de l'entraînement</span>
+<sc-for list="{{nr.training}}" as="t" hint-placeholder-count="3">
+<div style="display: flex; gap: 10px; align-items: flex-start"><span aria-hidden="true" style="width: 8px; height: 8px; margin-top: 7px; flex-shrink: 0; background: #F2E415; border-radius: 2px"></span><span style="font-size: 15px; line-height: 1.45">{{t.text}}</span></div>
+</sc-for>
+</div>
+<sc-if value="{{nr.hasNotes}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 17px; font-weight: 700; color: #FFFFFF">À savoir</span>
+<sc-for list="{{nr.notes}}" as="n" hint-placeholder-count="2">
+<div style="display: flex; gap: 10px; align-items: flex-start; background: #1C1B13; border-radius: 10px; padding: 12px 14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="8" x2="12" y2="13"></line><line x1="12" y1="16.5" x2="12" y2="16.6"></line></svg><span style="font-size: 15px; line-height: 1.45">{{n.text}}</span></div>
+</sc-for>
+</div>
+</sc-if>
+<a href="Suivi.dc.html" style="display: flex; flex-direction: column; gap: 8px; background: #F2E415; color: #12110C; border-radius: 16px; padding: 18px; text-decoration: none">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase">Suivi personnalisé · Sans engagement</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 28px; line-height: 1.05; text-transform: uppercase">Sport + diététique, suivis</span>
+<span style="font-size: 15px; line-height: 1.4">Retours sur tes repas, plan ajusté chaque semaine. Arrête quand tu veux, gratuitement.</span>
+<span style="font-weight: 700; font-size: 17px">Voir les formules →</span>

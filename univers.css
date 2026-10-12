@@ -1,0 +1,38 @@
+/* Univers Alpha : bande Kids / Ado / Espoir et pages d'attente */
+.u-nav{display:flex;gap:8px;padding-top:12px;max-width:560px}
+.u-nav a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:56px;padding:0 6px;border-radius:12px;border:1px solid transparent;text-decoration:none}
+.u-nav svg{flex-shrink:0;display:block;height:auto}
+.u-nav span{display:flex;flex-direction:column;gap:3px;line-height:1}
+.u-nav b{font:400 16px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.u-nav i{font-style:normal;font-size:12px;font-weight:700;white-space:nowrap}
+.u-nav a.u-kids,.u-nav a.u-kids:hover{background:var(--y);color:var(--ink)}
+.u-nav a.u-ado,.u-nav a.u-ado:hover{background:var(--olive);color:var(--cream)}
+.u-nav a.u-espoir,.u-nav a.u-espoir:hover{background:var(--ink2);color:var(--cream);border-color:var(--khaki)}
+.u-nav a.u-espoir b,.u-nav a.u-espoir svg{color:var(--y)}
+.u-nav a[aria-current]{outline:3px solid var(--cream);outline-offset:2px}
+.u-nav a:active{transform:scale(.98)}
+@media (min-width:960px){.u-nav{padding-top:20px}.u-nav a{gap:10px}.u-nav b{font-size:18px}.u-nav i{font-size:13px}}
+.a-home .a-hero{padding-top:20px}
+@media (min-width:960px){.a-home .a-hero{padding-top:48px}}
+@media (max-width:599px){.a-home .a-h1-story{font-size:min(50px,calc((100vw - 40px)/7))}}
+.u-strip{padding-bottom:16px}
+.u-sec{padding:28px 0 56px}
+.u-bg-kids{background:var(--y);color:var(--ink)}
+.u-hero{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.u-lock{display:flex;align-items:center;gap:16px}
+.u-lock svg{flex-shrink:0;display:block;height:auto}
+.u-lock div{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.u-lock img{width:170px;height:auto;display:block}
+.u-word{font:400 40px/1 Anton,Impact,sans-serif;letter-spacing:.3em;text-transform:uppercase}
+.u-name{font:400 30px/1 Anton,Impact,sans-serif;letter-spacing:.28em;text-transform:uppercase}
+.u-name-k{display:inline-flex;gap:.28em;letter-spacing:0}
+.u-name-k span:nth-child(odd){transform:rotate(-5deg)}
+.u-name-k span:nth-child(even){transform:rotate(4deg) translateY(-2px)}
+.u-espoir-c .u-name,.u-espoir-c .u-lock svg{color:var(--y)}
+.u-espoir-c .u-name{display:inline-block;transform:skewX(-8deg)}
+.u-tag{display:inline-flex;padding:2px 12px;border-radius:999px;border:2px solid currentColor;font-weight:700;font-size:14px}
+.u-h1{font:400 clamp(40px,10.5vw,84px)/.95 Anton,Impact,sans-serif;text-transform:uppercase;margin:0;letter-spacing:.005em}
+.u-hero .a-ctas{align-self:stretch}
+.u-btn-ink,.u-btn-ink:hover{background:var(--ink);color:var(--y)}
+.u-bg-kids .a-btn-o,.u-bg-kids .a-btn-o:hover{color:var(--ink)}
+.u-bg-kids .a-note{color:var(--ink)}

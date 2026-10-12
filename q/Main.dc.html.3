@@ -1,0 +1,262 @@
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { weightStr: '80', reps: 5, qi: 0, qp: null, qScore: 0, qDone: 0, tool: '', dk: 100, bar: 20, cw: 40, cr: 60, cs: 3, ch: { run: false, phase: 'pret', left: 40, serie: 1 }, mq: {}, sp: { run: false, started: false, done: false, i: 0, left: 60, trans: false }, hy: { sexe: 'F', poids: 70, duree: 45, chaud: false, sueur: 'normal' }, sl: {} };
+  }
+  tick() {
+    var st = this.state, ch = Object.assign({}, st.ch);
+    if (!ch.run) return;
+    ch.left -= 1;
+    if (ch.left > 0) { this.setState({ ch: ch }); return; }
+    try { if (navigator.vibrate) navigator.vibrate(300); } catch (e) {}
+    if (ch.phase === 'travail' && ch.serie < st.cs) { ch.phase = 'repos'; ch.left = st.cr; }
+    else if (ch.phase === 'repos') { ch.phase = 'travail'; ch.left = st.cw; ch.serie += 1; }
+    else { ch.phase = 'fini'; ch.left = 0; ch.run = false; clearInterval(this._iv); this._iv = null; }
+    this.setState({ ch: ch });
+  }
+  tickSp() {
+    var LEN = [60, 45, 40, 40, 40, 40, 40, 40, 40, 30, 30, 30, 30, 30, 30, 60];
+    var c = Object.assign({}, this.state.sp);
+    if (!c.run) return;
+    c.left -= 1;
+    if (c.left > 0) { this.setState({ sp: c }); return; }
+    try { if (navigator.vibrate) navigator.vibrate(200); } catch (e) {}
+    if (c.trans) { c.trans = false; c.left = LEN[c.i]; }
+    else if (c.i < LEN.length - 1) { c.i += 1; c.trans = true; c.left = 5; }
+    else { c.done = true; c.run = false; clearInterval(this._iv2); this._iv2 = null; }
+    this.setState({ sp: c });
+  }
+  renderVals() {
+    var self = this;
+    var w = parseFloat(String(this.state.weightStr).replace(',', '.'));
+    if (isNaN(w) || w < 0) { w = 0; }
+    var r = this.state.reps;
+    var max = r === 1 ? w : w * (1 + r / 30);
+    var fmt = function (v) {
+      var rounded = Math.round(v * 2) / 2;
+      return rounded.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+    };
+    var note = r > 10
+      ? 'Au-delà de 10 reps, l’estimation devient approximative.'
+      : 'Une estimation, pas une promesse. Échauffe-toi quand même.';
+    var table = [
+      { p: 0.9, pct: '90 %', use: 'Force, 2 à 4 reps' },
+      { p: 0.8, pct: '80 %', use: 'Force-volume, 6 à 8 reps' },
+      { p: 0.7, pct: '70 %', use: 'Volume, 10 à 12 reps' },
+      { p: 0.5, pct: '50 %', use: 'Échauffement' }
+    ];
+    var setW = function (v) {
+      var n = Math.max(0, Math.round(v * 2) / 2);
+      self.setState({ weightStr: String(n) });
+    };
+    var QZ = [
+      ['Œuf', 'p', 'Une protéine complète. Et le jaune aussi, arrête de le jeter : c’est là que sont les vitamines.'],
+      ['Beurre de cacahuète', 'g', 'Environ la moitié, c’est du gras. Délicieux, mais ça compte en pouces, pas en paumes.'],
+      ['Pommes de terre', 'c', 'Un féculent, pas un légume. Désolé pour les frites.'],
+      ['Lentilles', 'm', 'Protéines, glucides et fibres. Le couteau suisse de l’assiette, pour trois fois rien.'],
+      ['Fromage', 'g', 'Des protéines, oui, mais souvent autant ou plus de gras. Le fromage blanc, lui, est une vraie source de protéines.'],
+      ['Sardines en boîte', 'p', 'Protéines et oméga-3, des acides gras essentiels que ton corps ne sait pas fabriquer. La boîte la plus sous-cotée du rayon.'],
+      ['Saucisson', 'g', 'Plus de gras que de protéines. C’est l’apéro, pas la récup.'],
+      ['Flocons d’avoine', 'c', 'Du carburant qui dure, avec des fibres. Le petit-déj des gens qui s’entraînent le matin.'],
+      ['Avocat', 'g', 'Du bon gras et plein de fibres. Mais pas une protéine, même en toast.'],
+      ['Skyr', 'p', 'Presque que des protéines, très peu de gras. Le meilleur ami de la collation.']
+    ];
+    var qs = this.state;
+    var qi = qs.qi || 0, qp = qs.qp == null ? null : qs.qp;
+    var cur = QZ[qi];
+    var CAT = [['p', 'Protéines'], ['c', 'Glucides'], ['g', 'Surtout du gras'], ['m', 'Un peu de tout']];
+    var answered = qp !== null;
+    var last = qi === QZ.length - 1;
+    var qOpts = CAT.map(function (c) {
+      var isRight = c[0] === cur[1], isPicked = c[0] === qp;
+      var bg = '#FFFFFF', fg = '#12110C', bd = '#C9C49A';
+      if (answered && isRight) { bg = '#F2E415'; bd = '#12110C'; }
+      else if (answered && isPicked) { fg = '#8F2C0B'; bd = '#8F2C0B'; }
+      return { label: c[1], bg: bg, fg: fg, bd: bd, pick: function () { if (qp !== null) return; self.setState({ qp: c[0], qScore: (qs.qScore || 0) + (c[0] === cur[1] ? 1 : 0), qDone: (qs.qDone || 0) + 1 }); } };
+    });
+    var rightLabel = CAT.filter(function (c) { return c[0] === cur[1]; })[0][1];
+    var S = this.state;
+    var fmtN = function (v) { return v.toLocaleString('fr-FR', { maximumFractionDigits: 2 }); };
+    var tool = function (k) { return { open: S.tool === k, sign: S.tool === k ? '−' : '+', toggle: function () { self.setState({ tool: S.tool === k ? '' : k }); } }; };
+    var tD = tool('disques'), tC = tool('chrono'), tM = tool('matos');
+    var PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
+    var COL = { 25: ['#C23E12', '#FFFFFF'], 20: ['#1F4FA8', '#FFFFFF'], 15: ['#F2E415', '#12110C'], 10: ['#2F6B3A', '#FFFFFF'], 5: ['#FFFFFF', '#12110C'], 2.5: ['#807C3A', '#12110C'], 1.25: ['#A8A36A', '#12110C'] };
+    var side = (S.dk - S.bar) / 2, rest = side, plates = [];
+    if (side > 0) PLATES.forEach(function (pv) { while (rest >= pv - 1e-9) { plates.push(pv); rest = Math.round((rest - pv) * 100) / 100; } });
+    var dkMsg;
+    if (S.dk < S.bar) dkMsg = 'La charge visée est plus légère que la barre seule (' + S.bar + ' kg).';
+    else if (side === 0) dkMsg = 'La barre seule suffit : ' + S.bar + ' kg.';
+    else if (rest > 0) dkMsg = 'Au plus proche : ' + fmtN(S.dk - rest * 2) + ' kg. Il manque ' + fmtN(rest * 2) + ' kg, impossible avec des disques standard.';
+    else dkMsg = 'Par côté : ' + plates.map(fmtN).join(' + ') + ' kg. Total : ' + fmtN(S.dk) + ' kg avec la barre de ' + S.bar + ' kg.';
+    var platesV = plates.map(function (pv) { return { label: fmtN(pv), h: (40 + pv * 2) + 'px', bg: COL[pv][0], fg: COL[pv][1] }; });
+    var ch = S.ch, mm = function (t) { var m = Math.floor(t / 60), x = t % 60; return m + ':' + (x < 10 ? '0' : '') + x; };
+    var phaseTxt = { pret: 'Prêt', travail: 'Travail', repos: 'Repos', fini: 'Terminé, bravo' }[ch.phase];
+    var chBg = ch.phase === 'travail' ? '#F2E415' : ch.phase === 'repos' ? '#807C3A' : '#12110C';
+    var chFg = ch.phase === 'travail' || ch.phase === 'repos' ? '#12110C' : '#E4E1B8';
+    var stopIv = function () { if (self._iv) { clearInterval(self._iv); self._iv = null; } };
+    var chStart = function () {
+      var c = Object.assign({}, self.state.ch);
+      if (c.run) { c.run = false; stopIv(); self.setState({ ch: c }); return; }
+      if (c.phase === 'pret' || c.phase === 'fini') { c = { run: true, phase: 'travail', left: self.state.cw, serie: 1 }; }
+      else c.run = true;
+      stopIv(); self._iv = setInterval(function () { self.tick(); }, 1000);
+      self.setState({ ch: c });
+    };
+    var chReset = function () { stopIv(); self.setState({ ch: { run: false, phase: 'pret', left: self.state.cw, serie: 1 } }); };
+    var setIdle = function (k, v) { var u = {}; u[k] = v; self.setState(u); };
+    var tS = tool('souple'), tH = tool('hydra'), tP = tool('supp');
+    var ROUT = [
+      ['Réveil du corps', 'Marche sur place, grands cercles de bras.', 60],
+      ['Chat-vache', 'À quatre pattes, creuse puis arrondis le dos, lentement.', 45],
+      ['Fente basse · gauche', 'Genou arrière au sol, bassin vers l’avant : ça tire devant la hanche.', 40],
+      ['Fente basse · droite', 'Même position, l’autre jambe devant.', 40],
+      ['Fessier en 4 · gauche', 'Allongée sur le dos, cheville sur le genou opposé, tire la cuisse vers toi.', 40],
+      ['Fessier en 4 · droite', 'Même chose de l’autre côté.', 40],
+      ['Ischios · gauche', 'Sur le dos, jambe tendue vers le ciel avec une serviette ou un élastique.', 40],
+      ['Ischios · droite', 'L’autre jambe, sans forcer sur le genou.', 40],
+      ['Papillon', 'Assise, plantes de pieds collées, genoux qui descendent doucement.', 40],
+      ['Mollet · gauche', 'Mains au mur, jambe arrière tendue, talon au sol.', 30],
+      ['Mollet · droite', 'L’autre jambe.', 30],
+      ['Livre ouvert · gauche', 'Sur le côté, genoux pliés, ouvre le bras du dessus vers l’arrière.', 30],
+      ['Livre ouvert · droite', 'De l’autre côté.', 30],
+      ['Pectoraux · gauche', 'Avant-bras contre l’encadrement d’une porte, avance doucement.', 30],
+      ['Pectoraux · droite', 'L’autre bras.', 30],
+      ['Posture de l’enfant', 'Fesses vers les talons, bras devant, 5 grandes respirations.', 60]
+    ];
+    var sp = S.sp, cur2 = ROUT[Math.min(sp.i, ROUT.length - 1)];
+    var stopIv2 = function () { if (self._iv2) { clearInterval(self._iv2); self._iv2 = null; } };
+    var spStart = function () {
+      var c = Object.assign({}, self.state.sp);
+      if (c.run) { c.run = false; stopIv2(); self.setState({ sp: c }); return; }
+      if (c.done || !c.started) c = { run: true, started: true, done: false, i: 0, left: ROUT[0][2], trans: false };
+      else c.run = true;
+      stopIv2(); self._iv2 = setInterval(function () { self.tickSp(); }, 1000);
+      self.setState({ sp: c });
+    };
+    var spSkip = function () { var c = Object.assign({}, self.state.sp); if (!c.started) return; if (c.i < ROUT.length - 1) { c.i += 1; c.left = ROUT[c.i][2]; c.trans = false; } else { c.done = true; c.run = false; stopIv2(); } self.setState({ sp: c }); };
+    var spReset = function () { stopIv2(); self.setState({ sp: { run: false, started: false, done: false, i: 0, left: ROUT[0][2], trans: false } }); };
+    var spName = sp.done ? 'Routine terminée' : sp.trans ? 'Change de position' : cur2[0];
+    var spCue = sp.done ? 'Bravo. Deux ou trois fois par semaine, et ta souplesse progresse vraiment.' : sp.trans ? 'Prochaine position : ' + cur2[0] : cur2[1];
+    var spNextTxt = sp.done ? '' : (sp.i < ROUT.length - 1 ? 'Ensuite : ' + ROUT[sp.i + 1][0] : 'Dernière position');
+    // Hydratation
+    var hy = S.hy;
+    var base = hy.sexe === 'H' ? 2.5 : 2.0;
+    var boire = Math.round(base * 0.75 * 10) / 10;
+    var rate = (hy.chaud ? 0.8 : 0.5) + (hy.sueur === 'beaucoup' ? 0.3 : 0);
+    var perte = rate * hy.duree / 60;
+    var pendant = hy.duree < 60 ? 0 : Math.round(Math.min(0.8, Math.max(0.4, rate * 0.75)) * hy.duree / 60 * 10) / 10;
+    var reste = Math.max(0, perte - pendant);
+    var apres = Math.round(reste * 1.25 * 10) / 10;
+    var fmtL = function (v) { return v.toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' L'; };
+    var avantMl = Math.round(hy.poids * 5 / 50) * 50;
+    var hyRows = [
+      { when: 'Chaque jour', qty: '≈ ' + fmtL(boire), tip: 'À boire, en plus de l’eau des aliments (repère total : ' + fmtL(base) + ').' },
+      { when: 'Avant la séance', qty: avantMl + ' ml', tip: 'Dans les 2 heures qui précèdent, par petites gorgées.' },
+      { when: 'Pendant', qty: pendant ? fmtL(pendant) : 'À la soif', tip: pendant ? 'Environ ' + fmtL(Math.round(pendant / (hy.duree / 60) * 10) / 10) + ' par heure, en plusieurs fois.' : 'Pour moins d’une heure, quelques gorgées quand tu as soif suffisent.' },
+      { when: 'Après', qty: apres >= 0.2 ? fmtL(apres) : 'À la soif', tip: 'Pour compenser la transpiration, dans les 2 heures. Astuce : pèse-toi avant et après, chaque kilo perdu vaut 1,2 à 1,5 L.' }
+    ];
+    var needEl = hy.duree >= 75 || (hy.duree >= 60 && (hy.chaud || hy.sueur === 'beaucoup'));
+    // Compléments
+    var supps = [
+      { name: 'Créatine monohydrate', tag: 'Le plus étudié', why: 'Gagner en force et en muscle, y compris après 40 ans.', how: '3 à 5 g par jour, tous les jours, à n’importe quel moment. Pas besoin de phase de charge.', warn: 'Avis médical en cas de maladie rénale. Elle peut faire prendre 1 à 2 kg d’eau dans les muscles, c’est normal.' },
+      { name: 'Protéine en poudre', tag: 'Pratique', why: 'Dépanner quand tu n’atteins pas tes protéines avec les repas.', how: '20 à 30 g, dans un laitage, un smoothie ou de l’eau. Whey ou végétale, selon ta digestion.', warn: 'Ce n’est pas obligatoire : si ton assiette suffit, tu n’en as pas besoin.' },
+      { name: 'Vitamine D', tag: 'Sur avis médical', why: 'Os et muscles, surtout en automne et en hiver, et après 40 ans.', how: 'Dose fixée par ton médecin, souvent après une prise de sang.', warn: 'Pas d’automédication à forte dose.' },
+      { name: 'Électrolytes', tag: 'Efforts longs', why: 'Compenser le sel perdu quand on transpire longtemps.', how: 'Dans ta boisson, pour les efforts de plus d’une heure ou par forte chaleur.', warn: 'Inutile pour une séance de 45 minutes : l’eau suffit.' }
+    ];
+    var SLQ = [
+      ['Combien d’heures dors-tu par nuit ?', ['Moins de 6 h', '6 à 7 h', '7 à 9 h', 'Plus de 9 h']],
+      ['Ton dernier café, thé ou cola ?', ['Avant midi', 'En début d’après-midi', 'Après 16 h']],
+      ['Des écrans dans l’heure avant de dormir ?', ['Jamais ou presque', 'Parfois', 'Tous les soirs']],
+      ['Tu te réveilles la nuit ?', ['Rarement', 'Quelques nuits par semaine', 'Toutes les nuits']],
+      ['Au réveil, tu te sens…', ['En forme', 'Moyen', 'Épuisé(e)']]
+    ];
+    var sl = S.sl;
+    var slList = SLQ.map(function (q, i) { return { n: String(i + 1), title: q[0], opts: q[1].map(function (lab, j) { var on = sl[i] === j; return { label: lab, on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { var m = Object.assign({}, self.state.sl); m[i] = j; self.setState({ sl: m }); } }; }) }; });
+    var slDone = SLQ.every(function (q, i) { return sl[i] !== undefined; });
+    var slRes = [], med = false;
+    if (slDone) {
+      if (sl[0] <= 1) slRes.push({ title: 'Vise 7 heures', text: 'Avance ton coucher de 15 minutes chaque semaine plutôt que tout changer d’un coup. Et garde les mêmes horaires le week-end.' });
+      if (sl[1] >= 1) slRes.push({ title: 'Dernier café vers 14 h', text: 'La caféine agit encore 6 à 8 heures après. Passe au déca ou à une infusion l’après-midi.' });
+      if (sl[2] >= 1) slRes.push({ title: 'Écrans en pause 30 minutes avant', text: 'Lumière tamisée, lecture, ou 5 minutes de respiration lente : ton cerveau comprend que la journée est finie.' });
+      if (sl[3] === 2) { slRes.push({ title: 'Des nuits plus calmes', text: 'Chambre fraîche (18 °C), pas d’alcool le soir, dîner léger. Si les réveils durent, avec ronflements forts ou bouffées de chaleur, parles-en à ton médecin.' }); med = true; }
+      if (sl[4] === 2 && sl[0] >= 2 && !med) slRes.push({ title: 'Fatigué malgré assez de sommeil ?', text: 'Ce n’est pas normal. Parles-en à ton médecin : apnée du sommeil, carence ou autre cause, ça se vérifie.' });
+      if (slRes.length < 2) slRes.push({ title: 'Lumière du matin', text: '10 minutes dehors le matin, même par temps gris : c’est le meilleur réglage de ton horloge interne.' });
+      slRes = slRes.filter(function (r) { return r.text.indexOf('médecin') >= 0; }).concat(slRes.filter(function (r) { return r.text.indexOf('médecin') < 0; })).slice(0, 3);
+    }
+    var slGood = slDone && sl[0] === 2 && sl[1] === 0 && sl[2] === 0 && sl[3] === 0 && sl[4] === 0;
+    var MQ = [
+      ['Où t’entraînes-tu surtout ?', ['Salle de muscu', 'CrossFit', 'Maison', 'Course à pied']],
+      ['Tes mains après une séance ?', ['Ampoules, peau qui s’arrache', 'Un peu marquées', 'Aucun souci']],
+      ['Tractions, soulevé de terre, rowing lourd ?', ['Souvent', 'Parfois', 'Jamais']],
+      ['Ton grip lâche avant tes muscles ?', ['Souvent', 'Parfois', 'Jamais']],
+      ['Tes poignets sur les développés ?', ['Gêne ou douleur', 'Ça va']]
+    ];
+    var mq = S.mq;
+    var mqList = MQ.map(function (q, i) { return { n: String(i + 1), title: q[0], opts: q[1].map(function (lab, j) { var on = mq[i] === j; return { label: lab, on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { var m = Object.assign({}, self.state.mq); m[i] = j; self.setState({ mq: m }); } }; }) }; });
+    var mqDone = MQ.every(function (q, i) { return mq[i] !== undefined; });
+    var res = [];
+    if (mqDone) {
+      if (mq[1] <= 1 || mq[2] === 0 || mq[0] === 1) res.push({ title: 'Manique X-Trm Confort · 34,95 €', text: 'Le grip de tes mains nues, sans les ampoules. Faite pour les barres, les tractions et le CrossFit.' });
+      if (mq[3] <= 1 && mq[2] !== 2) res.push({ title: 'Sangle de tirage Confort-Grip · bientôt', text: 'Pour que ton dos travaille jusqu’au bout, même quand les mains lâchent. En attendant, du travail de grip : farmer walk et suspensions à la barre.' });
+      if (mq[4] === 0) res.push({ title: 'Poignet de force X-Trm · bientôt', text: 'En attendant, vérifie ta technique : poignet dans l’axe de l’avant-bras. Si la douleur persiste, un avis de kiné s’impose.' });
+      if (mq[0] === 2) res.push({ title: 'À la maison', text: 'Une paire d’haltères et un élastique suffisent pour bien démarrer. Pas besoin de plus.' });
+      if (mq[0] === 3 && !res.length) res.push({ title: 'Pour la course', text: 'Nos accessoires ne te servent pas vraiment : de bonnes chaussures et la playlist Boost font l’affaire.' });
+      if (!res.length) res.push({ title: 'Honnêtement ?', text: 'Tu n’as besoin de rien de plus pour l’instant. Garde ton argent, et reviens quand tes mains te le diront.' });
+    }
+    return {
+      opSouple: tS.open, sgSouple: tS.sign, tgSouple: tS.toggle,
+      opHydra: tH.open, sgHydra: tH.sign, tgHydra: tH.toggle,
+      opSupp: tP.open, sgSupp: tP.sign, tgSupp: tP.toggle,
+      spStep: sp.done ? 'Terminé' : 'Position ' + (sp.i + 1) + ' / ' + ROUT.length, spName: spName, spCue: spCue,
+      spTime: sp.done ? '✓' : mm(sp.started ? sp.left : cur2[2]), spNext: spNextTxt,
+      spBg: sp.done ? '#12110C' : sp.trans ? '#807C3A' : (sp.run ? '#F2E415' : '#E4E1B8'), spFg: sp.done ? '#E4E1B8' : '#12110C',
+      spStart: spStart, spSkip: spSkip, spReset: spReset, spStartLabel: sp.run ? 'Pause' : (sp.started && !sp.done ? 'Continuer' : 'Démarrer'),
+      hySexeOpts: [['F', 'Une femme'], ['H', 'Un homme']].map(function (o) { var on = hy.sexe === o[0]; return { label: o[1], on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setState({ hy: Object.assign({}, self.state.hy, { sexe: o[0] }) }); } }; }),
+      hyChaudOpts: [[false, 'Tempéré'], [true, 'Chaud']].map(function (o) { var on = hy.chaud === o[0]; return { label: o[1], on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setState({ hy: Object.assign({}, self.state.hy, { chaud: o[0] }) }); } }; }),
+      hySueurOpts: [['normal', 'Normalement'], ['beaucoup', 'Beaucoup']].map(function (o) { var on = hy.sueur === o[0]; return { label: o[1], on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setState({ hy: Object.assign({}, self.state.hy, { sueur: o[0] }) }); } }; }),
+      hyPTxt: hy.poids + ' kg', hyPMinus: function () { self.setState({ hy: Object.assign({}, self.state.hy, { poids: Math.max(35, hy.poids - 1) }) }); }, hyPPlus: function () { self.setState({ hy: Object.assign({}, self.state.hy, { poids: Math.min(180, hy.poids + 1) }) }); },
+      hyDTxt: (hy.duree >= 60 ? Math.floor(hy.duree / 60) + ' h ' + (hy.duree % 60 ? hy.duree % 60 + ' min' : '') : hy.duree + ' min'), hyDMinus: function () { self.setState({ hy: Object.assign({}, self.state.hy, { duree: Math.max(15, hy.duree - 15) }) }); }, hyDPlus: function () { self.setState({ hy: Object.assign({}, self.state.hy, { duree: Math.min(360, hy.duree + 15) }) }); },
+      hyRows: hyRows, hyElBg: needEl ? '#F2E415' : '#E4E1B8',
+      hyElTitle: needEl ? 'Électrolytes : oui' : 'Électrolytes : pas besoin',
+      hyElText: needEl ? 'Pour un effort aussi long ou dans ces conditions, ajoute une boisson de l’effort qui contient du sodium : tu compenses le sel perdu en transpirant.' : 'Pour cette séance, l’eau suffit largement. Garde ton argent.',
+      supps: supps,
+      slList: slList, slDone: slDone, slRes: slRes, slVerdict: slGood ? 'Ton sommeil est un atout' : 'Tes pistes pour mieux dormir', slReset: function () { self.setState({ sl: {} }); },
+      opDisques: tD.open, sgDisques: tD.sign, tgDisques: tD.toggle,
+      opChrono: tC.open, sgChrono: tC.sign, tgChrono: tC.toggle,
+      opMatos: tM.open, sgMatos: tM.sign, tgMatos: tM.toggle,
+      dkTxt: fmtN(S.dk) + ' kg', dkMinus: function () { self.setState({ dk: Math.max(0, S.dk - 2.5) }); }, dkPlus: function () { self.setState({ dk: Math.min(400, S.dk + 2.5) }); },
+      barOpts: [20, 15, 10].map(function (bv) { var on = S.bar === bv; return { label: 'Barre ' + bv + ' kg', on: on, bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A', pick: function () { self.setState({ bar: bv }); } }; }),
+      plates: platesV, dkMsg: dkMsg,
+      chPhase: phaseTxt, chTime: mm(ch.phase === 'pret' ? S.cw : ch.left), chSerie: 'Série ' + Math.min(ch.serie, S.cs) + ' / ' + S.cs, chBg: chBg, chFg: chFg,
+      chStart: chStart, chReset: chReset, chStartLabel: ch.run ? 'Pause' : (ch.phase === 'travail' || ch.phase === 'repos' ? 'Reprendre' : 'Démarrer'),
+      cwTxt: S.cw + ' s', cwMinus: function () { setIdle('cw', Math.max(10, S.cw - 5)); }, cwPlus: function () { setIdle('cw', Math.min(300, S.cw + 5)); },
+      crTxt: mm(S.cr), crMinus: function () { setIdle('cr', Math.max(15, S.cr - 15)); }, crPlus: function () { setIdle('cr', Math.min(300, S.cr + 15)); },
+      csTxt: String(S.cs), csMinus: function () { setIdle('cs', Math.max(1, S.cs - 1)); }, csPlus: function () { setIdle('cs', Math.min(10, S.cs + 1)); },
+      mqList: mqList, mqDone: mqDone, mqRes: res, mqReset: function () { self.setState({ mq: {} }); },
+      menuOpen: !!this.state.menuOpen, toggleMenu: function () { self.setState({ menuOpen: !self.state.menuOpen }); }, closeMenu: function () { self.setState({ menuOpen: false }); },
+      qFood: cur[0], qPos: (qi + 1) + ' / ' + QZ.length, qOpts: qOpts, qAnswered: answered,
+      qVerdict: qp === cur[1] ? 'Bien vu !' : 'Raté : ' + rightLabel.toLowerCase(),
+      qText: cur[2], qScore: String(qs.qScore || 0), qDone: String(qs.qDone || 0),
+      qNextLabel: last ? 'Recommencer le quiz' : 'Aliment suivant',
+      qNext: function () { if (last) self.setState({ qi: 0, qp: null, qScore: 0, qDone: 0 }); else self.setState({ qi: qi + 1, qp: null }); },
+      plMoods: [['fun', 'Fun', 'Bonne humeur et refrains qu’on chante entre deux séries.'], ['agressif', 'Boost', 'Pour les charges lourdes et les derniers kilomètres.'], ['chill', 'Chill', 'Échauffement, mobilité, footing tranquille.']].map(function (m) { var on = (self.state.plMood || 'fun') === m[0]; return { label: m[1], sub: m[2], on: on, bg: on ? '#F2E415' : '#1C1B13', fg: on ? '#12110C' : '#E4E1B8', bd: on ? '#F2E415' : '#3F3C22', pick: function () { self.setState({ plMood: m[0] }); } }; }),
+      plPlats: [['spotify', 'Spotify'], ['deezer', 'Deezer'], ['ytmusic', 'YouTube Music']].map(function (p) { var on = (self.state.plPlat || 'spotify') === p[0]; return { label: p[1], on: on, bg: on ? '#E4E1B8' : 'transparent', fg: on ? '#12110C' : '#E4E1B8', bd: on ? '#E4E1B8' : '#3F3C22', pick: function () { self.setState({ plPlat: p[0] }); } }; }),
+      plUrl: (function () { var m = self.state.plMood || 'fun', p = self.state.plPlat || 'spotify'; var key = 'pl' + m.charAt(0).toUpperCase() + m.slice(1) + '_' + p; var d = { spotify: 'https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d', deezer: 'https://www.deezer.com/', ytmusic: 'https://music.youtube.com/' }; return self.props[key] || (key === 'plChill_spotify' ? 'https://open.spotify.com/playlist/7JabddFr3Q6JPsND4v9Swf' : key === 'plAgressif_spotify' ? 'https://open.spotify.com/playlist/105BF63e6XMWdFjD4s4X0D' : key === 'plFun_spotify' ? 'https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d' : d[p]); })(),
+      plCta: (function () { var m = { fun: 'Fun', agressif: 'Boost', chill: 'Chill' }[self.state.plMood || 'fun']; var p = { spotify: 'Spotify', deezer: 'Deezer', ytmusic: 'YouTube Music' }[self.state.plPlat || 'spotify']; return 'Écouter « ' + m + ' » sur ' + p + ' →'; })(),
+      accent: this.props.accent ?? '#F2E415',
+      weightStr: this.state.weightStr,
+      reps: r,
+      oneRm: fmt(max),
+      note: note,
+      rows: table.map(function (t) { return { pct: t.pct, use: t.use, kg: fmt(max * t.p) }; }),
+      wMinus: function () { setW(w - 2.5); },
+      wPlus: function () { setW(w + 2.5); },
+      onWeight: function (e) { self.setState({ weightStr: e.target.value }); },
+      rMinus: function () { self.setState({ reps: Math.max(1, r - 1) }); },
+      rPlus: function () { self.setState({ reps: Math.min(15, r + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

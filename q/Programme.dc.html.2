@@ -1,0 +1,237 @@
+</a>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #A8A36A">Des estimations pour bien démarrer. Pour un suivi précis ou un problème de santé, consulte un médecin ou un diététicien.</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button onClick="{{toProgram}}" style="min-height: 54px; background: #F2E415; color: #12110C; border: 0; border-radius: 999px; font-size: 19px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Retour à mon programme</button>
+<button onClick="{{startNutri}}" style="min-height: 52px; background: transparent; color: #E4E1B8; border: 2px solid #E4E1B8; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Refaire l'audit alimentaire</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{showNav}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 6px">
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{ false }}">
+<span role="alert" style="font-size: 16px; font-weight: 700; color: #8F2C0B; background: #FFFFFF; border-radius: 8px; padding: 10px 12px">{{err}}</span>
+</sc-if>
+<div style="display: flex; gap: 10px">
+<button onClick="{{back}}" style="min-height: 54px; padding: 0 20px; background: #FFFFFF; color: #12110C; border: 2px solid #12110C; border-radius: 999px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">Retour</button>
+<button onClick="{{next}}" style="flex-grow: 1; min-height: 54px; background: #F2E415; color: #12110C; border: 0; border-radius: 999px; font-size: 19px; font-weight: 700; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">{{nextLabel}}</button>
+</div>
+</div>
+</sc-if>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"plFun_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d", "section": "Playlist Fun"}, "plFun_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Fun"}, "plFun_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Fun"}, "plAgressif_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/105BF63e6XMWdFjD4s4X0D", "section": "Playlist Boost"}, "plAgressif_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Boost"}, "plAgressif_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Boost"}, "plChill_spotify": {"editor": "text", "default": "https://open.spotify.com/playlist/7JabddFr3Q6JPsND4v9Swf", "section": "Playlist Chill"}, "plChill_deezer": {"editor": "text", "default": "https://www.deezer.com/", "section": "Playlist Chill"}, "plChill_ytmusic": {"editor": "text", "default": "https://music.youtube.com/", "section": "Playlist Chill"},"$preview":{"width":390,"height":5600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { step: 0, openIdx: 0, err: '', n: {}, qz: {}, f: { age: 30, taille: 175, poids: 75, sexe: '', niveau: '', pompes: 10, gainage: 45, course: '', goal: '', freq: '', xp: '', prec: [], duree: '', lieu: '', mat: [], pref: '' } };
+  }
+  setF(k, v) {
+    var f = Object.assign({}, this.state.f);
+    f[k] = v;
+    this.setState({ f: f, err: '' });
+  }
+  num(v) { var n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? null : n; }
+  multi(key, list, excl) {
+    var self = this;
+    var cur = this.state.f[key] || [];
+    return list.map(function (o) {
+      var sel = cur.indexOf(o.v) >= 0;
+      return { label: o.label, on: sel, bg: sel ? '#F2E415' : '#FFFFFF', fg: '#12110C', bd: sel ? '#12110C' : '#C9C49A', pick: function () {
+        var c = (self.state.f[key] || []).slice(); var k = c.indexOf(o.v);
+        if (k >= 0) c.splice(k, 1); else { if (o.v === excl) c = []; else c = c.filter(function (x) { return x !== excl; }); c.push(o.v); }
+        self.setF(key, c);
+      } };
+    });
+  }
+  opts(key, list) {
+    var self = this;
+    var cur = this.state.f[key];
+    return list.map(function (o) {
+      var sel = String(cur) === String(o.v);
+      return { label: o.label, sub: o.sub || '', family: o.family || '', on: sel, bg: sel ? '#F2E415' : '#FFFFFF', fg: '#12110C', bd: sel ? '#12110C' : '#C9C49A', pick: function () { self.setF(key, o.v); } };
+    });
+  }
+  nums(defs) {
+    var self = this;
+    return defs.map(function (d) {
+      var v = Number(self.state.f[d.k]);
+      var clamp = function (x) { return Math.max(d.min, Math.min(d.max, x)); };
+      return { id: d.k, label: d.label, desc: d.desc || '', hasDesc: !!d.desc, min: d.min, max: d.max, step: d.step, value: v,
+        display: v + (d.unit ? ' ' + d.unit : ''), minusLabel: 'Diminuer : ' + d.label, plusLabel: 'Augmenter : ' + d.label,
+        minus: function () { self.setF(d.k, clamp(v - d.step)); }, plus: function () { self.setF(d.k, clamp(v + d.step)); },
+        onRange: function (e) { self.setF(d.k, clamp(Number(e.target.value))); } };
+    });
+  }
+  validate(step) {
+    var f = this.state.f, n = this.num.bind(this);
+    if (step === 1) {
+      var a = n(f.age), t = n(f.taille), p = n(f.poids);
+      if (a === null || a < 10 || a > 99) return 'Indique un âge entre 10 et 99 ans.';
+      if (t === null || t < 120 || t > 230) return 'Indique ta taille en centimètres (ex. 178).';
+      if (p === null || p < 30 || p > 250) return 'Indique ton poids en kilos (ex. 75).';
+      if (!f.sexe) return 'Choisis une option pour le calibrage des pompes.';
+      if (f.niveau === '') return 'Choisis ton niveau d’activité actuel.';
+      if (f.xp === '') return 'Indique ton expérience de la musculation.';
+    }
+    if (step === 2) {
+      if (n(f.pompes) === null || n(f.pompes) < 0) return 'Indique ton nombre de pompes (0 est une réponse valable).';
+      if (n(f.gainage) === null || n(f.gainage) < 0) return 'Indique ta durée de planche en secondes.';
+      if (f.course === '') return 'Choisis ta durée de course.';
+    }
+    if (step === 3 && !f.goal) return 'Choisis ton objectif principal.';
+    if (step === 4 && !f.freq) return 'Choisis ton nombre de séances.';
+    if (step === 4 && f.duree === '') return 'Indique le temps dont tu disposes par séance.';
+    if (step === 4 && !f.lieu) return 'Indique où tu vas t’entraîner.';
+    return '';
+  }
+  compute() {
+    var f = this.state.f, n = this.num.bind(this);
+    var age = n(f.age), taille = n(f.taille) / 100, poids = n(f.poids);
+    var imc = poids / (taille * taille);
+    var niv = Number(f.niveau), course = Number(f.course), freq = Number(f.freq);
+    var pomp = n(f.pompes), gain = n(f.gainage);
+    var pT = f.sexe === 'F' ? [5, 15, 30] : [10, 25, 40];
+    var pS = pomp < pT[0] ? 0 : pomp < pT[1] ? 1 : pomp < pT[2] ? 2 : 3;
+    var gS = gain < 30 ? 0 : gain < 60 ? 1 : gain < 120 ? 2 : 3;
+    var endL = Math.round((course * 2 + niv) / 3);
+    var strL = Math.round((pS + gS + niv) / 3);
+    if (String(f.xp) === '0') strL = Math.min(strL, 1);
+    var G = {
+      semi: { label: 'Semi-marathon', fam: 'run', milestone: 'Finir un semi-marathon (21,1 km) en courant', base: [20, 14, 10, 8], min: 3, ideal: 4 },
+      marathon: { label: 'Marathon', fam: 'run', milestone: 'Finir un marathon (42,2 km)', base: [40, 28, 20, 16], min: 4, ideal: 5 },
+      trail: { label: 'Trail', fam: 'run', milestone: 'Finir un trail court (20 à 30 km avec dénivelé)', base: [24, 16, 12, 10], min: 3, ideal: 4 },
+      masse: { label: 'Masse musculaire', fam: 'str', milestone: 'Une prise de muscle nette et visible', base: [14, 14, 20, 28], min: 3, ideal: 4 },
+      explo: { label: 'Explosivité', fam: 'str', milestone: 'Un gain net de détente et de vitesse', base: [10, 10, 12, 16], min: 2, ideal: 3 },
+      force: { label: 'Force pure', fam: 'str', milestone: 'Environ +15 à 20 % sur tes charges max', base: [10, 12, 20, 32], min: 3, ideal: 4 },
+      forme: { label: 'Remise en forme', fam: 'fit', milestone: 'Retrouver une bonne forme générale', base: [8, 8, 6, 6], min: 2, ideal: 3 },
+      fessiers: { label: 'Fessiers & tonicité', fam: 'str', milestone: 'Des fessiers plus forts et plus galbés, nettement visibles', base: [12, 12, 14, 16], min: 2, ideal: 3 },
+      silhouette: { label: 'Silhouette', fam: 'fit', milestone: 'Une silhouette plus tonique et affinée', base: [12, 10, 10, 8], min: 2, ideal: 3 }
+    };
+    var g = G[f.goal];
+    var lvl = g.fam === 'run' ? endL : g.fam === 'str' ? strL : Math.round((endL + strL) / 2);
+    var w = g.base[lvl];
+    var notes = [];
+    var planF = (niv === 0 && freq > 4) ? 4 : freq;
+    var ff = 1;
+    if (planF === 1) ff = 1.7; else if (planF < g.min) ff = 1.35; else if (planF >= g.ideal) ff = 0.9;
+    var af = age < 35 ? 1 : age < 45 ? 1.1 : age < 55 ? 1.2 : age < 65 ? 1.3 : 1.4;
+    var bf = 1;
+    if (imc >= 30 && g.fam === 'run') { bf = 1.2; notes.push({ text: 'Pour protéger tes articulations, les premières semaines alternent marche rapide, vélo et course. La course prend le relais progressivement.' }); }
+    else if (imc >= 30) { notes.push({ text: 'On privilégie des mouvements à faible impact au début : vélo, rameur, renforcement guidé.' }); }
+    w = w * ff * af * bf;
+    var lo = Math.max(4, Math.round(w * 0.85)), hi = Math.max(lo + 2, Math.round(w * 1.15));
+    var verdict = 'Réaliste', vbg = '#F2E415';
+    var vtext = 'Ton objectif colle à ton point de départ et à ton engagement. Maintenant, il faut juste tenir la régularité.';
+    if (freq < g.min) { verdict = 'Possible, mais long'; vbg = '#D6D2A8'; vtext = 'Avec ' + freq + ' séance(s) par semaine, tu progresseras, mais plus lentement. Passer à ' + g.min + ' séances raccourcirait nettement le délai.'; }
+    if (f.goal === 'marathon' && endL === 0) { verdict = 'Très ambitieux'; vbg = '#D6D2A8'; vtext = 'Partir de zéro pour un marathon, c’est possible, mais le chemin le plus sûr passe par un semi-marathon d’abord. Vise un semi à la fin de ta phase de développement, puis le marathon.'; }
+    if (f.goal === 'force' && strL === 3) { vtext = 'Tu pars d’un bon niveau : les progrès en force pure seront plus lents qu’au début. C’est normal, ce n’est pas toi qui stagnes, c’est la physiologie.'; }
+    if (planF < freq) { notes.push({ text: 'Tu reprends le sport : on limite volontairement à 4 séances. C’est pendant la récupération que le corps progresse. Les autres jours, marche ou mobilité.' }); }
+    if (age < 18) notes.push({ text: 'Moins de 18 ans : entraîne-toi avec un adulte ou un coach qualifié, pas de charges maximales, la technique passe avant tout.' });
+    if ((age >= 40 && niv <= 1) || age >= 60 || imc >= 30) notes.push({ text: 'Un bilan chez ton médecin avant de commencer est vivement conseillé (certificat de non contre-indication).' });
+    var prec = f.prec || [], mat = f.mat || [];
+    if (prec.indexOf('osteo') >= 0) notes.push({ text: 'Ostéoporose : le renforcement reste recommandé, mais avec l’accord de ton médecin. Pas de sauts ni de flexions du dos chargées sans son feu vert.' });
+    if (prec.indexOf('perinee') >= 0) notes.push({ text: 'Périnée : expire pendant l’effort et ne bloque pas ta respiration. En cas de fuites ou de pesanteur, consulte un kinésithérapeute spécialisé avant d’augmenter les charges.' });
+    if (prec.indexOf('grossesse') >= 0) notes.push({ text: 'Grossesse de moins d’un an : rééducation du périnée d’abord, et accord de ta sage-femme ou de ton médecin avant de reprendre les charges.' });
+    var zones = prec.filter(function (x) { return x === 'dos' || x === 'genoux' || x === 'epaules'; });
+    if (zones.length) notes.push({ text: 'Zone sensible (' + zones.map(function (z) { return { dos: 'dos', genoux: 'genoux', epaules: 'épaules' }[z]; }).join(', ') + ') : commence par les versions les plus légères, sans douleur. Si la gêne persiste, un avis de kinésithérapeute s’impose.' });
+    if (String(f.duree) === '20') notes.push({ text: 'Séances de 20 minutes : garde les 3 premiers exercices et le gainage. C’est court, mais tenu dans la durée, ça marche.' });
+    if (f.lieu === 'maison' && (mat.indexOf('rien') >= 0 || !mat.length)) notes.push({ text: 'Sans matériel : bouteilles d’eau, sac à dos chargé et poids du corps au tempo lent suffisent pour démarrer. Une paire d’haltères et un élastique changeront vite la donne.' });
+    else if (f.lieu === 'maison') notes.push({ text: 'À la maison : chaque exercice se fait avec ton matériel. On progresse d’abord au chrono, puis avec des charges plus lourdes.' });
+    if (f.pref === 'chrono') notes.push({ text: 'Tu préfères le chrono : travaille au temps sous tension (30 à 50 s par série, tempo contrôlé) plutôt qu’au nombre de répétitions.' });
+    var L = lvl;
+    var pick = function (arr) { return arr[L]; };
+    var P = {
+      masse: { main: function () { return { dose: pick(['3 × 12', '3 × 10-12', '4 × 8-10', '4 × 6-10']), rest: L >= 2 ? '2 min' : '90 s', note: pick(['Charge où tu gardes 2-3 reps en réserve', 'Garde 2 reps en réserve', '≈ 70-75 % de ta max', '≈ 70-80 % de ta max']) }; },
+               acc: function () { return { dose: pick(['2 × 12-15', '3 × 12', '3 × 10-12', '4 × 10-12']), rest: '60-75 s', note: 'Contrôle la descente (2 s)' }; } },
+      force: { main: function () { return { dose: pick(['3 × 8', '4 × 5', '5 × 3-5', '5 × 2-4']), rest: pick(['2 min', '3 min', '3 min', '3-5 min']), note: pick(['Charge légère, technique parfaite', '≈ 80 % de ta max', '80-87 % de ta max', '85-90 % de ta max']) }; },
+               acc: function () { return { dose: pick(['2 × 10', '3 × 8-10', '3 × 8', '4 × 6-8']), rest: '90 s', note: '' }; },
+               tech: function () { return { dose: '5 × 3', rest: '90 s', note: '≈ 60 % de ta max : vitesse et placement' }; } },
+      explo: { main: function () { return { dose: pick(['3 × 6', '4 × 5', '4 × 4', '5 × 3']), rest: '2-3 min', note: 'Pousse la charge le plus vite possible' }; },
+               plyo: function () { return { dose: pick(['3 × 4', '4 × 5', '5 × 5', '5 × 6']), rest: '90 s à 2 min', note: L === 0 ? 'Sauts bas, réception silencieuse' : 'Qualité max, arrête dès que ça ralentit' }; },
+               sprint: function () { return { dose: pick(['4 × 20 m', '6 × 20 m', '6 × 30 m', '8 × 30 m']), rest: 'Retour en marchant + 1 min', note: 'Départ debout, 95 % de ta vitesse' }; },
+               acc: function () { return { dose: pick(['2 × 10', '3 × 8', '3 × 8', '3 × 6']), rest: '90 s', note: '' }; } },
+      gen: { acc: function () { return { dose: pick(['2 × 12', '3 × 12', '3 × 12-15', '3 × 15']), rest: '45-60 s', note: '' }; } }
+    };
+    P.fessiers = P.masse;
+    var pp = P[f.goal] || P.gen;
+    var ex = function (name, type, extra) {
+      var d;
+      if (type === 'core') d = { dose: pick(['3 × 20 s', '3 × 30 s', '3 × 45 s', '3 × 60 s']), rest: '30-45 s', note: 'Dos droit, respiration calme' };
+      else d = (pp[type] || P.gen.acc)();
+      return { ex: name, dose: d.dose, rest: d.rest, note: extra || d.note, hasNote: !!(extra || d.note) };
+    };
+    var row = function (name, dose, rest, note) { return { ex: name, dose: dose, rest: rest, note: note || '', hasNote: !!note }; };
+    var WU = row('Échauffement', '15 min', 'aucun', 'Footing lent, puis 3 accélérations progressives');
+    var CD = row('Retour au calme', '10 min', 'aucun', 'Footing très lent');
+    var WUS = row('Échauffement', '10 min', 'aucun', 'Cardio léger, puis 2 séries légères du 1er exercice');
+    var alt = function (base) { return L === 0 ? base + ' (alternance course / marche)' : base; };
+    var R = {
+      ef: function () { return [row('Footing', pick(['25 min', '30 min', '40 min', '50 min']), 'aucun', alt('Tu dois pouvoir parler')), row('Étirements légers', '5 min', 'aucun', '')]; },
+      slSemi: function () { return [row('Sortie longue', pick(['35 min', '50 min', '1 h 10', '1 h 30']), 'aucun', alt('Allure facile, +10 min toutes les 2 semaines'))]; },
+      slMara: function () { return [row('Sortie longue', pick(['40 min', '1 h', '1 h 20', '1 h 45']), 'aucun', alt('Allure facile, jusqu’à 2 h 30 en fin de prépa'))]; },
+      slTrail: function () { return [row('Sortie longue en nature', pick(['45 min', '1 h', '1 h 20', '1 h 45']), 'aucun', 'Avec dénivelé, marche dans les montées raides')]; },
+      frac: function () { return [WU, row('Fractionné', pick(['8 × 1 min vite', '6 × 400 m', '8 × 400 m', '10 × 400 m']), pick(['2 min marche', '1 min 30 trot', '1 min 15 trot', '1 min trot']), 'Allure où tu ne peux dire que quelques mots'), CD]; },
+      seuil: function () { return [WU, row('Seuil', pick(['3 × 5 min', '3 × 8 min', '3 × 10 min', '2 × 15 min']), '2 min trot', 'Soutenu mais contrôlé, phrases courtes'), CD]; },
+      allSemi: function () { return [WU, row('Allure semi', pick(['2 × 5 min', '2 × 10 min', '3 × 10 min', '2 × 20 min']), '2 min trot', 'L’allure visée le jour J'), CD]; },
+      allMara: function () { return [WU, row('Allure marathon', pick(['2 × 10 min', '2 × 15 min', '3 × 15 min', '2 × 25 min']), '3 min trot', 'L’allure visée le jour J'), CD]; },
+      cotes: function () { return [WU, row('Côtes', pick(['6 × 45 s', '8 × 1 min', '10 × 1 min', '8 × 1 min 30']), 'Descente en trottinant', 'Pente 5-10 %, buste droit, petits pas'), CD]; },
+      recup: function () { return [row('Footing récup', pick(['15 min', '20 min', '25 min', '30 min']), 'aucun', 'Très lent, tu dois pouvoir chanter')]; },
+      renfoRun: function () { return [ex('Squat', 'acc'), ex('Fentes avant', 'acc'), ex('Mollets debout', 'acc'), ex('Pont fessier', 'acc'), ex('Planche', 'core')]; },
+      renfoTrail: function () { return [ex('Fentes arrière', 'acc'), ex('Step-up sur banc', 'acc'), ex('Mollets excentriques', 'acc', 'Descente lente sur 3 s'), row('Équilibre sur une jambe', '3 × 30 s par jambe', '15 s', 'Yeux fermés quand c’est facile'), ex('Planche', 'core')]; }
+    };
+    var mob = function () { return [row('Mobilité hanches', '5 min', 'aucun', ''), row('Mobilité chevilles', '5 min', 'aucun', ''), row('Mobilité épaules', '5 min', 'aucun', ''), row('Étirements actifs', '5 min', 'aucun', '')]; };
+    var recA = function () { return [row('Vélo ou marche', '30 min', 'aucun', 'Très facile, pour récupérer')]; };
+    var M = {
+      fbA: ['Full body A', function () { return [WUS, ex('Squat', 'main'), ex('Développé couché', 'main'), ex('Rowing barre', 'main'), ex('Élévations latérales', 'acc'), ex('Planche', 'core')]; }],
+      fbB: ['Full body B', function () { return [WUS, ex('Soulevé de terre roumain', 'main'), ex('Développé militaire', 'main'), ex('Tractions ou tirage vertical', 'main', 'Maniques utiles pour le grip'), ex('Curl biceps', 'acc'), ex('Gainage latéral', 'core')]; }],
+      fbC: ['Full body C', function () { return [WUS, ex('Fentes marchées', 'main'), ex('Développé incliné haltères', 'main'), ex('Tirage horizontal', 'main'), ex('Extensions triceps', 'acc'), ex('Relevés de jambes', 'core')]; }],
+      hA: ['Haut du corps A', function () { return [WUS, ex('Développé couché', 'main'), ex('Rowing barre', 'main'), ex('Développé incliné haltères', 'acc'), ex('Élévations latérales', 'acc'), ex('Curl biceps', 'acc')]; }],
+      bA: ['Bas du corps A', function () { return [WUS, ex('Squat', 'main'), ex('Presse à cuisses', 'acc'), ex('Leg curl', 'acc'), ex('Mollets debout', 'acc'), ex('Planche', 'core')]; }],
+      hB: ['Haut du corps B', function () { return [WUS, ex('Développé militaire', 'main'), ex('Tractions', 'main', 'Maniques utiles pour le grip'), ex('Dips', 'acc'), ex('Face pull', 'acc'), ex('Extensions triceps', 'acc')]; }],
+      bB: ['Bas du corps B', function () { return [WUS, ex('Soulevé de terre roumain', 'main'), ex('Fentes bulgares', 'acc'), ex('Hip thrust', 'acc'), ex('Mollets assis', 'acc'), ex('Gainage latéral', 'core')]; }],
+      push: ['Poussée', function () { return [WUS, ex('Développé couché', 'main'), ex('Développé militaire haltères', 'main'), ex('Développé incliné haltères', 'acc'), ex('Élévations latérales', 'acc'), ex('Extensions triceps', 'acc')]; }],
+      pull: ['Tirage', function () { return [WUS, ex('Tractions', 'main', 'Maniques utiles pour le grip'), ex('Rowing barre', 'main'), ex('Tirage horizontal', 'acc'), ex('Face pull', 'acc'), ex('Curl biceps', 'acc')]; }],
+      legs: ['Jambes', function () { return [WUS, ex('Squat', 'main'), ex('Soulevé de terre roumain', 'main'), ex('Presse à cuisses', 'acc'), ex('Leg curl', 'acc'), ex('Mollets debout', 'acc')]; }],
+      upper: ['Haut du corps', function () { return [WUS, ex('Développé incliné haltères', 'main'), ex('Rowing haltère', 'main'), ex('Dips', 'acc'), ex('Élévations latérales', 'acc'), ex('Curl marteau', 'acc')]; }],
+      push2: ['Poussée 2', function () { return [WUS, ex('Développé militaire', 'main'), ex('Développé incliné haltères', 'main'), ex('Dips', 'acc'), ex('Élévations latérales', 'acc'), ex('Extensions triceps', 'acc')]; }],
+      pull2: ['Tirage 2', function () { return [WUS, ex('Rowing haltère', 'main'), ex('Tirage vertical', 'main'), ex('Face pull', 'acc'), ex('Curl marteau', 'acc'), ex('Shrugs', 'acc', 'Maniques utiles pour le grip')]; }]
+    };
+    var F = {
+      fA: ['Force A', function () { return [WUS, ex('Squat', 'main'), ex('Développé couché', 'main'), ex('Rowing barre', 'acc'), ex('Planche', 'core')]; }],
+      fB: ['Force B', function () { return [WUS, ex('Soulevé de terre', 'main', 'Maniques utiles pour le grip'), ex('Développé militaire', 'main'), ex('Tractions', 'acc'), ex('Gainage latéral', 'core')]; }],
+      sq: ['Squat lourd', function () { return [WUS, ex('Squat', 'main'), ex('Squat avec pause', 'tech'), ex('Fentes bulgares', 'acc'), ex('Planche', 'core')]; }],
+      bp: ['Développé couché lourd', function () { return [WUS, ex('Développé couché', 'main'), ex('Développé prise serrée', 'acc'), ex('Rowing barre', 'acc'), ex('Face pull', 'acc')]; }],
+      dl: ['Soulevé de terre lourd', function () { return [WUS, ex('Soulevé de terre', 'main', 'Maniques utiles pour le grip'), ex('Soulevé de terre roumain', 'acc'), ex('Tractions', 'acc'), row('Farmer walk', '3 × 30 m', '90 s', 'Travail du grip')]; }],
+      tech: ['Technique & accessoires', function () { return [WUS, ex('Squat technique', 'tech'), ex('Développé couché technique', 'tech'), ex('Rowing haltère', 'acc'), ex('Relevés de jambes', 'core')]; }],
+      mob: ['Mobilité & gainage', function () { return mob().concat([ex('Planche', 'core'), ex('Gainage latéral', 'core')]); }],
+      rec: ['Récup active', recA]
+    };
+    var EX = {
+      plyo: ['Pliométrie', function () { return [row('Échauffement dynamique', '10 min', 'aucun', 'Gammes, montées de genoux, talons-fesses'), ex('Box jump', 'plyo'), ex('Saut en longueur sans élan', 'plyo'), ex('Bonds alternés', 'plyo'), ex('Planche', 'core')]; }],
+      force: ['Force', function () { return [WUS, ex('Squat', 'main'), ex('Hip thrust', 'main'), ex('Soulevé de terre roumain', 'acc'), ex('Gainage latéral', 'core')]; }],
+      sprint: ['Sprints', function () { return [row('Échauffement', '15 min', 'aucun', 'Footing, gammes, 3 accélérations'), ex('Sprints', 'sprint'), CD]; }],
+      lanc: ['Lancers & gainage', function () { return [WUS, ex('Lancer médecine-ball poitrine', 'plyo'), ex('Lancer en rotation', 'plyo'), ex('Slam ball', 'plyo'), ex('Gainage dynamique', 'core')]; }],
+      mob: ['Mobilité', mob], rec: ['Récup active', recA]
+    };
+    var FO = {
+      circ: ['Circuit full body', function () { return [WUS, row('Squat poids du corps', '40 s', '20 s', ''), row('Pompes', '40 s', '20 s', 'Sur les genoux ou inclinées si besoin'), row('Rowing haltère', '40 s', '20 s', ''), row('Fentes', '40 s', '20 s', ''), row('Planche', '40 s', '2 min entre les tours', pick(['2 tours', '3 tours', '3 tours', '4 tours']))]; }],
+      cardio: ['Cardio doux', function () { return [row('Marche rapide, vélo ou footing', pick(['30 min', '35 min', '40 min', '45 min']), 'aucun', 'Tu dois pouvoir parler')]; }],
+      renfo: ['Renfo & gainage', function () { return [WUS, ex('Squat gobelet', 'acc'), ex('Pompes', 'acc'), ex('Rowing haltère', 'acc'), ex('Pont fessier', 'acc'), ex('Planche', 'core')]; }],
+      hiit: ['Cardio fractionné léger', function () { return [row('Échauffement', '10 min', 'aucun', ''), row('30 s vite / 1 min lent', pick(['× 6', '× 8', '× 10', '× 12']), 'aucun', 'Vélo, rameur ou course'), row('Retour au calme', '5 min', 'aucun', '')]; }],
+      mob: ['Mobilité', mob],
+      bal: ['Balade active', function () { return [row('Randonnée ou vélo', pick(['45 min', '1 h', '1 h 15', '1 h 30']), 'aucun', 'En famille, ça compte aussi')]; }]
+    };
+    var RUN = {
+      semi: [['Sortie longue', R.slSemi], ['Fractionné', R.frac], ['Endurance fondamentale', R.ef], ['Renfo & gainage', R.renfoRun], ['Allure semi', R.allSemi], ['Footing récup', R.recup]],
+      marathon: [['Sortie longue', R.slMara], ['Allure marathon', R.allMara], ['Endurance fondamentale', R.ef], ['Seuil', R.seuil], ['Renfo & gainage', R.renfoRun], ['Footing récup', R.recup]],
+      trail: [['Sortie longue en nature', R.slTrail], ['Côtes', R.cotes], ['Endurance fondamentale', R.ef], ['Renfo jambes & chevilles', R.renfoTrail], ['Seuil', R.seuil], ['Footing récup', R.recup]]
+    };
+    var list;
+    if (RUN[f.goal]) list = RUN[f.goal].slice(0, planF);
+    else if (f.goal === 'masse') list = { 1: [M.fbA], 2: [M.fbA, M.fbB], 3: [M.fbA, M.fbB, M.fbC], 4: [M.hA, M.bA, M.hB, M.bB], 5: [M.push, M.pull, M.legs, M.upper, M.bB], 6: [M.push, M.pull, M.legs, M.push2, M.pull2, M.bB] }[planF];
+    else if (f.goal === 'force') list = { 1: [F.fA], 2: [F.fA, F.fB], 3: [F.sq, F.bp, F.dl], 4: [F.sq, F.bp, F.dl, F.tech], 5: [F.sq, F.bp, F.dl, F.tech, F.mob], 6: [F.sq, F.bp, F.dl, F.tech, F.mob, F.rec] }[planF];
+    else if (f.goal === 'explo') list = [EX.plyo, EX.force, EX.sprint, EX.lanc, EX.mob, EX.rec].slice(0, planF);
+    else if (f.goal === 'fessiers') {
+      var FE1 = ['Fessiers et jambes', function () { return [WUS, ex('Squat gobelet', 'main'), ex('Hip thrust', 'main'), ex('Soulevé de terre roumain', 'main'), ex('Abduction à l’élastique', 'acc'), ex('Planche', 'core')]; }];
+      var FE2 = ['Haut du corps et fessiers', function () { return [WUS, ex('Rowing haltère un bras', 'main'), ex('Pompes inclinées', 'acc'), ex('Hip thrust une jambe', 'main'), ex('Dead bug', 'core'), ex('Gainage latéral', 'core')]; }];

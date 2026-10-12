@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Alpha Since — Suivi personnalisé</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/img/logo.png">
+<style>#dc-root .sc-host>*{margin-left:auto!important;margin-right:auto!important}@media (max-width:420px){#dc-root .sc-host>*{width:100vw!important;max-width:100vw}}</style>
+<script src="/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Roboto+Condensed:wght@400;500;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E4E1B8;font-family:'Roboto Condensed','Arial Narrow',system-ui,sans-serif}
+a{color:#12110C}a:hover{color:#3F3C22}
+</style>
+</helmet>
+<div style="width: 390px; height: 2900px; box-sizing: border-box; position: relative; display: flex; flex-direction: column; background: #E4E1B8; color: #12110C; font-family: 'Roboto Condensed', 'Arial Narrow', system-ui, sans-serif; overflow: hidden">
+<header style="display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; padding: 12px 20px; background: #807C3A; color: #12110C">
+<button onClick="{{toggleMenu}}" aria-label="Ouvrir le menu" aria-expanded="{{menuOpen}}" style="justify-self: start; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; cursor: pointer; padding: 0">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#12110C" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+</button>
+<a href="Main.dc.html" aria-label="Alpha Since, accueil" style="display: flex; text-decoration: none; justify-self: center"><img src="/img/logo.png" alt="Alpha Since 1982" style="height: 92px; width: auto; object-fit: contain; flex-shrink: 0; display: block"></a>
+<a href="Main.dc.html#manique" aria-label="Boutique" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; justify-self: end">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#12110C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"></path><circle cx="9" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg>
+</a>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<nav aria-label="Menu principal" style="position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; flex-direction: column; gap: 22px; padding: 14px 20px 32px; background: #12110C; color: #E4E1B8; border-bottom: 4px solid #F2E415">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<a href="Main.dc.html#top" onClick="{{closeMenu}}" aria-label="Alpha Since, accueil" style="display: flex"><img src="/img/logo-alt.png" alt="Alpha Since 1982" style="height: 60px; width: auto; object-fit: contain; flex-shrink: 0; display: block"></a>
+<button onClick="{{closeMenu}}" aria-label="Fermer le menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 2px solid #807C3A; border-radius: 999px; cursor: pointer; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E4E1B8" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+</div>
+<a href="Test.dc.html" onClick="{{closeMenu}}" style="display: flex; align-items: center; justify-content: center; min-height: 54px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 19px; border-radius: 999px; text-decoration: none">Faire mon test physique</a>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">S'entraîner</span><a href="Test.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Test physique</span><span style="font-size: 14px; color: #A8A36A">7 tests reconnus et ton bilan</span></a><a href="Programme.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Ma préparation</span><span style="font-size: 14px; color: #A8A36A">Audit, objectif et programme complet</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Charge max, chrono, disques</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quiz : quel matos pour toi ?</span></a><a href="Main.dc.html#outils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Playlists Fun, Boost, Chill</span></a></div><div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Récupérer</span><a href="Main.dc.html#recuperer" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quand s’étirer ?</span></a><a href="Main.dc.html#recuperer" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Routine souplesse 10 min</span><span style="font-size: 14px; color: #A8A36A">Guidée au chrono</span></a><a href="Main.dc.html#sommeil" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Mieux dormir</span><span style="font-size: 14px; color: #A8A36A">Mini-audit sommeil</span></a></div><div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Bien manger</span><a href="Main.dc.html#quiz" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Quiz nutrition</span></a><a href="Programme.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Plan alimentaire</span><span style="font-size: 14px; color: #A8A36A">Juste après ton audit</span></a><a href="Main.dc.html#manger" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Calculateur d’hydratation</span></a><a href="Main.dc.html#manger" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Compléments : ce qui marche</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Boutique</span><a href="Main.dc.html#manique" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Manique X-Trm Confort</span><span style="font-size: 14px; color: #A8A36A">34,95 €</span></a><a href="Main.dc.html#manique" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Sangle et poignet de force</span><span style="font-size: 14px; color: #A8A36A">Bientôt disponibles</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Coaching</span><a href="Suivi.dc.html" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Suivi personnalisé</span><span style="font-size: 14px; color: #A8A36A">Sport ou sport + diététique, sans engagement</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Conseils</span><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Débuter</span></a><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Mains et grip</span></a><a href="Main.dc.html#conseils" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Progresser</span></a></div>
+<div style="display: flex; flex-direction: column"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #F2E415; padding-bottom: 6px">Alpha</span><a href="Main.dc.html#quisommesnous" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Qui sommes-nous ?</span></a><a href="Main.dc.html#contact" onClick="{{closeMenu}}" style="display: flex; flex-direction: column; justify-content: center; min-height: 48px; padding: 6px 0; border-top: 1px solid #3F3C22; color: #FFFFFF; text-decoration: none"><span style="font-size: 18px; font-weight: 700">Prendre contact</span></a></div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px"><a href="#mentions" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">Mentions légales</a><a href="#cgv" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">CGV</a><a href="#confidentialite" style="color: #A8A36A; min-height: 36px; display: flex; align-items: center">Confidentialité</a></div>
+</nav>
+</sc-if>
+<section style="display: flex; flex-direction: column; gap: 16px; padding: 32px 20px; background: #12110C; color: #E4E1B8">
+<div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #F2E415">Suivi personnalisé · Sans engagement</div>
+<h1 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 52px; line-height: 0.98; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.6px #E4E1B8">Ton coach dans la poche</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.5">Un programme, c'est bien. Quelqu'un qui te suit, t'ajuste et t'aide à tenir ta discipline quand il pleut un mardi soir, c'est mieux.</p>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><polyline points="5 12 10 17 19 7"></polyline></svg><span style="font-size: 16px">Résiliable à tout moment, gratuitement</span></div>
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><polyline points="5 12 10 17 19 7"></polyline></svg><span style="font-size: 16px">Échanges sur WhatsApp, appel en option</span></div>
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><polyline points="5 12 10 17 19 7"></polyline></svg><span style="font-size: 16px">Sport seul, ou sport et diététique</span></div>
+</div>
+</section>
+<main style="display: flex; flex-direction: column; gap: 28px; padding: 32px 20px 40px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A4620">1 · Ton accompagnement</span>
+<sc-for list="{{formules}}" as="o" hint-placeholder-count="2">
+<button onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 64px; padding: 14px; text-align: left; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 12px; cursor: pointer; font-family: 'Roboto Condensed', sans-serif"><span style="font-size: 19px; font-weight: 700">{{o.label}}</span><span style="font-size: 15px; line-height: 1.35">{{o.sub}}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A4620">2 · Le rythme du suivi</span>
+<sc-for list="{{rythmes}}" as="o" hint-placeholder-count="3">
+<button onClick="{{o.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 64px; padding: 14px; text-align: left; background: {{o.bg}}; color: #12110C; border: 2px solid {{o.bd}}; border-radius: 12px; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">
+<span style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span style="font-size: 19px; font-weight: 700">{{o.label}}</span><span style="font-size: 16px; font-weight: 700">· {{o.price}}</span><sc-if value="{{o.limited}}" hint-placeholder-val="{{ false }}"><span style="background: #12110C; color: #F2E415; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px">5 places maximum</span></sc-if></span>
+<span style="font-size: 15px; line-height: 1.35">{{o.sub}}</span>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A4620">{{optNum}} · En option</span>
+<button onClick="{{toggleCall}}" aria-pressed="{{call}}" style="display: flex; gap: 14px; align-items: center; min-height: 64px; padding: 14px; text-align: left; background: {{callBg}}; color: #12110C; border: 2px solid {{callBd}}; border-radius: 12px; cursor: pointer; font-family: 'Roboto Condensed', sans-serif">
+<span aria-hidden="true" style="width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 2px solid #12110C; border-radius: 6px; background: #FFFFFF; font-size: 20px; font-weight: 700">{{callMark}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-size: 18px; font-weight: 700">Appel téléphonique</span><span style="font-size: 15px; line-height: 1.35">{{callSub}}</span></span>
+<span style="font-weight: 700; font-size: 16px; white-space: nowrap">+{{callPrice}}</span>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; background: #12110C; color: #E4E1B8; border-radius: 18px; padding: 20px">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #A8A36A">Ton suivi</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 30px; line-height: 1.05; text-transform: uppercase; color: #FFFFFF">{{title}}</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{included}}" as="t" hint-placeholder-count="4">
+<div style="display: flex; gap: 10px; align-items: flex-start"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2E415" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px"><polyline points="5 12 10 17 19 7"></polyline></svg><span style="font-size: 15px; line-height: 1.4">{{t.text}}</span></div>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #3F3C22; padding-top: 14px">
+<span style="font-size: 16px; font-weight: 700">Total</span>
+<span style="font-family: Anton, Impact, sans-serif; font-size: 38px; line-height: 1; color: #F2E415">{{total}}</span>
+</div>
+<span style="font-size: 14px; color: #A8A36A">Tarif de lancement. Facturé chaque mois, tu arrêtes quand tu veux, en 3 clics, sans frais.</span>
+<a href="#abonnement" style="display: flex; align-items: center; justify-content: center; min-height: 56px; background: #F2E415; color: #12110C; font-weight: 700; font-size: 20px; border-radius: 999px; text-decoration: none">Je commence mon suivi</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: Anton, Impact, sans-serif; font-weight: 400; font-size: 34px; line-height: 1; text-transform: uppercase">Les questions qu'on nous pose</h2>
+<sc-for list="{{faq}}" as="q" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; background: #FFFFFF; border: 2px solid #C9C49A; border-radius: 12px; overflow: hidden">
+<button onClick="{{q.toggle}}" aria-expanded="{{q.open}}" style="display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 56px; padding: 12px 14px; background: transparent; border: 0; text-align: left; cursor: pointer; font-family: 'Roboto Condensed', sans-serif; color: #12110C"><span style="font-size: 17px; font-weight: 700">{{q.q}}</span><span aria-hidden="true" style="font-size: 22px; font-weight: 700">{{q.sign}}</span></button>
+<sc-if value="{{q.open}}" hint-placeholder-val="{{ false }}"><span style="padding: 0 14px 14px; font-size: 15px; line-height: 1.45">{{q.a}}</span></sc-if>
+</div>
+</sc-for>
+</div>
+</main>
+<footer style="flex-grow: 1; display: flex; flex-direction: column; gap: 14px; padding: 36px 20px; background: #12110C; color: #E4E1B8">
+<span style="font-family: Anton, Impact, sans-serif; font-size: 34px; line-height: 1; text-transform: uppercase; color: #FFFFFF">Pas encore prêt ?</span>
+<span style="font-size: 16px; line-height: 1.45">Commence par l'audit gratuit. Ton programme t'attend, sans carte bancaire.</span>
+<a href="Programme.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border: 2px solid #E4E1B8; color: #E4E1B8; font-weight: 700; font-size: 18px; border-radius: 999px; text-decoration: none">Faire mon audit gratuit</a>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"prixSportMois":{"editor":"float","default":49,"section":"Prix (€ / mois, 0 = à définir)"},"prixSportSemaine":{"editor":"float","default":79,"section":"Prix (€ / mois, 0 = à définir)"},"prixSportJour":{"editor":"float","default":179,"section":"Prix (€ / mois, 0 = à définir)"},"prixComboMois":{"editor":"float","default":69,"section":"Prix (€ / mois, 0 = à définir)"},"prixComboSemaine":{"editor":"float","default":109,"section":"Prix (€ / mois, 0 = à définir)"},"prixComboJour":{"editor":"float","default":229,"section":"Prix (€ / mois, 0 = à définir)"},"prixAppel":{"editor":"float","default":35,"section":"Prix (€ / mois, 0 = à définir)"},"prixAppelSemaine":{"editor":"float","default":95,"section":"Prix (€ / mois, 0 = à définir)"},"$preview":{"width":390,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { formule: 'combo', rythme: 'semaine', slot: '18 h 00', call: false, faq: -1 };
+  }
+  renderVals() {
+    var self = this, st = this.state, pr = this.props;
+    var D = { prixSportMois: 49, prixSportSemaine: 79, prixSportJour: 179, prixComboMois: 69, prixComboSemaine: 109, prixComboJour: 229, prixAppel: 35, prixAppelSemaine: 95 };
+    var P = function (k) { return pr[k] != null ? pr[k] : D[k]; };
+    var sel = function (on) { return { bg: on ? '#F2E415' : '#FFFFFF', bd: on ? '#12110C' : '#C9C49A' }; };
+    var mk = function (key, list) {
+      return list.map(function (o) { var c = sel(st[key] === o.v); return Object.assign({}, o, c, { pick: function () { var u = {}; u[key] = o.v; self.setState(u); } }); });
+    };
+    var price = {
+      sport: { mois: P('prixSportMois'), semaine: P('prixSportSemaine'), jour: P('prixSportJour') },
+      combo: { mois: P('prixComboMois'), semaine: P('prixComboSemaine'), jour: P('prixComboJour') }
+    }[st.formule][st.rythme] || 0;
+    var call = st.rythme === 'mois' ? P('prixAppel') : P('prixAppelSemaine');
+    var fmt = function (v) { return v ? v.toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + ' €' : '[PRIX] €'; };
+    var total = (price && (!st.call || call)) ? fmt(price + (st.call ? call : 0)) + ' / mois' : '[PRIX] € / mois';
+    var rLabel = { mois: 'Mensuel', semaine: 'Hebdomadaire', jour: 'Journalier' }[st.rythme];
+    var inc = {
+      mois: ['Un bilan complet chaque mois : tests, ressenti, ajustement du programme.', 'Tes questions sur WhatsApp entre deux bilans.'],
+      semaine: ['Un point chaque semaine : séances réalisées, sensations, ajustements.', 'Programme mis à jour chaque semaine.', 'Tes questions sur WhatsApp au fil de la semaine.'],
+      jour: ['15 minutes par jour sur WhatsApp, à ton créneau de ' + st.slot + '.', 'Retour sur tes séances, vidéos de technique comprises.', 'Programme ajusté en continu.']
+    }[st.rythme].slice();
+    if (st.formule === 'combo') {
+      inc.push(st.rythme === 'mois' ? 'Plan alimentaire personnalisé, revu chaque mois.' : 'Plan alimentaire personnalisé et retours sur tes repas (une photo suffit).');
+    }
+    if (st.call) inc.push('Appel téléphonique pour faire le point de vive voix.');
+    var faqData = [
+      ['Je peux arrêter quand je veux ?', 'Oui. Sans engagement, sans frais, en 3 clics depuis ton compte. Pas de lettre recommandée, pas de piège.'],
+      ['Qui me suit ?', '[TON PARCOURS, TES DIPLÔMES ET TA CARTE PROFESSIONNELLE]'],
+      ['Je suis débutant, c’est pour moi ?', 'Encore plus. C’est au début qu’on prend les bonnes habitudes (et les mauvaises, si personne ne regarde).'],
+      ['Pourquoi seulement 5 places en hebdomadaire ?', 'Parce qu’un vrai suivi chaque semaine, ça ne se partage pas avec 50 personnes. Quand c’est complet, on t’inscrit sur liste d’attente.'],
+      ['Je peux changer de formule ?', 'Oui, à tout moment. Le changement s’applique au mois suivant.']
+    ];
+    return {
+      menuOpen: !!this.state.menuOpen, toggleMenu: function () { self.setState({ menuOpen: !self.state.menuOpen }); }, closeMenu: function () { self.setState({ menuOpen: false }); },
+      formules: mk('formule', [{ v: 'sport', label: 'Sport', sub: 'Préparation physique suivie et ajustée.' }, { v: 'combo', label: 'Sport + diététique', sub: 'Entraînement et assiette : le duo qui accélère les résultats.' }]),
+      rythmes: mk('rythme', [{ v: 'mois', label: 'Mensuel', sub: 'Un bilan par mois. Pour les autonomes.', limited: false }, { v: 'semaine', label: 'Hebdomadaire', sub: 'Un point chaque semaine. Le bon équilibre.', limited: true }].map(function (r) { var pf = { sport: { mois: 'prixSportMois', semaine: 'prixSportSemaine', jour: 'prixSportJour' }, combo: { mois: 'prixComboMois', semaine: 'prixComboSemaine', jour: 'prixComboJour' } }[st.formule][r.v]; return Object.assign({}, r, { price: fmt(P(pf)) + ' / mois' }); })),
+      isJour: false, optNum: '3',
+      slots: mk('slot', [{ v: '7 h 00', label: '7 h 00' }, { v: '12 h 30', label: '12 h 30' }, { v: '18 h 00', label: '18 h 00' }, { v: '20 h 30', label: '20 h 30' }]),
+      call: st.call, callMark: st.call ? '✓' : '', callBg: st.call ? '#F2E415' : '#FFFFFF', callBd: st.call ? '#12110C' : '#C9C49A',
+      callSub: st.rythme === 'mois' ? 'Un appel de 30 min pour ton bilan mensuel.' : 'Un appel de 20 min chaque semaine (4 par mois), en plus de WhatsApp.',
+      callPrice: fmt(call),
+      toggleCall: function () { self.setState({ call: !st.call }); },
+      title: (st.formule === 'combo' ? 'Sport + diététique' : 'Sport') + ' · ' + rLabel,
+      included: inc.map(function (t) { return { text: t }; }),
+      total: total,
+      faq: faqData.map(function (f, i) { var open = st.faq === i; return { q: f[0], a: f[1], open: open, sign: open ? '−' : '+', toggle: function () { self.setState({ faq: open ? -1 : i }); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

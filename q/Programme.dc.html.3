@@ -1,0 +1,200 @@
+      var FE3 = ['Fessiers, travail unilatéral', function () { return [WUS, ex('Fente bulgare', 'main'), ex('Step-up sur banc', 'acc'), ex('Kickback à l’élastique', 'acc'), ex('Bird dog', 'core')]; }];
+      var FE4 = ['Gainage et mobilité', function () { return mob().concat([ex('Planche', 'core'), ex('Gainage latéral', 'core')]); }];
+      list = [FE1, FE2, FE3, FE4, ['Fessiers et jambes (variante)', FE1[1]], ['Récup active', recA]].slice(0, planF);
+    }
+    else if (f.goal === 'silhouette') list = [M.fbA, FO.hiit, FO.circ, FO.cardio, M.fbB, FO.mob].slice(0, planF);
+    else list = [FO.circ, FO.cardio, FO.renfo, FO.hiit, FO.mob, FO.bal].slice(0, planF);
+    var openIdx = this.state.openIdx;
+    var self2 = this;
+    var sessions = list.map(function (sd, i) {
+      var rows = sd[1]();
+      return { n: String(i + 1), title: sd[0], count: rows.length + ' bloc' + (rows.length > 1 ? 's' : ''), rows: rows, open: openIdx === i, closed: openIdx !== i, sign: openIdx === i ? '−' : '+', toggle: function () { self2.setState({ openIdx: openIdx === i ? -1 : i }); } };
+    });
+    var PROG = g.fam === 'run'
+      ? ['Augmente ton volume total de 10 % maximum par semaine.', 'Toutes les 4 semaines, semaine allégée : −30 % de volume.', 'Fractionné : ajoute 1 répétition chaque semaine, puis allonge les efforts.', 'Sortie longue : +10 min toutes les 2 semaines.', 'Affûtage : −40 % de volume, on garde un peu d’intensité.']
+      : g.fam === 'str'
+      ? ['Double progression : quand tu fais le haut de la fourchette sur toutes les séries, ajoute de la charge.', '+2,5 kg sur le haut du corps, +5 kg sur le bas du corps.', 'Toutes les 4 à 6 semaines, semaine allégée : −40 % de charge ou de séries.', 'Tempo : 2 s à la descente, montée dynamique.', 'Utilise le calculateur de charge max de l’accueil pour caler tes pourcentages.']
+      : ['Ajoute 1 tour de circuit ou 5 min de cardio toutes les 2 semaines.', 'Quand une séance devient facile, raccourcis les récupérations de 5 s.', 'Toutes les 4 semaines, une semaine plus légère.', 'La régularité compte plus que l’intensité.'];
+    var wk1;
+    if (g.fam === 'run' || g.fam === 'fit') {
+      wk1 = endL === 0 ? 'Alterne 1 min de course et 2 min de marche, 20 à 30 min par séance. Oui, ça compte comme courir.' : endL === 1 ? 'Courses de 20 à 30 min à une allure où tu peux parler. Pas de chrono cette semaine.' : 'Garde 80 % de ton volume à allure facile. Les séances dures, c’est 20 %, pas plus.';
+    } else {
+      wk1 = strL === 0 ? 'Poids du corps et charges légères, 2 à 3 séries de 10 à 12. La technique d’abord, l’ego plus tard.' : strL === 1 ? 'Charges modérées, 3 séries, en gardant 2 répétitions en réserve. On pose les bases.' : 'Semaine de reprise à 80 % de tes charges habituelles, puis progression chaque semaine.';
+    }
+    var mid = Math.round((lo + hi) / 2);
+    var p1 = Math.max(2, Math.round(mid * 0.35)), p3 = Math.min(g.fam === 'run' ? 3 : 4, Math.max(1, Math.round(mid * 0.2))), p2 = Math.max(1, mid - p1 - p3);
+    var PD = g.fam === 'run' ? ['Construire le moteur : beaucoup d’allure facile, du renforcement, zéro blessure.', 'Allonger les sorties et ajouter l’intensité : fractionné, seuil, dénivelé.', 'On réduit le volume pour arriver frais le jour J.'] : g.fam === 'str' ? ['Apprendre les mouvements et habituer tendons et articulations.', 'Progression de charge semaine après semaine : c’est là que ça pousse.', 'Consolidation : on teste les progrès et on prépare la suite.'] : ['Reprendre une routine sans se dégoûter.', 'Monter progressivement en durée et en intensité.', 'Ancrer l’habitude pour qu’elle dure.'];
+    var phases = [{ name: 'Fondation', weeks: p1 + ' sem.', desc: PD[0] }, { name: 'Développement', weeks: p2 + ' sem.', desc: PD[1] }, { name: g.fam === 'run' ? 'Affûtage' : 'Consolidation', weeks: p3 + ' sem.', desc: PD[2] }];
+    var lvlTxt = ['À construire', 'Bases présentes', 'Solide', 'Très bon'];
+    var mLo = Math.round(lo / 4.3), mHi = Math.round(hi / 4.3);
+    return {
+      hasPaid: f.goal === 'fessiers' || (f.sexe === 'F' && age >= 40 && (f.goal === 'force' || f.goal === 'masse' || f.goal === 'forme' || f.goal === 'silhouette')),
+      goalLabel: g.label, milestone: g.milestone, verdict: verdict, verdictBg: vbg, verdictText: vtext,
+      weeks: lo + ' à ' + hi + ' sem.', months: 'soit environ ' + (mLo === mHi ? mLo : mLo + ' à ' + mHi) + ' mois', freq: String(planF),
+      endTxt: lvlTxt[endL], strTxt: lvlTxt[strL], endW: ((endL + 1) * 25) + '%', strW: ((strL + 1) * 25) + '%',
+      notes: notes, hasNotes: notes.length > 0, week1: wk1, phases: phases, sessions: sessions,
+      prog: PROG.map(function (t) { return { text: t }; })
+    };
+  }
+  nutriDefs() {
+    return [
+      { k: 'repas', title: 'Combien de repas par jour ?', w: 1.5, good: 'Un nombre de repas adapté', prio: 'Passe à 3 repas', act: 'Ou 2 repas + 1 collation protéinée : couvrir tes besoins en 1 ou 2 fois, c’est très dur.', o: [['1 ou 2', 0], ['3', 2], ['4 ou plus (avec collations)', 2]] },
+      { k: 'rythme', title: 'Tes horaires de repas', w: 1, good: 'Des repas à heures régulières', prio: 'Cale tes horaires', act: 'Des repas à heures à peu près fixes : ta faim devient prévisible et les fringales reculent.', o: [['Très irréguliers', 0], ['Plutôt réguliers', 1], ['Réguliers', 2]] },
+      { k: 'legumes', title: 'Fruits et légumes par jour', w: 3, good: 'Assez de fruits et légumes', prio: 'Plus de légumes', act: 'La moitié de l’assiette en légumes, midi et soir. Les chips du soir ne comptent pas, même au paprika.', o: [['0 à 1 portion', 0], ['2 à 3 portions', 1], ['4 portions ou plus', 2]] },
+      { k: 'prot', title: 'Une source de protéines à chaque repas ?', w: 3, good: 'Des protéines à chaque repas', prio: 'Des protéines à chaque repas', act: 'Œufs, fromage blanc, poulet, poisson, lentilles : une portion à chaque repas. C’est la base pour récupérer et construire.', o: [['Rarement', 0], ['Un repas sur deux', 1], ['À chaque repas', 2]] },
+      { k: 'eau', title: 'Combien d’eau par jour ?', w: 2, good: 'Une bonne hydratation', prio: 'Bois plus d’eau', act: 'Une gourde toujours sur toi. Quand tu as soif, c’est déjà un peu tard.', o: [['Moins d’1 L', 0], ['1 à 2 L', 1], ['Plus de 2 L', 2]] },
+      { k: 'grignot', title: 'Grignotage et sucreries', w: 2, good: 'Peu de grignotage', prio: 'Remplace le grignotage', act: 'Une vraie collation prévue à l’avance : fruit + yaourt, ou une poignée d’amandes.', o: [['Tous les jours', 0], ['Quelques fois par semaine', 1], ['Rarement', 2]] },
+      { k: 'soda', title: 'Sodas, jus, boissons sucrées', w: 2.5, good: 'Peu de boissons sucrées', prio: 'Lâche les boissons sucrées', act: 'C’est du sucre qu’on ne sent pas passer. Eau pétillante, thé ou infusion froide sans sucre.', o: [['Tous les jours', 0], ['Parfois', 1], ['Jamais ou presque', 2]] },
+      { k: 'alcool', title: 'Alcool', w: 2.5, good: 'Une consommation d’alcool maîtrisée', prio: 'Réduis l’alcool', act: 'Il freine la récupération et la construction musculaire. Garde-le pour les occasions, pas pour le mardi soir.', o: [['Plusieurs fois par semaine', 0], ['Le week-end', 1], ['Rarement ou jamais', 2]] },
+      { k: 'fastfood', title: 'Plats préparés et fast-food', w: 2, good: 'Surtout du fait maison', prio: 'Cuisine en avance', act: 'Le dimanche, prépare en grande quantité (riz, poulet, légumes rôtis) : tes repas de la semaine sont prêts.', o: [['3 fois par semaine ou plus', 0], ['1 à 2 fois par semaine', 1], ['Rarement', 2]] },
+      { k: 'poids', title: 'Côté poids, tu voudrais…', w: 0, o: [['Perdre du poids', 'perdre'], ['Le garder stable', 'stable'], ['Prendre du poids', 'prendre']] }
+    ];
+  }
+  computeNutri() {
+    var f = this.state.f, raw = this.state.n, defs = this.nutriDefs();
+    var a = {}; defs.forEach(function (d) { a[d.k] = d.o[raw[d.k]][1]; });
+    var age = Number(f.age), h = Number(f.taille), w = Number(f.poids), freq = Number(f.freq);
+    var famOf = { semi: 'run', marathon: 'run', trail: 'run', masse: 'str', force: 'str', explo: 'str', forme: 'fit' };
+    var lab = { semi: 'Semi-marathon', marathon: 'Marathon', trail: 'Trail', masse: 'Masse musculaire', force: 'Force pure', explo: 'Explosivité', forme: 'Remise en forme' };
+    var fam = famOf[f.goal] || 'fit';
+    var scored = defs.filter(function (d) { return d.w > 0; });
+    var sum = 0; scored.forEach(function (d) { sum += Number(a[d.k]); });
+    var score = Math.round(sum / (scored.length * 2) * 20);
+    var verdict, vtext;
+    if (score >= 16) { verdict = 'Solide'; vtext = 'Tu as de très bonnes bases. On va surtout ajuster les quantités à ton objectif.'; }
+    else if (score >= 11) { verdict = 'Des bases, à affiner'; vtext = 'Le socle est là, mais quelques habitudes te freinent. Corrige-les une par une, pas toutes le même lundi.'; }
+    else if (score >= 6) { verdict = 'Il y a du boulot'; vtext = 'Et c’est une bonne nouvelle : ta marge de progrès est énorme. Chaque priorité corrigée va se sentir à l’entraînement.'; }
+    else { verdict = 'Chantier prioritaire'; vtext = 'Honnêtement, ton assiette freine plus tes résultats que ton entraînement. Commence par la priorité n° 1, rien d’autre pendant 2 semaines.'; }
+    var strengths = scored.filter(function (d) { return Number(a[d.k]) === 2; }).map(function (d) { return { text: d.good }; });
+    var prios = scored.filter(function (d) { return Number(a[d.k]) < 2; }).map(function (d) { return { d: d, p: (2 - Number(a[d.k])) * d.w }; })
+      .sort(function (x, y) { return y.p - x.p; }).slice(0, 3).map(function (x, i) { return { n: String(i + 1), title: x.d.prio, text: x.d.act }; });
+    var notes = [];
+    var target = a.poids;
+    var imc = w / Math.pow(h / 100, 2);
+    if (age < 18 && target === 'perdre') { target = 'stable'; notes.push({ text: 'Avant 18 ans, pas de régime : ton corps grandit encore. On améliore la qualité de l’assiette, pas la quantité.' }); }
+    if (imc < 18.5 && target === 'perdre') { target = 'stable'; notes.push({ text: 'Ton poids est déjà bas pour ta taille : on ne vise pas de perte. Parles-en à un médecin si tu te sens concerné.' }); }
+    var bmr = 10 * w + 6.25 * h - 5 * age + (f.sexe === 'F' ? -161 : 5);
+    var act = freq <= 2 ? 1.375 : freq <= 4 ? 1.55 : 1.725;
+    var maint = bmr * act;
+    var kcal = maint, kn;
+    if (target === 'perdre') { kcal = Math.max(maint * 0.85, bmr * 1.1); kn = 'Léger déficit (≈ −15 %) sous ton entretien de ' + this.fmtK(maint) + ' kcal.'; notes.push({ text: 'Rythme honnête : 0,5 à 1 % de ton poids par semaine maximum. Plus vite, tu perds du muscle et tu reprends tout ensuite.' }); if (fam === 'run') notes.push({ text: 'En préparation d’endurance, un déficit trop fort augmente le risque de blessure : garde-le léger, surtout autour des sorties longues.' }); }
+    else if (target === 'prendre') { kcal = maint * 1.1; kn = 'Léger surplus (≈ +10 %) au-dessus de ton entretien de ' + this.fmtK(maint) + ' kcal.'; notes.push({ text: 'Vise +0,25 à 0,5 % de ton poids par semaine. Au-delà, c’est surtout du gras qui arrive.' }); }
+    else { kn = 'Pour garder un poids stable avec ' + freq + ' séance(s) par semaine.'; }
+    var pk = { str: 1.8, run: 1.4, fit: 1.4 }[fam]; if (f.goal === 'explo') pk = 1.6; if (target === 'perdre') pk = Math.min(2.2, pk + 0.3);
+    var prot = Math.round(w * pk), fat = Math.round(w * (target === 'perdre' ? 0.8 : 1));
+    var carbs = Math.max(Math.round((kcal - prot * 4 - fat * 9) / 4), Math.round(w * 2));
+    kcal = prot * 4 + fat * 9 + carbs * 4;
+    var water = (Math.round(w * 0.035 * 2) / 2).toLocaleString('fr-FR');
+    var palms = Math.max(1, Math.min(3, Math.round(prot * 0.8 / 3 / 25)));
+    var fists = Math.max(1, Math.min(4, Math.round(carbs * 0.75 / 3 / 35)));
+    var plural = function (n, s1) { return n + ' ' + s1 + (n > 1 ? 's' : ''); };
+    var day;
+    if (fam === 'run') day = [
+      { meal: 'Petit-déjeuner', text: 'Flocons d’avoine ou pain complet, miel, yaourt ou fromage blanc, un fruit.' },
+      { meal: 'Déjeuner', text: plural(palms, 'paume') + ' de poulet, poisson ou œufs, ' + plural(fists, 'poing') + ' de riz, pâtes ou pommes de terre, la moitié de l’assiette en légumes, un filet d’huile d’olive.' },
+      { meal: 'Collation', text: 'Banane + poignée d’amandes, ou tartine de beurre de cacahuète, idéalement 1 h avant la séance.' },
+      { meal: 'Dîner', text: 'Même structure, avec poisson, œufs ou légumineuses. La veille d’une sortie longue, un poing de féculents en plus.' }];
+    else if (fam === 'str') day = [
+      { meal: 'Petit-déjeuner', text: 'Œufs brouillés ou fromage blanc, flocons d’avoine, un fruit.' },
+      { meal: 'Déjeuner', text: plural(palms, 'paume') + ' de poulet, bœuf ou poisson, ' + plural(fists, 'poing') + ' de riz, pâtes ou pommes de terre, la moitié de l’assiette en légumes, un filet d’huile d’olive.' },
+      { meal: 'Collation', text: target === 'prendre' ? 'Yaourt grec, fruit, poignée d’amandes et 2 tartines de beurre de cacahuète.' : 'Yaourt grec ou fromage blanc, un fruit, une poignée d’amandes.' },
+      { meal: 'Dîner', text: 'Même structure, avec poisson, œufs ou légumineuses. Les féculents ne font pas grossir le soir : c’est le total de la journée qui compte.' }];
+    else day = [
+      { meal: 'Petit-déjeuner', text: 'Pain complet ou flocons d’avoine, un laitage, un fruit.' },
+      { meal: 'Déjeuner', text: plural(palms, 'paume') + ' de protéines, ' + plural(fists, 'poing') + ' de féculents, la moitié de l’assiette en légumes.' },
+      { meal: 'Collation (si faim)', text: 'Un fruit et un yaourt, ou une poignée d’oléagineux.' },
+      { meal: 'Dîner', text: 'Même structure. Une soupe de légumes en entrée aide à manger à sa faim sans excès.' }];
+    var training = fam === 'run'
+      ? [{ text: 'Avant : un repas léger 2 à 3 h avant, ou une banane 30 min avant.' }, { text: 'Pendant (plus d’1 h 15) : de l’eau et 30 à 60 g de glucides par heure (boisson, gel, pâte de fruit).' }, { text: 'Après : glucides + protéines dans l’heure, par exemple riz + poulet, ou lait chocolaté.' }]
+      : fam === 'str'
+      ? [{ text: 'Avant (1 à 2 h) : un repas avec protéines et féculents.' }, { text: 'Après : protéines + glucides dans les 2 h. Pas besoin de courir au shaker en sortant du vestiaire.' }, { text: 'Pas besoin de compléments pour progresser. Si tu galères à atteindre tes protéines, une whey peut dépanner.' }]
+      : [{ text: 'Pas de nutrition spéciale : un fruit avant si tu as faim, un repas normal après.' }, { text: 'Bois pendant et après la séance, surtout s’il fait chaud.' }];
+    return {
+      goalLabel: lab[f.goal] || '', score: String(score), verdict: verdict, verdictText: vtext,
+      strengths: strengths, hasStrengths: strengths.length > 0, prios: prios, hasPrios: prios.length > 0,
+      kcal: this.fmtK(kcal), kcalNote: kn,
+      macros: [{ name: 'Protéines', sub: (Math.round(pk * 10) / 10).toLocaleString('fr-FR') + ' g par kg de poids', g: String(prot) }, { name: 'Glucides', sub: 'Ton carburant, surtout les jours d’entraînement', g: String(carbs) }, { name: 'Lipides', sub: 'Huiles, poissons gras, oléagineux', g: String(fat) }],
+      water: water, palms: plural(palms, 'paume'), fists: plural(fists, 'poing'), thumbs: target === 'prendre' ? '2 pouces' : '1 à 2 pouces',
+      day: day, training: training, notes: notes, hasNotes: notes.length > 0
+    };
+  }
+  fmtK(v) { return (Math.round(v / 50) * 50).toLocaleString('fr-FR'); }
+  renderVals() {
+    var self = this, s = this.state.step;
+    var labels = ['', 'Audit', 'Test express', 'Objectif', 'Engagement', 'Résultat'];
+    var go = function (d) {
+      if (d > 0 && s >= 1 && s <= 4) { var e = self.validate(s); if (e) { self.setState({ err: e }); return; } }
+      self.setState({ step: Math.max(0, Math.min(5, s + d)), err: '' });
+    };
+    var setter = function (k) { return function (e) { self.setF(k, e.target.value); }; };
+    return {
+      menuOpen: !!this.state.menuOpen, toggleMenu: function () { self.setState({ menuOpen: !self.state.menuOpen }); }, closeMenu: function () { self.setState({ menuOpen: false }); },
+      f: this.state.f,
+      isIntro: s === 0, isAudit: s === 1, isTest: s === 2, isGoal: s === 3, isFreq: s === 4, isResult: s === 5,
+      pageBg: ((s >= 1 && s <= 4) || s === 6) ? '#E4E1B8' : '#12110C', pageFg: ((s >= 1 && s <= 4) || s === 6) ? '#12110C' : '#E4E1B8',
+      families: [
+        { name: 'Protéines', role: 'Les maçons', text: 'Elles construisent et réparent tes muscles. Sans elles, tu t’entraînes pour rien : le chantier n’a pas de briques.', where: 'viande, poisson, œufs, fromage blanc, skyr, lentilles, pois chiches, tofu.' },
+        { name: 'Glucides', role: 'Le carburant', text: 'L’essence de tes séances. Ils ne font pas grossir par magie le soir : c’est le total de la journée qui compte.', where: 'riz, pâtes, pain, pommes de terre, flocons d’avoine, fruits.' },
+        { name: 'Lipides & oméga-3', role: 'Les indispensables', text: 'Certains acides gras sont dits essentiels : ton corps ne sait pas les fabriquer, il faut les manger. Les oméga-3 en tête, bons pour le cœur et la récupération.', where: 'poissons gras (sardine, maquereau, saumon), huile de colza, noix, graines de lin. Vise un poisson gras par semaine.' },
+        { name: 'Fibres', role: 'L’équipe entretien', text: 'Elles calent, régulent la digestion et nourrissent ton intestin. Le héros discret de l’assiette.', where: 'légumes, fruits, légumineuses, pain et pâtes complets.' }
+      ],
+      quiz: (function () {
+        var Q = [
+          ['Beurre de cacahuète', 'Surtout du gras', 'Environ la moitié, c’est du gras. Délicieux, mais ça compte en pouces, pas en paumes.'],
+          ['Œuf', 'Protéine', 'Une protéine complète. Et le jaune aussi, arrête de le jeter : c’est là que sont les vitamines.'],
+          ['Pommes de terre', 'Glucide (féculent)', 'Un féculent, pas un légume. Désolé pour les frites.'],
+          ['Saucisson', 'Surtout du gras', 'Plus de gras que de protéines. C’est l’apéro, pas la récup.'],
+          ['Lentilles', 'Protéines + glucides + fibres', 'Le couteau suisse de l’assiette. Et ça ne coûte presque rien.'],
+          ['Sardines en boîte', 'Protéines + oméga-3', 'Protéines et acides gras essentiels. La boîte la plus sous-cotée du rayon.'],
+          ['Fromage', 'Gras + protéines', 'Des protéines, oui, mais souvent autant ou plus de gras. Le fromage blanc et le skyr, eux, sont de vraies sources de protéines.'],
+          ['Avocat', 'Bon gras', 'Du bon gras, plein de fibres. Mais pas une protéine, même en toast.']
+        ];
+        return Q.map(function (q, i) { var open = !!self.state.qz[i]; return { food: q[0], tag: q[1], text: q[2], open: open, hint: open ? 'Masquer' : 'C’est quoi ?', toggle: function () { var z = Object.assign({}, self.state.qz); z[i] = !open; self.setState({ qz: z }); } }; });
+      })(),
+      quizSeen: String(Object.keys(this.state.qz).filter(function (k) { return self.state.qz[k]; }).length), quizTotal: '8',
+      plMoods: [['fun', 'Fun', 'Bonne humeur et refrains qu’on chante entre deux séries.'], ['agressif', 'Boost', 'Pour les charges lourdes et les derniers kilomètres.'], ['chill', 'Chill', 'Échauffement, mobilité, footing tranquille.']].map(function (m) { var on = (self.state.plMood || 'fun') === m[0]; return { label: m[1], sub: m[2], on: on, bg: on ? '#F2E415' : '#1C1B13', fg: on ? '#12110C' : '#E4E1B8', bd: on ? '#F2E415' : '#3F3C22', pick: function () { self.setState({ plMood: m[0] }); } }; }),
+      plPlats: [['spotify', 'Spotify'], ['deezer', 'Deezer'], ['ytmusic', 'YouTube Music']].map(function (p) { var on = (self.state.plPlat || 'spotify') === p[0]; return { label: p[1], on: on, bg: on ? '#E4E1B8' : 'transparent', fg: on ? '#12110C' : '#E4E1B8', bd: on ? '#E4E1B8' : '#3F3C22', pick: function () { self.setState({ plPlat: p[0] }); } }; }),
+      plUrl: (function () { var m = self.state.plMood || 'fun', p = self.state.plPlat || 'spotify'; var key = 'pl' + m.charAt(0).toUpperCase() + m.slice(1) + '_' + p; var d = { spotify: 'https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d', deezer: 'https://www.deezer.com/', ytmusic: 'https://music.youtube.com/' }; return self.props[key] || (key === 'plChill_spotify' ? 'https://open.spotify.com/playlist/7JabddFr3Q6JPsND4v9Swf' : key === 'plAgressif_spotify' ? 'https://open.spotify.com/playlist/105BF63e6XMWdFjD4s4X0D' : key === 'plFun_spotify' ? 'https://open.spotify.com/playlist/5Tvk2EIfw5Q4T1HnK63C4d' : d[p]); })(),
+      plCta: (function () { var m = { fun: 'Fun', agressif: 'Boost', chill: 'Chill' }[self.state.plMood || 'fun']; var p = { spotify: 'Spotify', deezer: 'Deezer', ytmusic: 'YouTube Music' }[self.state.plPlat || 'spotify']; return 'Écouter « ' + m + ' » sur ' + p + ' →'; })(),
+      isNutri: s === 6, isNutriRes: s === 7,
+      startNutri: function () { self.setState({ step: 6, err: '' }); },
+      toProgram: function () { self.setState({ step: 5, err: '' }); },
+      nutriNext: function () {
+        var missing = self.nutriDefs().filter(function (d) { return self.state.n[d.k] === undefined; });
+        if (missing.length) { self.setState({ err: 'Il reste ' + missing.length + ' question(s) sans réponse.' }); return; }
+        self.setState({ step: 7, err: '' });
+      },
+      nutriQs: this.nutriDefs().map(function (d, i) {
+        return { n: String(i + 1), title: d.title, opts: d.o.map(function (o, oi) {
+          var sel = self.state.n[d.k] === oi;
+          return { label: o[0], bg: sel ? '#F2E415' : '#FFFFFF', fg: '#12110C', bd: sel ? '#12110C' : '#C9C49A', pick: function () { var n = Object.assign({}, self.state.n); n[d.k] = oi; self.setState({ n: n, err: '' }); } };
+        }) };
+      }),
+      nr: s === 7 ? this.computeNutri() : { strengths: [], prios: [], macros: [], day: [], training: [], notes: [], hasNotes: false, hasStrengths: false, hasPrios: false },
+      showProgress: s >= 1 && s <= 4, showNav: s >= 1 && s <= 4,
+      stepLabel: labels[s], stepCount: 'Étape ' + s + ' / 4', progressW: (s * 25) + '%',
+      nextLabel: s === 4 ? 'Voir ma préparation' : 'Suivant',
+      err: this.state.err, hasErr: !!this.state.err,
+      next: function () { go(1); }, back: function () { go(-1); },
+      restart: function () { self.setState({ step: 1, openIdx: 0, err: '' }); },
+      auditNums: this.nums([{ k: 'age', label: 'Âge', unit: 'ans', min: 10, max: 90, step: 1 }, { k: 'taille', label: 'Taille', unit: 'cm', min: 130, max: 220, step: 1 }, { k: 'poids', label: 'Poids', unit: 'kg', min: 35, max: 180, step: 1 }]),
+      testNums: this.nums([{ k: 'pompes', label: '1. Pompes d’affilée', unit: '', min: 0, max: 100, step: 1, desc: 'Corps gainé, poitrine près du sol. Tu t’arrêtes dès que la technique lâche.' }, { k: 'gainage', label: '2. Planche', unit: 's', min: 0, max: 300, step: 5, desc: 'Sur les avant-bras, dos droit. On arrête quand les fesses tombent ou montent.' }]),
+      setAge: setter('age'), setTaille: setter('taille'), setPoids: setter('poids'), setPompes: setter('pompes'), setGainage: setter('gainage'),
+      sexeOpts: this.opts('sexe', [{ v: 'H', label: 'Homme' }, { v: 'F', label: 'Femme' }]),
+      niveauOpts: this.opts('niveau', [{ v: 0, label: 'Sédentaire', sub: 'Pas de sport régulier en ce moment.' }, { v: 1, label: 'Occasionnel', sub: '1 fois par semaine, quand j’y pense.' }, { v: 2, label: 'Régulier', sub: '2 à 3 séances par semaine.' }, { v: 3, label: 'Confirmé', sub: '4 séances ou plus, depuis plus d’un an.' }]),
+      courseOpts: this.opts('course', [{ v: 0, label: 'Moins de 10 min' }, { v: 1, label: '10 à 30 min' }, { v: 2, label: '30 min à 1 h' }, { v: 3, label: 'Plus d’1 h' }]),
+      goalOpts: this.opts('goal', [{ v: 'semi', family: 'Endurance', label: 'Semi-marathon', sub: '21,1 km sur route.' }, { v: 'marathon', family: 'Endurance', label: 'Marathon', sub: '42,2 km. Le mythe.' }, { v: 'trail', family: 'Endurance', label: 'Trail', sub: 'Nature, dénivelé, cailloux.' }, { v: 'masse', family: 'Musculation', label: 'Masse musculaire', sub: 'Prendre du muscle, proprement.' }, { v: 'explo', family: 'Performance', label: 'Explosivité', sub: 'Détente, vitesse, puissance.' }, { v: 'force', family: 'Musculation', label: 'Force pure', sub: 'Squat, développé couché, soulevé de terre.' }, { v: 'fessiers', family: 'Musculation', label: 'Fessiers & tonicité', sub: 'Des fessiers plus forts et plus galbés.' }, { v: 'silhouette', family: 'Bien-être', label: 'Silhouette', sub: 'Un corps plus tonique et affiné.' }, { v: 'forme', family: 'Bien-être', label: 'Remise en forme', sub: 'Se sentir bien dans son corps.' }]),
+      xpOpts: this.opts('xp', [{ v: 0, label: 'Jamais fait de musculation' }, { v: 1, label: 'Un peu, il y a longtemps ou de temps en temps' }, { v: 2, label: 'Régulièrement' }]),
+      precOpts: this.multi('prec', [{ v: 'aucune', label: 'Aucune' }, { v: 'dos', label: 'Dos' }, { v: 'genoux', label: 'Genoux' }, { v: 'epaules', label: 'Épaules' }, { v: 'perinee', label: 'Périnée, fuites' }, { v: 'osteo', label: 'Ostéoporose' }, { v: 'grossesse', label: 'Grossesse < 1 an' }], 'aucune'),
+      dureeOpts: this.opts('duree', [{ v: 20, label: '20 min' }, { v: 40, label: '40 min' }, { v: 60, label: '60 min' }]),
+      lieuOpts: this.opts('lieu', [{ v: 'maison', label: 'Maison' }, { v: 'salle', label: 'Salle' }, { v: 'deux', label: 'Les deux' }]),
+      matOpts: this.multi('mat', [{ v: 'halteres', label: 'Haltères' }, { v: 'elastique', label: 'Élastique' }, { v: 'barre', label: 'Barre et banc' }, { v: 'rien', label: 'Rien pour l’instant' }], 'rien'),
+      prefOpts: this.opts('pref', [{ v: 'chrono', label: 'Au chrono, temps sous tension' }, { v: 'charges', label: 'Aux charges, en ajoutant du poids' }, { v: 'libre', label: 'Pas de préférence' }]),
+      freqOpts: this.opts('freq', [{ v: 1, label: '1', sub: 'séance' }, { v: 2, label: '2', sub: 'séances' }, { v: 3, label: '3', sub: 'séances' }, { v: 4, label: '4', sub: 'séances' }, { v: 5, label: '5', sub: 'séances' }, { v: 6, label: '6', sub: 'séances' }]),
+      r: s === 5 ? this.compute() : { notes: [], phases: [], sessions: [], prog: [], hasNotes: false }
+    };
+  }
+}
+</script>
+</body>
+</html>
