@@ -1,10 +1,10 @@
 # Site Alpha sur Vercel — notes techniques
 
-Mis à jour le 11 octobre 2026. À lire avant toute modification du site alpha-since.vercel.app.
+Mis à jour le 12 octobre 2026. À lire avant toute modification du site alpha-since.vercel.app.
 
 ## Où est le site
 - Équipe Vercel « Alpha » (team_kgP65yH7f6SImP6JonrfThAt), projet `alpha-since` (prj_AG9QU4A39zt2SS7C0Tz1taPNwJOm).
-- Pas de dépôt Git : chaque déploiement envoie la liste complète des fichiers source.
+- Depuis le 12 octobre 2026, le site est dans le dépôt GitHub `DelaneauClement/alpha-since`, relié au projet Vercel : chaque envoi sur la branche `main` reconstruit et publie le site. Avant, il n'y avait pas de dépôt et chaque déploiement envoyait la liste complète des fichiers source par l'API.
 - Les réglages de build ne sont pas enregistrés dans le projet. Il faut les passer à chaque déploiement :
   `installCommand: "echo skip"`, `buildCommand: "node assemble.js"`, `outputDirectory: "out"`, `framework: null`.
 
@@ -14,6 +14,8 @@ Mis à jour le 11 octobre 2026. À lire avant toute modification du site alpha-s
 - `vercel.json` porte les adresses (`/bilan`, `/outils`, `/coaching`, `/conseils`, `/legal`, `/kids`, `/kids/bilan`, `/ado`, `/ado/bilan`, `/espoir`, `/espoir/match`, `/espoir/bilan`) et les en-têtes de sécurité.
 
 ## Déployer une modification
+- Méthode normale depuis le 12 octobre : modifier les fichiers dans le dépôt, lancer `node assemble.js` en local pour vérifier, puis envoyer sur `main`. Vercel publie seul. Les réglages de build sont dans `vercel.json`.
+- Ancienne méthode, par l'API (encore possible) :
 1. Lister les fichiers du dernier déploiement de production : l'identifiant de chaque fichier est son SHA-1.
 2. Envoyer chaque fichier nouveau ou modifié avec l'outil d'envoi de fichier (contenu en base64, SHA-1 et taille).
 3. Créer un déploiement d'aperçu en référençant tous les fichiers par nom et SHA-1 (la taille n'est pas nécessaire), avec les réglages de build ci-dessus.
@@ -113,14 +115,14 @@ Mis à jour le 11 octobre 2026. À lire avant toute modification du site alpha-s
 - C'est une tâche planifiée du compte Claude de Clément qui le fait : « Alpha Since — publier l'article du dimanche », chaque dimanche à 20 h 01 (heure de Paris). Elle redéploie le dernier déploiement de production tel quel. À adapter le jour où le site passe sur GitHub.
 - Articles programmés au 11 octobre : 11 octobre (sport et grossesse), 18 octobre, 25 octobre, 1er novembre, 8 novembre. Après le 8 novembre, il n'y a plus rien en stock.
 
-## Passage sur GitHub (préparé le 11 octobre 2026, pas encore fait)
-- Aucun compte GitHub n'est relié, ni à Claude ni à Vercel : le transfert attend que Clément crée un dépôt et le relie.
+## Passage sur GitHub (fait le 12 octobre 2026)
+- Dépôt `DelaneauClement/alpha-since` (créé public par Clément ; passage en privé conseillé), relié à Claude et à Vercel. Premier envoi : les sources ci-dessous. Test : un changement du README a été publié seul par Vercel (dpl_6Uu15JMe7fs6WyMAg4Dp5ryE4U8u) et l'accueil servi est identique octet pour octet au build local.
 - Les 102 fichiers source de la production ont été récupérés et contrôlés un par un par leur empreinte, puis le site a été reconstruit en local : même résultat que la production. L'archive `alpha-since-sources.zip` a été remise à Clément dans la conversation (version du 11 octobre au soir, bilan Kids ouvert).
 - L'archive ajoute `README.md`, `.gitignore` et un dossier `sources/` (non utilisé par le build) : contenus en clair des trois bilans jeunes, `pack.js`, scripts et polices des fiches PDF, scénarios de test, ces notes.
 - Dans l'archive, `vercel.json` porte en plus les réglages de build (`framework: null`, `installCommand`, `buildCommand`, `outputDirectory`) : un dépôt relié à Vercel se construit sans autre réglage. Vérifié par un déploiement d'aperçu sans réglages passés (dpl_FhMVeoKTbsAqtTBKjGS7HvQ6KXci).
 - Pendant le build, Vercel ajoute `"name"` à `vercel.json` : l'empreinte affichée par `UNIVERS fichiers` n'est donc jamais celle du fichier envoyé. Ce n'est pas une erreur.
 - Pour récupérer toutes les sources d'un déploiement : un aperçu dont la commande de build archive le dossier (`tar` puis `base64`, découpé en fichiers texte de 150 000 caractères dans `out/`), puis lecture de ces fichiers. Fait avec dpl_BYUktB9nH32ZiAc1fdNHkB9FiDWK.
-- Une fois sur GitHub : supprimer le découpage en morceaux, remplacer la tâche du dimanche par un build déclenché automatiquement.
+- Reste à faire : supprimer le découpage en morceaux (inutile avec Git). La tâche du dimanche continue de fonctionner telle quelle : elle redéploie le dernier déploiement de production, qui vient maintenant de GitHub.
 
 ## Retour arrière
 - Production au 11 octobre, 20 h 40 : dpl_7nrWErtx1BAPjCEZocqAA9vNDMui (bilan Kids ouvert au public).
