@@ -24,3 +24,6 @@ Les réglages de build sont dans `vercel.json` : Vercel n'a rien d'autre à savo
 ## Règles de la maison
 - Bilans jeunes : toujours expliquer le pourquoi ; pas de charges, pas de calories ni de régime, pas de programme par morphotype ; repas : le dîner seulement en semaine, pas de jambon dans les exemples.
 - Tout PDF client reprend la structure et la charte de `Alpha_Seance_Ervine.pdf`.
+
+## Mise en ligne
+Chaque envoi sur la branche `main` reconstruit et publie le site sur Vercel.
