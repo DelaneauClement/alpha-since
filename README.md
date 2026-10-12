@@ -1,6 +1,6 @@
 # Alpha Since — site
 
-Sources du site https://alpha-since.vercel.app (projet Vercel `alpha-since`).
+Sources du site https://alphasince.fr (projet Vercel `alpha-since`).
 
 ## Construire le site
 ```
@@ -10,7 +10,7 @@ Aucune dépendance à installer (Node 22). Le site complet est écrit dans `out/
 Les réglages de build sont dans `vercel.json` : Vercel n'a rien d'autre à savoir.
 
 ## Comment c'est fait
-- `assemble.js` lance `gen.js`, recolle les pages découpées (`q/`), applique `patches.json`, puis une chaîne de modules qui modifient les pages en mémoire (`restructure.js`, `redesign*.js`, `journal.js`, `bilanpage*.js`, `univers.js`, `bilanfix.js`, `espoirmatch.js`, `espoirbilan.js`, `adobilan.js`, `kidsbilan.js`, `bilanjeunes.js`).
+- `assemble.js` lance `gen.js`, recolle les pages découpées (`q/`), applique `patches.json`, puis une chaîne de modules qui modifient les pages en mémoire (`restructure.js`, `redesign*.js`, `journal.js`, `bilanpage*.js`, `univers.js`, `bilanfix.js`, `espoirmatch.js`, `espoirbilan.js`, `adobilan.js`, `kidsbilan.js`, `bilanjeunes.js`, `domaine.js`).
 - Des empreintes sont contrôlées au milieu de la chaîne : une modification se fait par un module ajouté en fin de chaîne, pas en retouchant les fichiers d'origine. `bilanjeunes.js` reste le dernier.
 - Les fichiers `nom.0`, `nom.1`… (dossiers `q/`, `ph/`, `pdf/`, `espoir/`, `ado/`, `kids/`) sont des morceaux de 4 096 octets que le build recolle. Ce découpage date de l'époque où le site était envoyé fichier par fichier ; avec Git il n'est plus nécessaire et pourra être supprimé.
 - Les articles du dimanche (`art1.js`, `art2.js`, calendrier dans `sched.js`) n'apparaissent qu'au build qui suit leur date : il faut reconstruire le site chaque dimanche après 20 h.
