@@ -4,6 +4,7 @@ Mis à jour le 12 octobre 2026. À lire avant toute modification du site alpha-s
 
 ## Où est le site
 - Adresse officielle depuis le 12 octobre 2026 : https://alphasince.fr. Le nom de domaine reste chez LWS (zone DNS LWS) : la ligne A de `alphasince.fr` pointe vers `216.198.79.1` (Vercel), `www` est un alias de `alphasince.fr` et Vercel le redirige vers `alphasince.fr`. Les lignes `mail`, MX et autres n'ont pas été touchées. L'ancien site WordPress n'est plus servi à cette adresse.
+- Logos : `img/logo.png` (encre, fond transparent) et `img/logo-alt.png` (crème, pour les fonds sombres), refaits le 12 octobre 2026 en 433 × 368 à partir du logo net fourni par Clément (fond kaki, 1080 × 1080), qui sert aussi d'image de partage (`img/og.jpg`, balise `og:image` posée par `domaine.js`).
 - `alpha-since.vercel.app` redirige vers `alphasince.fr` (règle `redirects` de `vercel.json`, sur le nom d'hôte). Le module `domaine.js`, dernier de la chaîne, remplace l'ancienne adresse dans tout le site produit et ajoute au sitemap les pages des univers jeunes.
 - Équipe Vercel « Alpha » (team_kgP65yH7f6SImP6JonrfThAt), projet `alpha-since` (prj_AG9QU4A39zt2SS7C0Tz1taPNwJOm).
 - Depuis le 12 octobre 2026, le site est dans le dépôt GitHub `DelaneauClement/alpha-since`, relié au projet Vercel : chaque envoi sur la branche `main` reconstruit et publie le site. Avant, il n'y avait pas de dépôt et chaque déploiement envoyait la liste complète des fichiers source par l'API.
