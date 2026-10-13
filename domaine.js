@@ -13,7 +13,7 @@ module.exports=function(T){
   T[k]=T[k].split(OLD).join(NEW);
  }
  if(!n){console.error('DOMAINE aucune adresse à remplacer');process.exit(1)}
- const PAGES=['/kids','/kids/bilan','/ado','/ado/bilan','/espoir','/espoir/bilan','/espoir/match'];
+ const PAGES=['/manique','/kids','/kids/bilan','/ado','/ado/bilan','/espoir','/espoir/bilan','/espoir/match'];
  let sm=T['sitemap.xml'];
  if(typeof sm!=='string'||!sm.includes('</urlset>')){console.error('DOMAINE sitemap introuvable');process.exit(1)}
  const add=PAGES.filter(u=>!sm.includes('<loc>'+NEW+u+'</loc>'));
