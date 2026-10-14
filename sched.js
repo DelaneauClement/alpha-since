@@ -10,6 +10,12 @@ module.exports={
 'mal-de-dos-renforcement':'2026-10-25T20:00:00+01:00',
 'preparation-physique-jeunes-rugby':'2026-11-01T20:00:00+01:00',
 'maniques-gants-mains-nues':'2026-11-08T20:00:00+01:00',
+'gainage-pourquoi-et-exercices':'2026-11-15T20:00:00+01:00',
+'hiit-tabata-comprendre':'2026-11-22T20:00:00+01:00',
+'course-a-pied-progresser':'2026-11-29T20:00:00+01:00',
+'fessiers-apres-40-ans':'2026-12-06T20:00:00+01:00',
+'sommeil-et-progression':'2026-12-13T20:00:00+01:00',
+'materiel-maison-idees-cadeaux':'2026-12-20T20:00:00+01:00',
 'fetes-garder-la-forme':'2026-12-27T20:00:00+01:00',
 'bonnes-resolutions-sport':'2027-01-03T20:00:00+01:00',
 'squat-bien-le-faire':'2027-01-10T20:00:00+01:00'

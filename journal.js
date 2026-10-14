@@ -23,7 +23,7 @@ for(const m of P.matchAll(/<article id="([^"]+)" class="a-sec t-[a-z]+ a-art">\n
   legacy.push({slug:L[0],old:m[1],date:L[1],cat:L[2],read:+m[2],title:m[3],lead:m[4],desc:L[3],body:m[5].replace(/<p class="a-cta-line">[\s\S]*?<\/p>\s*$/,'').trim(),cta:(m[5].match(/<p class="a-cta-line"><a class="a-btn a-btn-y" href="([^"]+)">([^<]+)<\/a><\/p>/)||[]).slice(1),sources:[]});
 }
 if(legacy.length!==3)throw new Error('J legacy count '+legacy.length);
-const ALL=[...legacy,...require('./art1.js'),...require('./art2.js'),...require('./art3.js')];
+const ALL=[...legacy,...require('./art1.js'),...require('./art2.js'),...require('./art3.js'),...require('./art4.js')];
 const seen=new Set();for(const a of ALL){if(seen.has(a.slug))throw new Error('J dup '+a.slug);seen.add(a.slug);if(isNaN(Date.parse(a.date)))throw new Error('J date '+a.slug)}
 const PUB=ALL.filter(a=>Date.parse(a.date)<=NOW).sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
 const NEXT=ALL.filter(a=>Date.parse(a.date)>NOW).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
