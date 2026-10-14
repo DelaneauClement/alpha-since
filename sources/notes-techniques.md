@@ -145,3 +145,11 @@ Mis à jour le 12 octobre 2026. À lire avant toute modification du site alpha-s
 - Version sans le guide Espoir : dpl_BAr5ECsE1d3rybzGuxwSCKdr65Vv.
 - Version avec les univers mais sans le correctif du bilan : dpl_2qj1oNDY6CYhQwvDLs4g4WPaL7eA.
 - Version sans les univers : dpl_9YwHB2NHw4eifo2JJLiLKqRPjdJq.
+
+## Programmes (mis en ligne le 14 octobre 2026)
+- Décision : plus de suivi ni de coaching payant. Alpha vend des programmes écrits ; mention « relus par un professionnel de santé » seulement une fois la relecture faite.
+- programmes.js crée /programmes (Programmes.html) : Défi gainage 30 jours 9 €, Force & fessiers 40+ 24 €, Enfin t'y mettre 24 € (« 2 € par semaine »), tous « Bientôt » avec bouton mail « Me prévenir à la sortie ».
+- Coaching remplacé par Programmes partout (menu, pied de page, bilan adulte, bloc #programmes de l'accueil). /coaching et /Suivi.dc.html redirigent (301) vers /programmes. Le build s'arrête s'il reste un lien /coaching.
+- Présentation de Clément : enfant très maigre, depuis ses 10 ans cherche à devenir plus fort, plus de 30 ans, joueur puis entraîneur de rugby, a appris aux côtés de préparateurs physiques, kinés, ostéopathes, médecins, anciens joueurs pros. Ne jamais mentionner : pôle jeunes, cellule performance, brevet d'état.
+- Accroche accueil : « Devenir plus fort, le redevenir, et rester en bonne santé. »
+- À faire avant la vente : réécrire les CGV (Legal.html décrit encore le Suivi), clause droit de rétractation pour contenu numérique.
