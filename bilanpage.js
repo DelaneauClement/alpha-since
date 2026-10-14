@@ -18,7 +18,7 @@ for(const n of HTML()){
   s=s.split('<b>Bilan</b><span>7 tests pour savoir d’où tu repars</span>').join('<b>Bilan Alpha</b><span>Ton profil, ton programme, ton assiette</span>');
   s=s.split('<a href="/bilan">Bilan physique</a><a href="/preparation">Ma préparation</a><a href="/preparation#nutri">Plan alimentaire</a>').join('<a href="/bilan">Bilan Alpha</a>');
   s=s.split('href="/preparation#nutri"').join('href="/bilan"').split('href="/preparation"').join('href="/bilan"');
-  if(/\/preparation/.test(s.replace(/<script type="text\/x-dc"[\s\S]*$/,'')))throw new Error('BP link left '+n);
+  if(/\/preparation(?![\w-])/.test(s.replace(/<script type="text\/x-dc"[\s\S]*$/,'')))throw new Error('BP link left '+n);
   T[n]=s;
 }
 
@@ -161,5 +161,5 @@ T['site.css']+=`
 
 // 7. Sitemap
 T['sitemap.xml']=T['sitemap.xml'].replace('<url><loc>'+B+'/preparation</loc></url>\n','');
-if(/preparation/.test(T['sitemap.xml']))throw new Error('BP sitemap');
+if(/\/preparation<\/loc>/.test(T['sitemap.xml']))throw new Error('BP sitemap');
 };

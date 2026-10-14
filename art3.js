@@ -1,5 +1,5 @@
 // Articles du 27 décembre 2026, 3 janvier et 10 janvier 2027 — publication le dimanche à 20 h (heure de Paris)
-// Brouillons à valider par Clément avant d'être branchés dans assemble.js et sched.js.
+// Validés par Clément le 14 octobre 2026.
 module.exports=[
 {slug:'fetes-garder-la-forme',date:'2026-12-27T20:00:00+01:00',cat:'Reprise',read:6,
 title:'Les fêtes sans tout perdre : garder la forme en décembre',

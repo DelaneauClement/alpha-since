@@ -9,5 +9,8 @@ module.exports={
 'reprendre-sport-apres-accouchement':'2026-10-18T20:00:00+02:00',
 'mal-de-dos-renforcement':'2026-10-25T20:00:00+01:00',
 'preparation-physique-jeunes-rugby':'2026-11-01T20:00:00+01:00',
-'maniques-gants-mains-nues':'2026-11-08T20:00:00+01:00'
+'maniques-gants-mains-nues':'2026-11-08T20:00:00+01:00',
+'fetes-garder-la-forme':'2026-12-27T20:00:00+01:00',
+'bonnes-resolutions-sport':'2027-01-03T20:00:00+01:00',
+'squat-bien-le-faire':'2027-01-10T20:00:00+01:00'
 };
