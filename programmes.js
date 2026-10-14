@@ -78,7 +78,7 @@ module.exports=function(T){
   '<li><b>Le pourquoi de chaque exercice</b> : tu sais ce que tu travailles, et pourquoi.</li>'+
   '<li><b>La base avant tout</b> : sommeil, récupération, régularité. C’est la discipline qui fait progresser, pas une séance héroïque.</li></ul>\n'+
   '<h2 class="a-h2">Qui les écrit</h2>\n'+
-  '<p>Clément, plus de 25 ans de terrain : joueur et entraîneur de rugby, responsable d’un pôle jeunes, créateur d’une cellule performance en club, habitué à travailler avec médecin, kinésithérapeute et ostéopathe. Ces programmes reprennent ce qu’il a appliqué pendant toutes ces années.</p>\n'+
+  '<p>Clément. Enfant, il était très maigre, et depuis ses 10 ans il cherche à comprendre comment devenir plus fort. Plus de 25 ans plus tard, il a été joueur puis entraîneur de rugby, et il a appris aux côtés de kinésithérapeutes ce qui fait progresser sans se blesser. Ces programmes reprennent ce qu’il applique depuis.</p>\n'+
   '<p class="a-note">Les programmes sont des conseils d’entraînement généraux. Ils ne remplacent pas l’avis d’un médecin. En cas de douleur, de malaise ou de problème de santé, arrête et consulte.</p>\n'+
   '</div></section>\n'+
   '<section class="a-sec t-khaki"><div class="a-wrap a-narrow a-stack">\n<h2 class="a-h2">Questions fréquentes</h2>\n<div class="a-faq">'+
@@ -105,7 +105,7 @@ module.exports=function(T){
  if(!sec.includes('Le suivi te fait revenir'))die('section « suivi » inattendue');
  M=M.slice(0,a)+'<section id="programmes" class="a-sec t-olive">\n<div class="a-wrap a-coach">\n<div class="a-stack a-rv">\n'+
   '<h2 class="a-h2">La motivation te fait commencer. <span class="a-y">Un bon programme te fait continuer.</span></h2>\n'+
-  '<p class="a-lead">Des programmes écrits par Clément, 25 ans de terrain : joueur, entraîneur, préparation physique. À suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
+  '<p class="a-lead">Des programmes écrits par Clément, qui cherche depuis ses 10 ans comment devenir plus fort. À suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
   '</div>\n<div class="a-coach-box a-rv">\n<span class="a-kick">À partir de</span>\n<span class="a-price">9 €</span>\n'+
   '<ul><li>Défi gainage 30 jours</li><li>Force &amp; fessiers 40+</li><li>Enfin t’y mettre</li></ul>\n'+
   '<a class="a-btn a-btn-y" href="/programmes">Voir les programmes</a>\n</div>\n</div>\n</section>'+M.slice(b+10);
