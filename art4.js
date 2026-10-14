@@ -1,5 +1,5 @@
 // Articles du 15 novembre au 20 décembre 2026 — publication le dimanche à 20 h (heure de Paris)
-// Brouillons à valider par Clément avant d'être branchés dans assemble.js, journal.js et sched.js.
+// Validés par Clément le 14 octobre 2026.
 module.exports=[
 {slug:'gainage-pourquoi-et-exercices',date:'2026-11-15T20:00:00+01:00',cat:'Santé',read:7,
 title:'Le gainage : pourquoi c’est si important, et 5 exercices',
