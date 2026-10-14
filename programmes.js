@@ -105,7 +105,7 @@ module.exports=function(T){
  if(!sec.includes('Le suivi te fait revenir'))die('section « suivi » inattendue');
  M=M.slice(0,a)+'<section id="programmes" class="a-sec t-olive">\n<div class="a-wrap a-coach">\n<div class="a-stack a-rv">\n'+
   '<h2 class="a-h2">La motivation te fait commencer. <span class="a-y">Un bon programme te fait continuer.</span></h2>\n'+
-  '<p class="a-lead">Des programmes écrits par Clément, qui cherche depuis ses 10 ans comment devenir plus fort. À suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
+  '<p class="a-lead">Devenir plus fort, le redevenir, et rester en bonne santé. Des programmes écrits par Clément, à suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
   '</div>\n<div class="a-coach-box a-rv">\n<span class="a-kick">À partir de</span>\n<span class="a-price">9 €</span>\n'+
   '<ul><li>Défi gainage 30 jours</li><li>Force &amp; fessiers 40+</li><li>Enfin t’y mettre</li></ul>\n'+
   '<a class="a-btn a-btn-y" href="/programmes">Voir les programmes</a>\n</div>\n</div>\n</section>'+M.slice(b+10);
