@@ -78,7 +78,7 @@ module.exports=function(T){
   '<li><b>Le pourquoi de chaque exercice</b> : tu sais ce que tu travailles, et pourquoi.</li>'+
   '<li><b>La base avant tout</b> : sommeil, récupération, régularité. C’est la discipline qui fait progresser, pas une séance héroïque.</li></ul>\n'+
   '<h2 class="a-h2">Qui les écrit</h2>\n'+
-  '<p>Clément. Enfant, il était très maigre, et depuis ses 10 ans il cherche à comprendre comment devenir plus fort. Plus de 25 ans plus tard, il a été joueur puis entraîneur de rugby, et il a appris aux côtés de kinésithérapeutes ce qui fait progresser sans se blesser. Ces programmes reprennent ce qu’il applique depuis.</p>\n'+
+  '<p>Clément. Enfant, il était très maigre ; depuis ses 10 ans, il cherche à comprendre comment devenir plus fort. Plus de 30 ans plus tard, il a été joueur puis entraîneur de rugby, et il a appris aux côtés de préparateurs physiques, de kinés, d’ostéopathes, de médecins et d’anciens joueurs professionnels ce qui fait vraiment progresser, sans se blesser. Ces programmes rassemblent ce qu’il a retenu de chacun d’eux.</p>\n'+
   '<p class="a-note">Les programmes sont des conseils d’entraînement généraux. Ils ne remplacent pas l’avis d’un médecin. En cas de douleur, de malaise ou de problème de santé, arrête et consulte.</p>\n'+
   '</div></section>\n'+
   '<section class="a-sec t-khaki"><div class="a-wrap a-narrow a-stack">\n<h2 class="a-h2">Questions fréquentes</h2>\n<div class="a-faq">'+
