@@ -16,6 +16,7 @@ module.exports=function(T){
  const PAGES=['/manique','/kids','/kids/bilan','/ado','/ado/bilan','/espoir','/espoir/bilan','/espoir/match'];
  let sm=T['sitemap.xml'];
  if(typeof sm!=='string'||!sm.includes('</urlset>')){console.error('DOMAINE sitemap introuvable');process.exit(1)}
+ sm=sm.split('<loc>'+NEW+'/coaching</loc>').join('<loc>'+NEW+'/programmes</loc>');
  const add=PAGES.filter(u=>!sm.includes('<loc>'+NEW+u+'</loc>'));
  sm=sm.replace('</urlset>',add.map(u=>'<url><loc>'+NEW+u+'</loc></url>\n').join('')+'</urlset>');
  T['sitemap.xml']=sm;
