@@ -153,3 +153,10 @@ Mis à jour le 12 octobre 2026. À lire avant toute modification du site alpha-s
 - Présentation de Clément : enfant très maigre, depuis ses 10 ans cherche à devenir plus fort, plus de 30 ans, joueur puis entraîneur de rugby, a appris aux côtés de préparateurs physiques, kinés, ostéopathes, médecins, anciens joueurs pros. Ne jamais mentionner : pôle jeunes, cellule performance, brevet d'état.
 - Accroche accueil : « Devenir plus fort, le redevenir, et rester en bonne santé. »
 - À faire avant la vente : réécrire les CGV (Legal.html décrit encore le Suivi), clause droit de rétractation pour contenu numérique.
+
+## Bilan par e-mail et conseil du dimanche (mis en ligne le 15 octobre 2026)
+- api/bilan.js : le bilan adulte (bouton « Recevoir mon bilan ») est envoyé au visiteur + copie à alphasince.contact@gmail.com via Brevo ; case décochée = ajout à la liste Brevo n° 2 (PRENOM, OPT_IN). Échec → retour à la messagerie préremplie.
+- api/inscription.js : formulaire « Reçois le conseil du dimanche » (newsletter.js) sous « Prochain article » sur /conseils et en fin d'article ; ajoute à la liste n° 2 + e-mail de bienvenue.
+- Variable Vercel BREVO_API_KEY (secrète, Production uniquement, clé restreinte : e-mails transactionnels + contacts ; expire oct. 2027 ou après 90 jours sans usage). Optionnel : SENDER_EMAIL (après authentification d'alphasince.fr dans Brevo), BREVO_LIST_ID.
+- Bilans Kids, Ado, Espoir : encore en messagerie préremplie.
+- Testé en réel le 15/10 : bilan reçu, contact ajouté à la liste.
