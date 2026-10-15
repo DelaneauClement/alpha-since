@@ -90,7 +90,7 @@ body:`<div class="a-box"><p><b>Avant tout :</b> parle de ton activité physique 
 <h3>Les signes qui imposent d’arrêter</h3>
 <p>Saignements, pertes de liquide, contractions régulières ou douloureuses, douleur dans la poitrine, vertiges, essoufflement anormal avant l’effort, maux de tête importants, douleur ou gonflement d’un mollet, diminution des mouvements du bébé. Dans ces cas, tu arrêtes et tu contactes ta maternité ou ton médecin.</p>`,
 sources:['Organisation mondiale de la santé, Lignes directrices sur l’activité physique et la sédentarité, 2020.','Collège national des sages-femmes de France, Activité physique pendant la période périnatale, recommandations 2021.','May L. et al., Aerobic exercise during pregnancy influences infant motor development, Medicine & Science in Sports & Exercise, 2019.'],
-cta:['/coaching','Découvrir le coaching']},
+cta:['/outils','Découvrir les outils gratuits']},
 
 {slug:'reprendre-sport-apres-accouchement',date:'2026-10-18T20:00:00+02:00',cat:'Post-partum',read:9,
 title:'Reprendre le sport après l’accouchement : par où commencer ?',
@@ -143,7 +143,7 @@ body:`<div class="a-box"><p><b>Avant tout :</b> la reprise se valide lors de la 
 <h3>Revenir vite, oui. Revenir bien, d’abord.</h3>
 <p>La fatigue des nuits courtes compte aussi : sur une mauvaise nuit, une marche vaut mieux qu’une séance intense. La régularité sur plusieurs mois fera plus que l’intensité sur quelques semaines.</p>`,
 sources:['Goom T., Donnelly G., Brockwell E., Returning to running postnatal: guidelines for medical, health and fitness professionals, 2019.','Collège national des sages-femmes de France, Activité physique pendant la période périnatale, recommandations 2021.','Assurance maladie, Après l’accouchement : le suivi et la rééducation.'],
-cta:['/coaching','Découvrir le coaching']},
+cta:['/outils','Découvrir les outils gratuits']},
 
 {slug:'reprendre-musculation-apres-blessure',date:'2026-10-25T20:00:00+01:00',cat:'Reprise',read:7,
 title:'Reprendre la musculation après une blessure',

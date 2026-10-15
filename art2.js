@@ -122,7 +122,7 @@ body:`<p>Cet article s’appuie sur plus de vingt-cinq ans de terrain, comme jou
 <li>Signaler toute douleur qui dure : chez l’adolescent en croissance, une douleur au genou ou au talon doit être vue par un médecin.</li>
 </ul>`,
 sources:['World Rugby, programme Activate de prévention des blessures.','Lloyd R. et al., National Strength and Conditioning Association Position Statement on Long-Term Athletic Development, 2016.'],
-cta:['/coaching','Découvrir le coaching']},
+cta:['/espoir','Découvrir Alpha Espoir']},
 
 {slug:'sentrainer-avec-peu-de-temps',date:'2026-11-29T20:00:00+01:00',cat:'Reprise',read:6,
 title:'S’entraîner avec peu de temps : deux séances de 30 minutes qui suffisent',
