@@ -26,7 +26,7 @@ const JS='\n(function(){document.addEventListener("submit",function(e){var f=e.t
  'if(bt.disabled)return;bt.disabled=true;var lab=bt.textContent;bt.textContent="Envoi…";'+
  'var fail=function(){bt.disabled=false;bt.textContent=lab;say("L’inscription n’a pas fonctionné. Réessaie dans un instant, ou écris-nous à alphasince.contact@gmail.com.")};'+
  'fetch("/api/inscription",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:v,site:hp?hp.value:"",source:f.getAttribute("data-news")})})'+
- '.then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.ok&&j.ok){bt.textContent="Inscrit ✓";i.value="";say("C’est noté ! Un e-mail de bienvenue arrive dans ta boîte (pense à vérifier les indésirables).")}else fail()})},fail)})})();\n';
+ '.then(function(r){return r.json().catch(function(){return{}}).then(function(j){if(r.ok&&j.ok){bt.textContent="Inscrit ✓";i.value="";say("C’est noté ! Un e-mail de bienvenue arrive dans ta boîte (pense à regarder aussi dans l’onglet Promotions ou les indésirables).")}else fail()})},fail)})})();\n';
 module.exports=function(T){
  let C=T['Conseils.html'];if(typeof C!=='string')die('Conseils.html absent');
  const m=C.match(/<p class="a-next">[^<]*<\/p>/);
