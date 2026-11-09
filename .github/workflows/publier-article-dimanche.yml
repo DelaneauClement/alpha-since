@@ -1,0 +1,36 @@
+name: Publier l'article du dimanche
+
+on:
+  schedule:
+    - cron: "1 18 * * 0" # 20 h 01 à Paris en heure d'été
+    - cron: "1 19 * * 0" # 20 h 01 à Paris en heure d'hiver
+  workflow_dispatch:
+
+jobs:
+  deployer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Garder le bon créneau selon l'heure d'été ou d'hiver
+        id: creneau
+        run: |
+          decalage=$(TZ=Europe/Paris date +%z)
+          creneau="${{ github.event.schedule }}"
+          go=false
+          if [ -z "$creneau" ]; then go=true; fi
+          if [ "$creneau" = "1 18 * * 0" ] && [ "$decalage" = "+0200" ]; then go=true; fi
+          if [ "$creneau" = "1 19 * * 0" ] && [ "$decalage" = "+0100" ]; then go=true; fi
+          echo "Décalage Paris : $decalage, créneau : ${creneau:-manuel}, déploiement : $go"
+          echo "go=$go" >> "$GITHUB_OUTPUT"
+
+      - name: Déclencher le build de production Vercel
+        if: steps.creneau.outputs.go == 'true'
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "Secret VERCEL_DEPLOY_HOOK manquant." >&2
+            exit 1
+          fi
+          curl -fsS -X POST "$HOOK"
+          echo
+          echo "Build de production demandé à Vercel."
