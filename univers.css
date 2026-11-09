@@ -1,6 +1,6 @@
 /* Univers Alpha : bande Kids / Ado / Espoir et pages d'attente */
-.u-nav{display:flex;gap:8px;padding-top:12px;max-width:560px}
-.u-nav a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:56px;padding:0 6px;border-radius:12px;border:1px solid transparent;text-decoration:none}
+.u-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:12px;max-width:560px}
+.u-nav a{min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:56px;padding:0 6px;border-radius:12px;border:1px solid transparent;text-decoration:none}
 .u-nav svg{flex-shrink:0;display:block;height:auto}
 .u-nav span{display:flex;flex-direction:column;gap:3px;line-height:1}
 .u-nav b{font:400 16px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase}
@@ -36,3 +36,13 @@
 .u-btn-ink,.u-btn-ink:hover{background:var(--ink);color:var(--y)}
 .u-bg-kids .a-btn-o,.u-bg-kids .a-btn-o:hover{color:var(--ink)}
 .u-bg-kids .a-note{color:var(--ink)}
+/* Performance (adultes, competition) : tuile creme sur toute la largeur, sous les trois univers jeunes */
+.u-nav a.u-performance{grid-column:1/-1;height:48px;gap:10px;--u-halo:var(--cream)}
+.u-nav a.u-performance span{flex-direction:row;align-items:baseline;gap:10px}
+.u-nav a.u-performance,.u-nav a.u-performance:hover{background:var(--cream);color:var(--ink)}
+.u-perf-c{--u-halo:var(--cream)}
+.u-perf-c .u-perf-y{color:var(--khaki)}
+.u-perf-c .u-name{display:inline-block;transform:skewX(-8deg);font-size:24px;letter-spacing:.14em}
+.u-perf-c .a-note{color:var(--olive)}
+.u-perf-c .a-btn-o,.u-perf-c .a-btn-o:hover{color:var(--ink)}
+.u-perf-c .a-btn-o:hover{background:var(--ink);color:var(--cream)}

@@ -12,6 +12,7 @@ const TITRES={
  'Kids.html':['Sport enfant de 3 à 10 ans : bilan et jeux | Alpha Kids'],
  'Ado.html':['Sport ado 11–14 ans : bilan gratuit avec un parent | Alpha Ado'],
  'Espoir.html':['Préparation physique 15–17 ans : bilan gratuit | Alpha Espoir'],
+ 'Performance.html':['Préparation Hyrox par niveau | Alpha Performance'],
  'conseils/age-renforcement-musculaire.html':['À quel âge commencer le renforcement musculaire ?'],
  'conseils/force-de-prehension.html':['Force de préhension : pourquoi ton grip compte | Alpha Since'],
  'conseils/musculation-apres-40-ans.html':['Musculation après 40 ans : le meilleur moment pour s’y mettre'],

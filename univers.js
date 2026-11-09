@@ -1,4 +1,4 @@
-// Univers Alpha : Kids, Ado, Espoir.
+// Univers Alpha : Kids, Ado, Espoir, Performance.
 // Ajoute la bande des trois univers sous l'en-tete de l'accueil et genere
 // les pages d'attente /kids, /ado, /espoir. Logos piste A : le phenix grandit
 // (3, 4 puis 5 plumes ; le logo Alpha actuel en compte 6).
@@ -10,7 +10,7 @@ const Q=s=>s.split(SQ).join(DQ);
 const die=m=>{console.error('UNIVERS',m);process.exit(1)};
 const MAIL='alphasince.contact@gmail.com';
 
-const svg=(k,w)=>{const e=EMB[k];return `<svg viewBox='${e.vb}' width='${w}' fill='currentColor' stroke='currentColor' stroke-width='${e.sw}' stroke-linejoin='round' aria-hidden='true'><path d='${e.r}'></path><path d='${e.l}'></path><path d='${e.b}'></path></svg>`};
+const svg=(k,w)=>{const e=EMB[k];if(e.x)return `<svg viewBox='${e.vb}' width='${w}' fill='currentColor' stroke='currentColor' stroke-linejoin='round' aria-hidden='true'>${e.x}</svg>`;return `<svg viewBox='${e.vb}' width='${w}' fill='currentColor' stroke='currentColor' stroke-width='${e.sw}' stroke-linejoin='round' aria-hidden='true'><path d='${e.r}'></path><path d='${e.l}'></path><path d='${e.b}'></path></svg>`};
 
 const nav=cur=>`<div class='a-wrap'><nav class='u-nav' aria-label='Les univers Alpha'>`+U.map(u=>`<a class='u-${u.k}' href='/${u.k}'${cur===u.k?` aria-current='page'`:``}>${svg(u.k,u.w)}<span><b>${u.name}</b><i>${u.age}</i></span></a>`).join(``)+`</nav></div>`;
 
