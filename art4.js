@@ -222,7 +222,7 @@ body:`<h3>Le principe : peu, mais utile</h3>
 <div role="row" class="a-tr a-th"><span role="columnheader">Pour qui</span><span role="columnheader">L’idée</span></div>
 <div role="row" class="a-tr"><span role="cell">Quelqu’un qui veut s’y mettre</span><span role="cell">Tapis et bandes élastiques</span></div>
 <div role="row" class="a-tr"><span role="cell">Un coureur</span><span role="cell">Corde à sauter et bandes pour les fessiers</span></div>
-<div role="row" class="a-tr"><span role="cell">Un pratiquant de musculation ou de CrossFit</span><span role="cell">Maniques X-Trm Confort</span></div>
+<div role="row" class="a-tr"><span role="cell">Un pratiquant de musculation</span><span role="cell">Maniques X-Trm Confort</span></div>
 <div role="row" class="a-tr"><span role="cell">Quelqu’un qui s’entraîne chez lui</span><span role="cell">Kettlebell ou barre de traction</span></div>
 <div role="row" class="a-tr"><span role="cell">Un ado qui joue au rugby ou au foot</span><span role="cell">Bandes élastiques et le bilan Alpha à faire ensemble</span></div>
 </div>

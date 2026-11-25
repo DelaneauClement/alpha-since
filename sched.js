@@ -18,5 +18,9 @@ module.exports={
 'materiel-maison-idees-cadeaux':'2026-12-20T20:00:00+01:00',
 'fetes-garder-la-forme':'2026-12-27T20:00:00+01:00',
 'bonnes-resolutions-sport':'2027-01-03T20:00:00+01:00',
-'squat-bien-le-faire':'2027-01-10T20:00:00+01:00'
+'squat-bien-le-faire':'2027-01-10T20:00:00+01:00',
+'hyrox-c-est-quoi':'2026-12-02T20:00:00+01:00',
+'hyrox-en-duo':'2026-12-09T20:00:00+01:00',
+'hyrox-ou-crossfit':'2026-12-16T20:00:00+01:00',
+'premier-hyrox-tests':'2026-12-23T20:00:00+01:00'
 };

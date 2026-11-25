@@ -172,7 +172,7 @@ cta:['/outils','Ouvrir le chrono']},
 
 {slug:'maniques-gants-mains-nues',date:'2026-12-06T20:00:00+01:00',cat:'Mains et grip',read:6,
 title:'Maniques, gants ou mains nues : que choisir pour s’entraîner ?',
-desc:'Mains nues, gants, maniques : les avantages et limites de chaque option pour la musculation, les tractions et le CrossFit, et comment choisir.',
+desc:'Mains nues, gants, maniques : les avantages et limites de chaque option pour la musculation et les tractions, et comment choisir.',
 lead:'Faut-il protéger ses mains à la salle ? Il n’y a pas de réponse unique. Tout dépend de ton entraînement, de ta peau et de ce que tu attends de ton grip.',
 body:`<h3>Mains nues : le meilleur contact</h3>
 <p>Sans protection, tu sens parfaitement la barre et ta prise est la plus directe. Pour une séance classique avec un volume de tirage modéré, c’est souvent suffisant, à condition de bien placer la barre à la base des doigts et d’entretenir ses callosités.</p>
@@ -184,7 +184,7 @@ body:`<h3>Mains nues : le meilleur contact</h3>
 
 <h3>Les maniques : protéger sans épaissir</h3>
 <p>Une manique couvre uniquement la zone qui frotte, sous la base des doigts, et laisse les doigts libres. Elle protège la peau là où les ampoules se forment, tout en gardant un contact proche de la barre.</p>
-<p><b>Pour qui :</b> les tractions, la barre fixe, le CrossFit, le rameur, le soulevé de terre à volume élevé, et toutes les reprises après une pause.</p>
+<p><b>Pour qui :</b> les tractions, la barre fixe, le rameur, le soulevé de terre à volume élevé, et toutes les reprises après une pause.</p>
 
 <h3>Comment choisir</h3>
 <div class="a-table" role="table" aria-label="Choisir sa protection">

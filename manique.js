@@ -58,7 +58,7 @@ module.exports=function(T){
   '<script type="application/ld+json">'+JSON.stringify({
    '@context':'https://schema.org','@type':'Product',
    name:'Manique X-Trm Confort',
-   description:'Manique de musculation en cuir retourné et néoprène, vendue par paire. Taille unique, 20 × 8 cm. Pour la musculation, le crossfit et les tractions.',
+   description:'Manique de musculation en cuir retourné et néoprène, vendue par paire. Taille unique, 20 × 8 cm. Pour la musculation et les tractions.',
    brand:{'@type':'Brand',name:'Alpha Since'},
    image:[OLD+'/img/manique-face.avif',OLD+'/img/manique-poignet.avif',OLD+'/img/manique-a-plat.avif'],
    url:OLD+'/manique',
@@ -80,7 +80,7 @@ module.exports=function(T){
  const Q=[
   ['Quelle taille choisir ?','La manique X-Trm Confort existe en taille unique : 20 × 8 cm, avec un bracelet à scratch qui s’ajuste au poignet.'],
   ['En quoi est-elle faite ?','Cuir retourné pour la partie qui protège la paume, néoprène pour le confort au poignet, bracelet à scratch et écusson Alpha Since 1982.'],
-  ['Pour quels exercices ?','Musculation, crossfit et tractions : tous les exercices où la barre frotte contre la paume.'],
+  ['Pour quels exercices ?','Musculation et tractions : tous les exercices où la barre frotte contre la paume.'],
   ['Elle est vendue à l’unité ou par paire ?','Par paire, au prix de 34,95 €, livraison en point relais comprise.'],
   ['Quand est-ce que je la reçois ?','Le colis part le jour ouvré qui suit ton paiement, depuis l’Aveyron, en point relais Mondial Relay. On t’écrit pour confirmer le point relais le plus proche de chez toi.'],
   ['Comment je paie ?','Par carte bancaire, sur une page de paiement sécurisée Stripe. Tu reçois la confirmation par e-mail.'],
