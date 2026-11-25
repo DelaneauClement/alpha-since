@@ -12,7 +12,7 @@ const die=m=>{console.error('PROGRAMMES',m);process.exit(1)};
 const enc=s=>encodeURIComponent(s).replace(/'/g,'%27');
 const P=[
  {nom:'Défi gainage 30 jours',duree:'30 jours',prix:'9 €',unite:'',pour:'Pour tout le monde, dès le premier jour.',
-  txt:'10 minutes par jour pour construire un tronc solide : la base de tous les autres programmes. Au chrono, au poids du corps, sans matériel.'},
+  txt:'Un test pour fixer ton niveau, un circuit qui change chaque semaine et une séance guidée sur ton téléphone qui enchaîne tout pour toi. 15 à 20 minutes, 5 jours sur 7, sans matériel.'},
  {nom:'Force & fessiers 40+',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
   txt:'Force, fessiers et santé des os. 2 à 3 séances courtes par semaine, à la maison d’abord, avec une version salle si tu y as accès.'},
  {nom:'Enfin t’y mettre',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
