@@ -59,7 +59,7 @@ module.exports=function(T){
  const Q=[
   ['C’est un abonnement ?','Non. Tu paies une fois, le programme est à toi. Pas de prélèvement, rien à résilier.'],
   ['Il y a un suivi ou un coach ?','Non. Les programmes sont écrits pour être suivis seul, à ton rythme : chaque séance est expliquée, avec une version plus facile et une version plus dure de chaque exercice. Pour savoir par lequel commencer, fais le <a href="/bilan">bilan Alpha gratuit</a>.'],
-  ['Il faut du matériel ?','Non. Tout se fait au poids du corps, à la maison. Une version salle est proposée pour ceux qui y ont accès.'],
+  ['Il faut du matériel ?','Pour le Défi gainage, rien. Pour S’y remettre en 6 semaines, une chaise, un sac à dos et un tapis. Pour Force & fessiers 40+, une paire d’haltères réglables. Chaque exercice a aussi sa version salle.'],
   ['Je reprends après une longue pause, ou j’ai un problème de santé.','Demande l’avis de ton médecin avant de commencer. Les programmes ne remplacent pas un avis médical, et en cas de douleur, on s’arrête.'],
   ['Quand seront-ils disponibles ?','Bientôt. Clique sur « Me prévenir à la sortie » sous le programme qui t’intéresse : tu seras prévenu en premier.']
  ];
