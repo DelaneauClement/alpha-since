@@ -67,7 +67,7 @@ body:`<h3>Pourquoi ça s’arrête</h3>
 <div role="row" class="a-tr"><span role="cell">Semaine 4</span><span role="cell">2 séances + 1 marche de 30 min</span></div>
 </div>
 <p>À la fin du mois, tu n’auras pas changé de corps. Tu auras fait mieux : tu auras pris l’habitude. C’est elle qui transformera le reste de l’année.</p>
-<p>Pas sûr de ton point de départ ? Le bilan Alpha te situe en 5 minutes et te propose une première séance à ton niveau. Le programme « Se remettre en 6 semaines » reprend cette méthode semaine après semaine : tu peux être prévenu de sa sortie sur la page Programmes.</p>`,
+<p>Pas sûr de ton point de départ ? Le bilan Alpha te situe en 5 minutes et te propose une première séance à ton niveau. Le programme « S’y remettre en 6 semaines » reprend cette méthode semaine après semaine : tu peux être prévenu de sa sortie sur la page Programmes.</p>`,
 sources:['Lally P. et al., How are habits formed: modelling habit formation in the real world, European Journal of Social Psychology, 2010.','Gollwitzer P. M., Sheeran P., Implementation intentions and goal achievement: a meta-analysis of effects and processes, Advances in Experimental Social Psychology, 2006.','Organisation mondiale de la santé, Lignes directrices sur l’activité physique et la sédentarité, 2020.'],
 cta:['/bilan','Faire mon bilan gratuit']},
 
