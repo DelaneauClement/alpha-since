@@ -95,11 +95,15 @@ function palier(sem){var p=sem-1+D.NIVEAUX[S.niv].d;for(var w=1;w<=sem;w++)if(S.
 function duree(sem){var pa=D.PALIERS[palier(sem)],n=D.SEMAINES[sem-1].k.length,t=0;
  D.MER.forEach(function(m){t+=m[1]});D.CALME.forEach(function(m){t+=m[1]});t+=D.TOURS*(n*pa[0]+(n-1)*pa[1])+(D.TOURS-1)*D.ENTRE;return Math.round(t/60)}
 function mmss(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function pause(){var t=0;for(var k in S.faits)if(S.faits[k]>t)t=S.faits[k];return t<1e12?0:Math.floor((Date.now()-t)/864e5)}
 function suivant(){for(var d=1;d<=30;d++)if(!S.faits[d])return d;return 30}
 
 /* ---------- accueil ---------- */
 function home(){
  var n=suivant(),h='<h1>Défi gainage<br>30 jours</h1><p class="lead">Choisis ton niveau, ouvre ton jour, lance le chrono : il enchaîne les positions et les repos tout seul, avec un bip à chaque changement.</p>';
+ var p=pause();
+ if(p>=4&&!S.faits[30]){var x=p<=10?Math.max(1,(Math.ceil(n/7)-2)*7+1):1;
+  h+='<div class="box"><b>Pause de '+p+' jours : pas de panique.</b><p>Tu as perdu un peu, tu ne repars pas de zéro. '+(p<=10?'Recule d’une semaine pour retrouver le rythme : reprends au jour '+x+'.':'Refais le test du jour 1 : il te donne ton nouveau niveau, souvent au-dessus du premier.')+'</p><button type="button" class="btn-y" data-reprise="'+x+'">Reprendre au jour '+x+'</button><p class="muted">Ou continue au jour '+n+' si tu te sens prêt.</p></div>'}
  h+='<h2>Ton niveau de départ</h2><p class="muted">Fais d’abord le test du jour 1 : ton temps en planche décide de ton niveau.</p><div class="seg">';
  D.NIVEAUX.forEach(function(v,i){h+='<button type="button" data-niv="'+i+'" aria-pressed="'+(S.niv===i)+'"><b>'+v.n+'</b><span>'+v.seuil+'</span></button>'});
  h+='</div><h2>Tes 30 jours</h2><div class="days">';
@@ -175,7 +179,7 @@ function play(d){var j=jour(d),st=etapes(j.sem),i=0,left=st[0].t,last=Date.now()
   var tm=document.getElementById('tm');if(tm)tm.textContent=mmss(left);
   document.getElementById('pb').style.width=Math.min(100,(done+e.t-left)/tot*100)+'%';
   if(left<=0){next()}if(i<st.length)raf=requestAnimationFrame(tick)}
- function fin(){cancelAnimationFrame(raf);S.faits[d]=1;save();beep(660,.2);setTimeout(function(){beep(880,.2)},220);setTimeout(function(){beep(1100,.4)},440);buzz([200,100,200]);
+ function fin(){cancelAnimationFrame(raf);S.faits[d]=Date.now();save();beep(660,.2);setTimeout(function(){beep(880,.2)},220);setTimeout(function(){beep(1100,.4)},440);buzz([200,100,200]);
   document.getElementById('pm').innerHTML='<div class="pl-kind">Jour '+d+'</div><div class="pl-name">Séance faite</div><div class="pl-time">✓</div><p class="pl-rep">Bravo. Un jour de plus de coché : la régularité fait le reste.</p>';
   document.querySelector('.pl-ctl').innerHTML='<button type="button" class="main" style="grid-column:1/-1" data-fin>Revenir à mes 30 jours</button>';lock(false)}
  pl.onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
@@ -194,7 +198,8 @@ app.addEventListener('click',function(e){var b=e.target.closest('button');if(!b|
  else if(b.hasAttribute('data-go')){play(+b.getAttribute('data-go'))}
  else if(b.hasAttribute('data-test')){app.innerHTML='<button type="button" class="back" data-jour="1">← Jour 1</button>'+testPage(1)}
  else if(b.hasAttribute('data-chrono')){var c=b.getAttribute('data-chrono').split(':');chrono(c[0],c[1])}
- else if(b.hasAttribute('data-fait')){var d=+b.getAttribute('data-fait');S.faits[d]=S.faits[d]?0:1;save();day(d)}});
+ else if(b.hasAttribute('data-fait')){var d=+b.getAttribute('data-fait');S.faits[d]=S.faits[d]?0:Date.now();save();day(d)}
+ else if(b.hasAttribute('data-reprise')){var x=+b.getAttribute('data-reprise');for(var k in S.faits)if(+k>=x)delete S.faits[k];save();day(x)}});
 app.addEventListener('change',function(e){var t=e.target;if(t.id==='fac'){S.facile=t.checked;save()}
  else if(t.hasAttribute('data-recul')){S.recul[t.getAttribute('data-recul')]=t.checked?1:0;save();day(+location.hash.slice(2)||suivant())}});
 var _day=day;day=function(d){if(d==='T1'){app.innerHTML='<button type="button" class="back" data-jour="1">← Jour 1</button>'+testPage(1);return}location.hash='j'+d;_day(d)};

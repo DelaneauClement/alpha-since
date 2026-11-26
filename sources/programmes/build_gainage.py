@@ -435,6 +435,9 @@ for r_, lab in enumerate(['Planche', 'Planche latérale droite', 'Planche latér
 y += 162
 para(MX, y, CW, "<b>Jour 30 :</b> récupération et bilan. Qu'est-ce qui a changé au quotidien : le dos le soir, la posture, les escaliers, ta séance de sport ? La suite : page 10.", size=10.5, leading=15)
 y += 50
+rrect(MX, y, CW, 74, 10, WHITE, KHAKI)
+para(MX + 14, y + 10, CW - 28, "<b>Tu as raté des jours ?</b> Tu as perdu un peu, tu ne repars pas de zéro. Jusqu'à 3 jours : continue. De 4 à 10 jours : reprends au début de la semaine précédente. Plus de 10 jours : refais le test du jour 1, il te donne ton nouveau niveau. La séance guidée te le propose toute seule.", size=10, leading=14)
+y += 88
 para(MX, y, CW, "Ce programme donne des repères généraux pour des adultes en bonne santé. Il ne remplace pas un avis médical. Réservé à ton usage personnel.", size=9.5, leading=13.5, color=OLIVE)
 y += 32
 w1 = text(MX, y, 'Une question : ', 'Carlito', 11, OLIVE)
