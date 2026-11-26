@@ -1,0 +1,33 @@
+// CGV et confidentialité (26 novembre 2026) : les Programmes comprennent maintenant un PDF et un accès en ligne
+// par lien personnel (séance guidée, carnet sauvegardé, audit de reprise, bilan de fin), et une offre à deux.
+const die=m=>{console.error('CGV2',m);process.exit(1)};
+const MAIL='alphasince.contact@gmail.com';
+module.exports=function(T){
+ let s=T['Legal.html'];if(typeof s!=='string')die('Legal.html absent');
+ const R=(a,b)=>{const n=s.split(a).length-1;if(n!==1)die('repère « '+a.slice(0,60)+' » trouvé '+n+' fois');s=s.replace(a,()=>b)};
+ R('Version du 14 octobre 2026','Version du 26 novembre 2026');
+ R('fournis sous forme de fichier numérique (les « Programmes »)','fournis sous forme d’un fichier numérique et d’un accès en ligne (les « Programmes »)');
+ R('<p>Les Programmes sont des programmes d’entraînement écrits, à suivre chez soi, fournis sous forme de fichier numérique (PDF).',
+   '<p>Les Programmes sont des programmes d’entraînement écrits, à suivre chez soi. Chaque Programme comprend un fichier numérique (PDF) et un accès en ligne, par un lien personnel, à une séance guidée qui enchaîne les exercices, chronomètre les repos et tient un carnet d’entraînement. Selon le Programme, l’accès en ligne comprend aussi un audit de reprise, qui indique où reprendre après une interruption, et un bilan de fin de parcours.');
+ R('<p>Les Programmes ne constituent ni',
+   '<p><b>Offre à deux.</b> Certains Programmes peuvent être achetés pour deux personnes. Le Client indique alors l’adresse e-mail de la seconde personne, qui reçoit son propre accès, et déclare avoir son accord pour transmettre cette adresse. La seconde personne ne reçoit que les e-mails nécessaires à son accès au Programme. Elle n’est inscrite à aucune liste de conseils sans son propre consentement.</p>\n<p>Les Programmes ne constituent ni');
+ R('reconnaît perdre ainsi son droit de rétractation (article 9).',
+   'reconnaît perdre ainsi son droit de rétractation (article 9). Pour une offre à deux, il indique l’adresse e-mail de la seconde personne.');
+ const a=s.indexOf('<h3>Article 8 · Programmes : fourniture et utilisation</h3>'),fin='Le Client conserve le Programme sans limite de durée.</p>',b=s.indexOf(fin,a);
+ if(a<0||b<0)die('article 8 introuvable');
+ s=s.slice(0,a)+'<h3>Article 8 · Programmes : fourniture, accès en ligne et utilisation</h3>\n'+
+  '<p>Le Programme est envoyé au Client par e-mail, à l’adresse indiquée lors du paiement, au plus tard le jour ouvré suivant le paiement : le fichier PDF, ou un lien pour le télécharger, et le lien personnel d’accès en ligne. Le PDF se lit avec tout lecteur courant et peut être imprimé ; le Client le conserve sans limite de durée. L’accès en ligne fonctionne dans un navigateur récent, sur téléphone, tablette ou ordinateur, avec une connexion internet. Aucun identifiant ni mot de passe n’est demandé.</p>\n'+
+  '<p>Le carnet d’entraînement est enregistré avec le lien personnel : le Client le retrouve sur un autre appareil. S’il perd son lien ou change d’appareil, il saisit son e-mail sur la page du Programme, ou écrit à '+MAIL+', pour le recevoir à nouveau. Le vendeur maintient l’accès en ligne pendant au moins deux ans à compter de l’achat. S’il devait y mettre fin ensuite, il en informe le Client au moins trois mois à l’avance et lui permet de récupérer son carnet.</p>\n'+
+  '<p>Si le Client n’a rien reçu dans le délai indiqué, il vérifie ses courriers indésirables puis écrit à '+MAIL+' : le vendeur lui renvoie son Programme.</p>'+s.slice(b+fin.length);
+ R('Il ne peut être revendu, partagé, diffusé ou mis en ligne, même gratuitement.',
+   'Il ne peut être revendu, partagé, diffusé ou mis en ligne, même gratuitement. Le lien personnel ne doit pas être communiqué à des tiers : en cas d’usage manifestement partagé, le vendeur peut le remplacer par un nouveau lien envoyé au Client.');
+ R('Un Programme est un contenu numérique fourni sans support matériel.','Un Programme, fichier et accès en ligne compris, est un contenu numérique fourni sans support matériel.');
+ R('<p>Pour mettre en œuvre ces garanties, le Client contacte',
+   '<p><b>Programmes.</b> Les Programmes bénéficient de la garantie légale de conformité des contenus numériques (articles L. 224-25-12 et suivants du code de la consommation). En cas de défaut de conformité, notamment si l’accès en ligne ne fonctionne pas, le vendeur met le Programme en conformité dans un délai raisonnable. À défaut, le Client peut obtenir une réduction du prix ou la résolution du contrat et son remboursement.</p>\n<p>Pour mettre en œuvre ces garanties, le Client contacte');
+ R('<li><b>Programmes</b> : ton nom et ton e-mail, pour t’envoyer le programme acheté et répondre à tes questions. Aucune information sur ta santé ne t’est demandée. Durée : la même que pour une commande.</li>',
+   '<li><b>Programmes</b> : ton nom et ton e-mail, et celui de la personne invitée pour une offre à deux, pour t’envoyer le programme et ton lien d’accès et répondre à tes questions. Base : contrat. Avec ton lien personnel, nous enregistrons ton carnet d’entraînement : séances faites et leurs dates, temps, répétitions et charges, résultats des tests. Ils servent uniquement à faire fonctionner ta séance guidée, ton audit de reprise et ton bilan de fin. Ils ne sont ni vendus, ni utilisés pour de la publicité. Durée : tant que ton accès est actif, puis 3 ans sans utilisation ; tu peux demander leur suppression à tout moment.</li>\n'+
+   '<li><b>Audit de reprise</b> : la durée d’une pause et, si tu choisis de l’indiquer, sa raison (par exemple une blessure ou une maladie). Cette raison peut être une information de santé : elle est facultative, elle n’est enregistrée qu’avec ton accord exprès, recueilli au moment où tu l’indiques, et sert uniquement à adapter ta reprise. Tu peux retirer cet accord et la faire effacer à tout moment.</li>');
+ R('<p>Le site ne dépose aucun cookie publicitaire ni de mesure d’audience.</p>',
+   '<p>Le site ne dépose aucun cookie publicitaire ni de mesure d’audience. Il mesure sa fréquentation avec Vercel Web Analytics, sans cookie et sans identifier les visiteurs (pages vues, pays, type d’appareil). Les séances guidées gardent aussi ton avancement dans la mémoire de ton navigateur (stockage local), sur ton appareil.</p>');
+ T['Legal.html']=s;console.log('CGV2 ok');
+};

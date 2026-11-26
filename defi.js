@@ -1,3 +1,4 @@
+const fs=require('fs');
 // Défi gainage 30 jours — séance guidée (25 novembre 2026). Page réservée aux acheteurs : adresse
 // non listée (jeton ci-dessous, donné dans le PDF), absente du plan du site, « noindex ».
 // Le visiteur choisit son niveau, ouvre le jour, et le chrono enchaîne les positions avec des bips.
@@ -113,7 +114,7 @@ function home(){
   if(S.faits[d])c='ok';h+='<button type="button" class="'+c+(d===n?' now':'')+'" data-jour="'+d+'"><b>'+(S.faits[d]?'✓':d)+'</b><i>'+lab+'</i></button>'}
  h+='</div><button type="button" class="btn-y" data-jour="'+n+'">Ouvrir le jour '+n+'</button>';
  h+='<label class="chk"><input type="checkbox" id="fac"'+(S.facile?' checked':'')+'> <span>Afficher les versions plus faciles pendant la séance</span></label>';
- h+='<p class="muted">Tes jours faits et tes résultats restent sur ce téléphone. Une gêne, une question : <a href="mailto:alphasince.contact@gmail.com">alphasince.contact@gmail.com</a></p>';
+ h+='<a class="btn-o" style="display:block;text-align:center;line-height:46px;text-decoration:none;margin:0 0 14px" href="/docs/Alpha_Defi_gainage_${JETON}.pdf" download>Télécharger le PDF du défi</a><p class="muted">Tes jours faits et tes résultats restent sur ce téléphone. Une gêne, une question : <a href="mailto:alphasince.contact@gmail.com">alphasince.contact@gmail.com</a></p>';
  app.innerHTML=h;window.scrollTo(0,0)}
 
 /* ---------- un jour ---------- */
@@ -216,6 +217,7 @@ module.exports=function(T){
  T[FICHIER]=page(T);
  // Garde-fous : la page ne doit pas être listée.
  for(const k of Object.keys(T))if(typeof T[k]==='string'&&k!==FICHIER&&T[k].includes(JETON))die('le jeton apparaît dans '+k);
+ const PDF='sources/programmes/Alpha_Defi_gainage_30_jours.pdf';if(!fs.existsSync(PDF))die('PDF du défi absent');fs.mkdirSync('out/docs',{recursive:true});fs.copyFileSync(PDF,'out/docs/Alpha_Defi_gainage_'+JETON+'.pdf');
  console.log('DEFI ok séance guidée',ADRESSE);
 };
 module.exports.ADRESSE=ADRESSE;module.exports.FICHIER=FICHIER;
