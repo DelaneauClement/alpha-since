@@ -459,7 +459,7 @@ rrect(MX, y, CW, 206, 14, INK)
 text(MX + 18, y + 18, 'LE GAINAGE NE SUFFIT PAS.', 'BS', 22, CREAM)
 text(MX + 18, y + 46, "LA SUITE, C'EST LA FORCE.", 'BS', 22, YEL)
 para(MX + 18, y + 84, CW - 36, "Ces 30 jours ont préparé le terrain : un tronc solide, une habitude, et la preuve que tu tiens un engagement. Pour devenir vraiment plus fort, et protéger tes os et tes articulations en vieillissant, il faut maintenant des charges : squats, fentes, soulevé de terre, rowing, avec une paire d'haltères.", size=11, leading=16, color=CREAM)
-para(MX + 18, y + 160, CW - 36, "C'est ce que font les programmes Alpha de 12 semaines, <b>Force & fessiers 40+</b> et <b>Enfin t'y mettre</b>, avec le circuit de la semaine 4 en échauffement. À retrouver sur <b>alphasince.fr/programmes</b>.", size=11, leading=16, color=CREAM)
+para(MX + 18, y + 160, CW - 36, "C'est ce que font les programmes Alpha : <b>Se remettre en 6 semaines</b> pour apprendre les gestes, puis <b>Force & fessiers 40+</b> sur 12 semaines, avec le circuit de la semaine 4 en échauffement. À retrouver sur <b>alphasince.fr/programmes</b>.", size=11, leading=16, color=CREAM)
 y += 218
 P10 = y
 footer(10); c.showPage(); c.save()

@@ -12,11 +12,11 @@ const die=m=>{console.error('PROGRAMMES',m);process.exit(1)};
 const enc=s=>encodeURIComponent(s).replace(/'/g,'%27');
 const P=[
  {nom:'Défi gainage 30 jours',duree:'30 jours',prix:'9 €',unite:'',pour:'Pour tout le monde, dès le premier jour.',
-  txt:'Un test pour fixer ton niveau, un circuit qui change chaque semaine et une séance guidée sur ton téléphone qui enchaîne tout pour toi. 15 à 20 minutes, 5 jours sur 7, sans matériel.'},
+  txt:'Un test pour fixer ton niveau, un circuit qui change chaque semaine et une séance guidée sur ton téléphone qui enchaîne tout pour toi. 15 à 20 minutes, 5 jours sur 7, sans matériel. À deux : 14 € pour deux accès, et le plus gros progrès gagne.'},
  {nom:'Force & fessiers 40+',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
   txt:'Force, fessiers et santé des os, avec de vraies charges : une paire d’haltères suffit à la maison. 2 à 3 séances par semaine, des séries courtes et lourdes qui progressent chaque semaine. Une version salle pour chaque exercice.'},
- {nom:'Enfin t’y mettre',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
-  txt:'Démarrer à 2 séances par semaine, passer du poids du corps aux premières charges, et progresser par petits paliers. Pour se remettre en forme sans se blesser ni abandonner en route.'}
+ {nom:'Se remettre en 6 semaines',duree:'6 semaines',prix:'18 €',unite:'soit 3 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
+  txt:'Un test pour partir à ton niveau, 2 séances de 30 minutes par semaine avec une chaise et un sac à dos, et une séance guidée sur ton téléphone. Squats, pompes, fentes, rowing : les gestes de la force, appris pas à pas, avant de passer aux charges.'}
 ];
 module.exports=function(T){
  const B=T['Bilan.html'];
@@ -24,7 +24,7 @@ module.exports=function(T){
  if(h<0||f<h)die('gabarit Bilan introuvable');
  let head=B.slice(0,h);
  const TITLE='Programmes d’entraînement à la maison, dès 9 € | Alpha Since';
- const DESC='Des programmes écrits à suivre chez toi, à ton rythme : Défi gainage 30 jours, Force & fessiers 40+, Enfin t’y mettre. Sans abonnement, dès 9 €.';
+ const DESC='Des programmes écrits à suivre chez toi, à ton rythme : Défi gainage 30 jours, Force & fessiers 40+, Se remettre en 6 semaines. Sans abonnement, dès 9 €.';
  const rep=(re,v,n)=>{const c=(head.match(re)||[]).length;if(c!==n)die('balise '+re+' : '+c);head=head.replace(re,v)};
  rep(/<title>[^<]*<\/title>/g,'<title>'+TITLE+'</title>',1);
  rep(/<meta property="og:title" content="[^"]*">/g,'<meta property="og:title" content="'+TITLE+'">',1);
@@ -108,7 +108,7 @@ module.exports=function(T){
   '<h2 class="a-h2">La motivation te fait commencer. <span class="a-y">Un bon programme te fait continuer.</span></h2>\n'+
   '<p class="a-lead">Devenir plus fort, le redevenir, et rester en bonne santé. Des programmes écrits par Clément, à suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
   '</div>\n<div class="a-coach-box a-rv">\n<span class="a-kick">À partir de</span>\n<span class="a-price">9 €</span>\n'+
-  '<ul><li>Défi gainage 30 jours</li><li>Force &amp; fessiers 40+</li><li>Enfin t’y mettre</li></ul>\n'+
+  '<ul><li>Défi gainage 30 jours</li><li>Force &amp; fessiers 40+</li><li>Se remettre en 6 semaines</li></ul>\n'+
   '<a class="a-btn a-btn-y" href="/programmes">Voir les programmes</a>\n</div>\n</div>\n</section>'+M.slice(b+10);
  const r='<a class="a-route" href="/programmes"><span class="a-route-t"><b>Je veux être suivi</b><span>Un coach qui part de ton bilan et ajuste ton programme. Sans engagement.</span></span>';
  if(M.split(r).length!==2)die('raccourci « Je veux être suivi » introuvable');
