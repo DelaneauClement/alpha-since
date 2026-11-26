@@ -14,9 +14,9 @@ const P=[
  {nom:'Défi gainage 30 jours',duree:'30 jours',prix:'9 €',unite:'',pour:'Pour tout le monde, dès le premier jour.',
   txt:'Un test pour fixer ton niveau, un circuit qui change chaque semaine et une séance guidée sur ton téléphone qui enchaîne tout pour toi. 15 à 20 minutes, 5 jours sur 7, sans matériel.'},
  {nom:'Force & fessiers 40+',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
-  txt:'Force, fessiers et santé des os. 2 à 3 séances courtes par semaine, à la maison d’abord, avec une version salle si tu y as accès.'},
+  txt:'Force, fessiers et santé des os, avec de vraies charges : une paire d’haltères suffit à la maison. 2 à 3 séances par semaine, des séries courtes et lourdes qui progressent chaque semaine. Une version salle pour chaque exercice.'},
  {nom:'Enfin t’y mettre',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
-  txt:'Démarrer à 2 séances par semaine, sans matériel, et progresser par petits paliers. Pour se remettre en forme sans se blesser ni abandonner en route.'}
+  txt:'Démarrer à 2 séances par semaine, passer du poids du corps aux premières charges, et progresser par petits paliers. Pour se remettre en forme sans se blesser ni abandonner en route.'}
 ];
 module.exports=function(T){
  const B=T['Bilan.html'];
@@ -72,9 +72,10 @@ module.exports=function(T){
   '<section class="a-sec t-cream"><div class="a-wrap"><div class="p-grid">'+cards+'</div></div></section>\n'+
   '<section class="a-sec t-cream"><div class="a-wrap a-narrow a-stack">\n'+
   '<h2 class="a-h2">Comment ils sont construits</h2>\n'+
-  '<ul class="p-list"><li><b>À la maison d’abord</b> : au poids du corps, sans matériel. Une version salle en option.</li>'+
-  '<li><b>Au chrono</b> : tu travailles en temps, pas en nombre de répétitions, et tu gardes toujours un peu de réserve.</li>'+
-  '<li><b>Par petits paliers</b> : quand c’est facile, tu ajoutes 10 secondes. Pas de saut de niveau brutal.</li>'+
+  '<ul class="p-list"><li><b>De vraies charges</b> : c’est la charge qui construit la force et protège les os. À la maison, une paire d’haltères suffit ; chaque exercice a sa version salle.</li>'+
+  '<li><b>Des séries près de l’effort maximal</b> : 6 à 12 répétitions selon la phase, en gardant 1 ou 2 répétitions en réserve.</li>'+
+  '<li><b>Par petits paliers</b> : des répétitions d’abord, puis de la charge. Pas de saut de niveau brutal.</li>'+
+  '<li><b>Le gainage au chrono</b>, dans chaque séance, et le Défi gainage 30 jours pour s’y mettre.</li>'+
   '<li><b>Le pourquoi de chaque exercice</b> : tu sais ce que tu travailles, et pourquoi.</li>'+
   '<li><b>La base avant tout</b> : sommeil, récupération, régularité. C’est la discipline qui fait progresser, pas une séance héroïque.</li></ul>\n'+
   '<h2 class="a-h2">Qui les écrit</h2>\n'+

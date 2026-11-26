@@ -24,7 +24,7 @@ MX, CW = 44, 507.28
 RIGHT = MX + CW
 LOGO = ImageReader(A + '/logo.png')
 DOC = 'Défi gainage 30 jours'
-NPAGES = 9
+NPAGES = 10
 
 c = canvas.Canvas(OUT, pagesize=(W, H), pageCompression=1)
 c.setTitle('Alpha Since - Défi gainage 30 jours')
@@ -222,7 +222,6 @@ def pos_card(top, num, k, new=False, draw=True):
     return h
 
 
-NPAGES = 9
 
 # ------------------------------------------------------------------ page 1
 page_bg()
@@ -434,12 +433,34 @@ for r_, lab in enumerate(['Planche', 'Planche latérale droite', 'Planche latér
         c.line(colx[k], H - (yy + 13), colx[k] + 62, H - (yy + 13))
         text(colx[k] + 65, yy + 1, 's', 'Carlito', 10, SAND)
 y += 162
-para(MX, y, CW, "<b>Jour 30 :</b> récupération et bilan. Qu'est-ce qui a changé au quotidien : le dos le soir, la posture, les escaliers, ta séance de sport ? Pour continuer, garde 2 séances par semaine avec le circuit de la semaine 4.", size=10.5, leading=15)
+para(MX, y, CW, "<b>Jour 30 :</b> récupération et bilan. Qu'est-ce qui a changé au quotidien : le dos le soir, la posture, les escaliers, ta séance de sport ? La suite : page 10.", size=10.5, leading=15)
 y += 50
 para(MX, y, CW, "Ce programme donne des repères généraux pour des adultes en bonne santé. Il ne remplace pas un avis médical. Réservé à ton usage personnel.", size=9.5, leading=13.5, color=OLIVE)
 y += 32
 w1 = text(MX, y, 'Une question : ', 'Carlito', 11, OLIVE)
 text(MX + w1, y, 'alphasince.contact@gmail.com', 'Carlito-Bold', 11, INK)
 P9 = y + 14
-footer(9); c.showPage(); c.save()
-print('ok', OUT, 'fins de page', [round(v) for v in (P2, P3, E4, E5, E6, E7, P8, P9)], '(limite 790)')
+footer(9); c.showPage()
+
+# ------------------------------------------------------------------ page 10 : à deux, et après
+page_bg(); header_small('ET APRÈS ?')
+section(94, 'LE DÉFI À DEUX', 'Un ami, un collègue, ta sœur…')
+y = 130
+y += num_card(y, 1, 'LE MÊME JOUR 1', '', [
+    "Faites le test ensemble, ou en appel vidéo. Chacun note ses temps.",
+    "Fixez votre créneau commun, même si vous vous entraînez chacun chez vous."]) + 8
+y += num_card(y, 2, 'UN MESSAGE PAR SÉANCE', '', [
+    "Une séance faite = une photo de ton calendrier coché, envoyée à l'autre.",
+    "Un jour raté ? L'autre te relance. C'est tout l'intérêt d'être deux."]) + 8
+y += num_card(y, 3, 'LE GAGNANT DU JOUR 29', '', [
+    "On ne compare pas les temps, mais les progrès : celui qui a gagné le plus de secondes entre le jour 1 et le jour 29 a gagné.",
+    "Le gage se décide au jour 1 : un resto, un café, une séance de plus pour le perdant."]) + 22
+rrect(MX, y, CW, 206, 14, INK)
+text(MX + 18, y + 18, 'LE GAINAGE NE SUFFIT PAS.', 'BS', 22, CREAM)
+text(MX + 18, y + 46, "LA SUITE, C'EST LA FORCE.", 'BS', 22, YEL)
+para(MX + 18, y + 84, CW - 36, "Ces 30 jours ont préparé le terrain : un tronc solide, une habitude, et la preuve que tu tiens un engagement. Pour devenir vraiment plus fort, et protéger tes os et tes articulations en vieillissant, il faut maintenant des charges : squats, fentes, soulevé de terre, rowing, avec une paire d'haltères.", size=11, leading=16, color=CREAM)
+para(MX + 18, y + 160, CW - 36, "C'est ce que font les programmes Alpha de 12 semaines, <b>Force & fessiers 40+</b> et <b>Enfin t'y mettre</b>, avec le circuit de la semaine 4 en échauffement. À retrouver sur <b>alphasince.fr/programmes</b>.", size=11, leading=16, color=CREAM)
+y += 218
+P10 = y
+footer(10); c.showPage(); c.save()
+print('ok', OUT, 'fins de page', [round(v) for v in (P2, P3, E4, E5, E6, E7, P8, P9, P10)], '(limite 790)')
