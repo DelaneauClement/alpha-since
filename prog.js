@@ -116,14 +116,23 @@ var DEP={squat:[4,8,'un haltère'],squatGob:[4,8,'un haltère'],pont:[4,8,'sur l
 var F=null; // essai en cours : {i,e,kg,n}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 function sexe(){return S.cfg.sexe||(P.fem?'f':P.slug==='force-carrure'?'h':null)}
-function pas(kg){return kg<5?1:2}
+function mat(x){var sl=S.cfg.lieu==='salle'&&x.sl&&x.sl!=='Identique'?x.sl:'';
+ if(sl&&/barre/i.test(sl)&&!/haltère/i.test(sl))return {u:'au total, barre comprise (une barre olympique pèse souvent 20 kg)',st:[20,20],r:2.5};
+ if(sl&&/machine|poulie|presse/i.test(sl))return {u:'sur la machine',st:[10,20],r:2.5};
+ if(x.v&&/sac/i.test(x.v[verIdx(x)]))return {u:'dans le sac à dos',st:[3,5],r:0.5};
+ var d=DEP[x.e];return {u:d[2],st:[d[0],d[1]],r:0}}
+function arrondi(kg,m){var r=m.r||(kg<10?0.5:1);return Math.max(0,Math.round(kg/r)*r)}
 function cherche(x){if(!x.ch||!DEP[x.e]||x.sec||x.chrono)return false;if(!x.v)return true;var v=x.v[verIdx(x)];return /sac|haltère|bouteille/i.test(v)}
-function panneau(x,i){var d=DEP[x.e],h='<div class="find">';
+var RES=[['0 ou 1',0.9],['2 ou 3',1],['4 à 6',1.15],['7 à 10',1.3],['Plus de 10, facile',1.6]];
+function depart(x){var m=mat(x),k=m.st[sexe()==='f'?0:1]*(S.cfg.xp?1.6:1);return arrondi(k,m)}
+function panneau(x,i){var m=mat(x),h='<div class="find">';
  if(!F||F.i!==i){var st=S.start&&S.start[x.e];
-  return h+(st?'<p>Charge trouvée : <b>'+st+' kg</b> ('+d[2]+').</p><button type="button" class="go" data-find="'+i+'">Refaire l’essai</button>':'<p><b>Tu ne sais pas quelle charge prendre ?</b> On la trouve en 3 ou 4 séries d’essai, qui servent aussi d’échauffement.</p><button type="button" class="go" data-find="'+i+'">Trouver ma charge</button>')+'</div>'}
- if(!sexe())return h+'<p>Pour te proposer une charge de départ prudente :</p><div class="row"><button type="button" data-sexe="f">Je suis une femme</button><button type="button" data-sexe="h">Je suis un homme</button><button type="button" data-find-x="1">Annuler</button></div></div>';
- if(F.ok)return h+'<p>Ta charge de départ :</p><p class="big">'+F.kg+' kg</p><small>'+cap(d[2])+'. Elle est notée dans tes séries. Si toutes tes séries atteignent '+x.r[1]+' répétitions, la séance guidée te dira de monter.</small><button type="button" class="go" data-find-x="1" style="margin-top:8px">C’est noté</button></div>';
- return h+'<p>Essai '+F.n+' : fais <b>'+x.r[0]+' répétitions'+(x.par?' (par '+x.par+')':'')+'</b> propres avec</p><p class="big">'+F.kg+' kg</p><small>'+cap(d[2])+(F.n===1?' · On commence volontairement léger.':'')+'</small><p><b>Combien aurais-tu pu en faire de plus ?</b></p><div class="row"><button type="button" data-fr="'+i+':4">4 ou plus</button><button type="button" data-fr="'+i+':2">2 ou 3</button><button type="button" data-fr="'+i+':0">0 ou 1</button></div><small>Il en reste peu quand la vitesse ralentit nettement, que la respiration se bloque ou que la position se dégrade (genoux qui rentrent, dos qui s’arrondit).</small><button type="button" class="go" data-find-x="1" style="margin-top:8px;background:#fff;color:var(--ink)">Annuler</button></div>'}
+  return h+(st?'<p>Charge de départ : <b>'+st+' kg</b> ('+m.u+').</p><button type="button" class="go" data-find="'+i+'">Refaire l’essai</button>':'<p><b>Quelle charge prendre ?</b></p><div class="tin" style="margin:6px 0"><label for="kn'+i+'" style="font-size:14px">Tu la connais déjà pour '+x.r[0]+' à '+x.r[1]+' répétitions ? (kg, '+m.u+')</label><input id="kn'+i+'" inputmode="decimal" placeholder="kg"></div><button type="button" class="go" data-known="'+i+'" style="background:#fff;color:var(--ink)">Je la connais</button><button type="button" class="go" data-find="'+i+'" style="margin-top:6px">Je ne sais pas : la trouver</button>')+'</div>'}
+ if(F.kg==null){h+='<p>Pour proposer un premier essai adapté :</p>';if(!sexe())h+='<div class="row" style="grid-template-columns:1fr 1fr"><button type="button" data-sexe="f">Je suis une femme</button><button type="button" data-sexe="h">Je suis un homme</button></div>';else h+='<div class="row" style="grid-template-columns:1fr 1fr"><button type="button" data-xp="0">Je débute</button><button type="button" data-xp="1">J’ai déjà pratiqué</button></div>';return h+'<button type="button" class="go" data-find-x="1" style="background:#fff;color:var(--ink)">Annuler</button></div>'}
+ if(F.ok)return h+'<p>Ta charge de départ :</p><p class="big">'+F.kg+' kg</p><small>'+cap(m.u)+'. Elle est notée dans tes séries. Si toutes tes séries atteignent '+x.r[1]+' répétitions, la séance guidée te dira de monter.</small><button type="button" class="go" data-find-x="1" style="margin-top:8px">C’est noté</button></div>';
+ h+='<p>Essai '+F.n+' : fais <b>'+x.r[0]+' répétitions'+(x.par?' (par '+x.par+')':'')+'</b> propres avec</p><p class="big">'+F.kg+' kg</p><small>'+cap(m.u)+'.'+(F.n===1?' Un premier essai léger, qui sert aussi d’échauffement.':'')+'</small><p><b>Combien aurais-tu pu en faire de plus ?</b></p><div class="row" style="grid-template-columns:repeat(3,1fr)">';
+ RES.forEach(function(r,j){h+='<button type="button" data-fr="'+i+':'+j+'">'+r[0]+'</button>'});
+ return h+'</div><small>Sois honnête : il en reste peu quand la vitesse ralentit nettement, que la respiration se bloque ou que la position se dégrade. L’appli ajuste la charge de l’essai suivant selon ta réponse (jusqu’à +60 % si c’était facile) : 2 ou 3 essais suffisent.</small><button type="button" class="go" data-find-x="1" style="margin-top:8px;background:#fff;color:var(--ink)">Annuler</button></div>'}
 
 /* ---------- version d'un exercice ---------- */
 function niv(){return S.cfg.niv==null?0:S.cfg.niv}
@@ -236,12 +245,17 @@ app.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)
   var C=S.carnet[kk]=S.carnet[kk]||{};C[a[0]]=C[a[0]]||[];C[a[0]][a[1]]=[kg===''?0:+kg,+rp];save();apresSerie(w,k,a[0],a[1])}
  else if((a=b.getAttribute('data-chr'))){a=a.split(':').map(Number);var w2=+app.dataset.w,k2=app.dataset.k,x2=se(w2,k2).items[a[0]],sec=secCible(x2),two=x2.par==='côté';
   chrono({kind:'Effort',name:EX[x2.e].n,sec:two?sec*2:sec,mid:two,go:true,next:two?'Change de côté à mi-temps.':'',done:function(){var C=S.carnet[key(w2,k2)]=S.carnet[key(w2,k2)]||{};C[a[0]]=C[a[0]]||[];C[a[0]][a[1]]=[0,sec];save();apresSerie(w2,k2,a[0],a[1])}})}
- else if((a=b.getAttribute('data-find'))!=null){var x5=se(+app.dataset.w,app.dataset.k).items[+a],d5=DEP[x5.e],sx=sexe();F={i:+a,e:x5.e,n:1,kg:sx?d5[sx==='f'?0:1]:0};seance(+app.dataset.w,app.dataset.k);var e5=document.getElementById('x'+a);if(e5)e5.scrollIntoView({block:'start'})}
- else if((a=b.getAttribute('data-sexe'))){S.cfg.sexe=a;save();if(F){var d6=DEP[F.e];F.kg=d6[a==='f'?0:1]}seance(+app.dataset.w,app.dataset.k)}
+ else if((a=b.getAttribute('data-find'))!=null){var x5=se(+app.dataset.w,app.dataset.k).items[+a],m5=mat(x5),sx=sexe();F={i:+a,e:x5.e,n:1,kg:sx&&S.cfg.xp!=null?depart(x5):null};seance(+app.dataset.w,app.dataset.k);var e5=document.getElementById('x'+a);if(e5)e5.scrollIntoView({block:'start'})}
+ else if((a=b.getAttribute('data-known'))!=null){var v9=(document.getElementById('kn'+a).value||'').replace(',','.');if(v9===''||isNaN(v9))return;var x9=se(+app.dataset.w,app.dataset.k).items[+a];F={i:+a,e:x9.e,n:1,kg:+v9,ok:1};S.start=S.start||{};S.start[x9.e]=+v9;save();seance(+app.dataset.w,app.dataset.k);var e9=document.getElementById('x'+a);if(e9)e9.scrollIntoView({block:'start'})}
+ else if((a=b.getAttribute('data-sexe'))){S.cfg.sexe=a;save();seance(+app.dataset.w,app.dataset.k)}
+ else if((a=b.getAttribute('data-xp'))!=null){S.cfg.xp=+a;save();if(F){F.kg=depart(se(+app.dataset.w,app.dataset.k).items[F.i])}seance(+app.dataset.w,app.dataset.k)}
  else if(b.hasAttribute('data-find-x')){var fi=F&&F.i;F=null;seance(+app.dataset.w,app.dataset.k);var e7=document.getElementById('x'+fi);if(e7)e7.scrollIntoView({block:'start'})}
- else if((a=b.getAttribute('data-fr'))){a=a.split(':').map(Number);var r8=a[1],w8=+app.dataset.w,k8=app.dataset.k;
-  if(r8===4&&F.n<6){F.kg=Math.round((F.kg+pas(F.kg))*2)/2;F.n++;chrono({kind:'Repos avant l’essai suivant',name:EX[F.e].n,sec:60,next:'Ensuite : '+F.kg+' kg',done:function(){}})}
-  else{if(r8===0)F.kg=Math.max(0,Math.round((F.kg-pas(F.kg))*2)/2);F.ok=1;S.start=S.start||{};S.start[F.e]=F.kg;save()}
+ else if((a=b.getAttribute('data-fr'))){a=a.split(':').map(Number);var w8=+app.dataset.w,k8=app.dataset.k,x8=se(w8,k8).items[a[0]],m8=mat(x8),rr=RES[a[1]][1];
+  var cible=arrondi(F.kg*rr,m8);if(cible===F.kg&&rr>1)cible=arrondi(F.kg+(m8.r||(F.kg<10?0.5:1)),m8);
+  if(a[1]===1||F.n>=4||cible===F.kg){F.ok=1}
+  else if(a[1]===0){F.kg=cible;F.ok=1}
+  else{F.kg=cible;F.n++;chrono({kind:'Repos avant l’essai suivant',name:EX[F.e].n,sec:90,next:'Ensuite : '+cible+' kg',done:function(){}})}
+  if(F.ok){S.start=S.start||{};S.start[F.e]=F.kg;save()}
   seance(w8,k8);var e8=document.getElementById('x'+a[0]);if(e8)e8.scrollIntoView({block:'start'})}
  else if((a=b.getAttribute('data-libre'))!=null){var w3=+app.dataset.w,k3=app.dataset.k,C3=S.carnet[key(w3,k3)]=S.carnet[key(w3,k3)]||{};C3[a]=C3[a]&&C3[a][0]?[]:[1];save();seance(w3,k3)}
  else if((a=b.getAttribute('data-fin'))){a=a.split(':');if(!S.faits[key(+a[0],a[1])])noter(+a[0],a[1]);home()}
