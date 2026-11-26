@@ -37,6 +37,7 @@ h1{font-size:36px;margin:6px 0 8px}h2{font-size:23px;margin:26px 0 10px}h3{font-
 .ex{background:#fff;border:1px solid var(--sand);border-radius:16px;padding:14px;margin:0 0 12px}
 .ex h3{margin:0 0 2px}.ex .v{font-weight:700;margin:0 0 2px}.ex .tg{font-size:15px;color:var(--olive);margin:0 0 8px}
 .ex details{font-size:15px;margin:4px 0 8px}.ex details ul{margin:6px 0;padding-left:20px}
+.find{border:2px dashed var(--khaki);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:15px}.find p{margin:4px 0}.find .big{font-family:Anton,Impact,sans-serif;font-size:30px;color:var(--ink)}.find .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}.find .row button,.find .go{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:8px 4px;font-weight:700;font-size:14px;color:var(--ink)}.find .go{width:100%;background:var(--ink);color:var(--y);border-color:var(--ink);min-height:44px}.find small{display:block;color:var(--olive);font-size:13px;line-height:1.35}
 .last{font-size:14.5px;background:var(--cream);border-radius:10px;padding:6px 10px;margin:6px 0}
 .adv{font-size:14.5px;font-weight:700;margin:4px 0 8px}
 .vers{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.vers button{border:1px solid var(--sand);background:transparent;border-radius:999px;padding:3px 10px;font-size:13px;color:var(--ink)}
@@ -108,6 +109,22 @@ function chrono(o){ // o: {kind,name,sec,next,go,mid}
 }
 function stopChrono(){if(tm){clearInterval(tm);tm=null}var el=document.getElementById('pl');if(el)el.remove();veille(false)}
 
+/* ---------- trouver sa charge ---------- */
+var DEP={squat:[4,8,'un haltère'],squatGob:[4,8,'un haltère'],pont:[4,8,'sur les hanches'],hipThrust:[6,12,'sur les hanches'],hipThrust1:[2,4,'sur les hanches'],pontExplo:[4,8,'sur les hanches'],
+ sdtr:[3,6,'par main'],sdtr1:[3,5,'un haltère'],rowing:[4,8,'un haltère'],rowPenche:[3,6,'par main'],devEp:[2,4,'par main'],devMil:[3,6,'par main'],devCouche:[4,8,'par main'],devIncl:[3,6,'par main'],
+ fente:[2,4,'par main'],bulgare:[2,4,'par main'],stepUp:[2,4,'par main'],marche:[2,4,'par main'],elevLat:[1,2,'par main'],curl:[3,5,'par main'],extTri:[3,6,'un haltère']};
+var F=null; // essai en cours : {i,e,kg,n}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+function sexe(){return S.cfg.sexe||(P.fem?'f':P.slug==='force-carrure'?'h':null)}
+function pas(kg){return kg<5?1:2}
+function cherche(x){if(!x.ch||!DEP[x.e]||x.sec||x.chrono)return false;if(!x.v)return true;var v=x.v[verIdx(x)];return /sac|haltère|bouteille/i.test(v)}
+function panneau(x,i){var d=DEP[x.e],h='<div class="find">';
+ if(!F||F.i!==i){var st=S.start&&S.start[x.e];
+  return h+(st?'<p>Charge trouvée : <b>'+st+' kg</b> ('+d[2]+').</p><button type="button" class="go" data-find="'+i+'">Refaire l’essai</button>':'<p><b>Tu ne sais pas quelle charge prendre ?</b> On la trouve en 3 ou 4 séries d’essai, qui servent aussi d’échauffement.</p><button type="button" class="go" data-find="'+i+'">Trouver ma charge</button>')+'</div>'}
+ if(!sexe())return h+'<p>Pour te proposer une charge de départ prudente :</p><div class="row"><button type="button" data-sexe="f">Je suis une femme</button><button type="button" data-sexe="h">Je suis un homme</button><button type="button" data-find-x="1">Annuler</button></div></div>';
+ if(F.ok)return h+'<p>Ta charge de départ :</p><p class="big">'+F.kg+' kg</p><small>'+cap(d[2])+'. Elle est notée dans tes séries. Si toutes tes séries atteignent '+x.r[1]+' répétitions, la séance guidée te dira de monter.</small><button type="button" class="go" data-find-x="1" style="margin-top:8px">C’est noté</button></div>';
+ return h+'<p>Essai '+F.n+' : fais <b>'+x.r[0]+' répétitions'+(x.par?' (par '+x.par+')':'')+'</b> propres avec</p><p class="big">'+F.kg+' kg</p><small>'+cap(d[2])+(F.n===1?' · On commence volontairement léger.':'')+'</small><p><b>Combien aurais-tu pu en faire de plus ?</b></p><div class="row"><button type="button" data-fr="'+i+':4">4 ou plus</button><button type="button" data-fr="'+i+':2">2 ou 3</button><button type="button" data-fr="'+i+':0">0 ou 1</button></div><small>Il en reste peu quand la vitesse ralentit nettement, que la respiration se bloque ou que la position se dégrade (genoux qui rentrent, dos qui s’arrondit).</small><button type="button" class="go" data-find-x="1" style="margin-top:8px;background:#fff;color:var(--ink)">Annuler</button></div>'}
+
 /* ---------- version d'un exercice ---------- */
 function niv(){return S.cfg.niv==null?0:S.cfg.niv}
 function verIdx(x){var v=S.cfg.ver[x.e];return v==null?niv():v}
@@ -159,12 +176,13 @@ function seance(w,k){
   var chr=!!(x.sec||x.chrono),sec=chr?secCible(x):0;
   h+='<p class="tg">'+x.s+' × '+(chr?dur(sec)+par(x):(x.r[0]===x.r[1]?x.r[0]:x.r[0]+' à '+x.r[1])+' répétitions'+par(x))+' · repos '+dur(x.rep)+'</p>';
   var hi=S.hist[x.e];
+  if(cherche(x)&&(!hi||(F&&F.i===i)))h+=panneau(x,i);
   if(hi&&!chr){h+='<p class="last">Dernière fois (semaine '+hi.w+') : '+hi.sets.map(function(z){return (z[0]?z[0]+' kg × ':'')+z[1]}).join(' · ')+'</p>';
    var top=hi.sets.length>=x.s&&hi.sets.every(function(z){return +z[1]>=x.r[1]});
    h+='<p class="adv">'+(top?'Haut de la fourchette atteint : monte d’un cran (+1 à 2 kg, ou la version suivante), et repars du bas.':'Même charge : vise une répétition de plus que la dernière fois.')+'</p>'}
   for(var j=0;j<x.s;j++){var z=(C[i]||[])[j],done=!!z;
    if(chr)h+='<div class="set chr'+(done?' done':'')+'"><i>'+(j+1)+'</i><span>'+(done?'Fait':dur(sec)+(x.par==='côté'?' × 2 côtés':''))+'</span><button type="button" data-chr="'+i+':'+j+'">'+(done?'Refaire':'Lancer')+'</button></div>';
-   else{var kg=done?z[0]:(hi&&hi.sets[j]?hi.sets[j][0]:(hi&&hi.sets[0]?hi.sets[0][0]:''));
+   else{var kg=done?z[0]:(hi&&hi.sets[j]?hi.sets[j][0]:(hi&&hi.sets[0]?hi.sets[0][0]:(S.start&&S.start[x.e]||'')));
     h+='<div class="set'+(done?' done':'')+'"><i>'+(j+1)+'</i>'+(x.ch?'<label><input inputmode="decimal" type="number" step="0.5" min="0" placeholder="kg" aria-label="Charge série '+(j+1)+'" id="kg'+i+'_'+j+'" value="'+esc(kg)+'">kg</label>':'<span class="muted">poids du corps</span>')+'<label><input inputmode="numeric" type="number" min="0" placeholder="rép." aria-label="Répétitions série '+(j+1)+'" id="rp'+i+'_'+j+'" value="'+esc(done?z[1]:'')+'">rép.</label><button type="button" data-set="'+i+':'+j+'">'+(done?'✓':'OK')+'</button></div>'}}
   h+='</div>'});
  h+='<details class="ex"><summary><b>Retour au calme</b></summary><ul class="list">'+P.calme.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details>';
@@ -218,6 +236,13 @@ app.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)
   var C=S.carnet[kk]=S.carnet[kk]||{};C[a[0]]=C[a[0]]||[];C[a[0]][a[1]]=[kg===''?0:+kg,+rp];save();apresSerie(w,k,a[0],a[1])}
  else if((a=b.getAttribute('data-chr'))){a=a.split(':').map(Number);var w2=+app.dataset.w,k2=app.dataset.k,x2=se(w2,k2).items[a[0]],sec=secCible(x2),two=x2.par==='côté';
   chrono({kind:'Effort',name:EX[x2.e].n,sec:two?sec*2:sec,mid:two,go:true,next:two?'Change de côté à mi-temps.':'',done:function(){var C=S.carnet[key(w2,k2)]=S.carnet[key(w2,k2)]||{};C[a[0]]=C[a[0]]||[];C[a[0]][a[1]]=[0,sec];save();apresSerie(w2,k2,a[0],a[1])}})}
+ else if((a=b.getAttribute('data-find'))!=null){var x5=se(+app.dataset.w,app.dataset.k).items[+a],d5=DEP[x5.e],sx=sexe();F={i:+a,e:x5.e,n:1,kg:sx?d5[sx==='f'?0:1]:0};seance(+app.dataset.w,app.dataset.k);var e5=document.getElementById('x'+a);if(e5)e5.scrollIntoView({block:'start'})}
+ else if((a=b.getAttribute('data-sexe'))){S.cfg.sexe=a;save();if(F){var d6=DEP[F.e];F.kg=d6[a==='f'?0:1]}seance(+app.dataset.w,app.dataset.k)}
+ else if(b.hasAttribute('data-find-x')){var fi=F&&F.i;F=null;seance(+app.dataset.w,app.dataset.k);var e7=document.getElementById('x'+fi);if(e7)e7.scrollIntoView({block:'start'})}
+ else if((a=b.getAttribute('data-fr'))){a=a.split(':').map(Number);var r8=a[1],w8=+app.dataset.w,k8=app.dataset.k;
+  if(r8===4&&F.n<6){F.kg=Math.round((F.kg+pas(F.kg))*2)/2;F.n++;chrono({kind:'Repos avant l’essai suivant',name:EX[F.e].n,sec:60,next:'Ensuite : '+F.kg+' kg',done:function(){}})}
+  else{if(r8===0)F.kg=Math.max(0,Math.round((F.kg-pas(F.kg))*2)/2);F.ok=1;S.start=S.start||{};S.start[F.e]=F.kg;save()}
+  seance(w8,k8);var e8=document.getElementById('x'+a[0]);if(e8)e8.scrollIntoView({block:'start'})}
  else if((a=b.getAttribute('data-libre'))!=null){var w3=+app.dataset.w,k3=app.dataset.k,C3=S.carnet[key(w3,k3)]=S.carnet[key(w3,k3)]||{};C3[a]=C3[a]&&C3[a][0]?[]:[1];save();seance(w3,k3)}
  else if((a=b.getAttribute('data-fin'))){a=a.split(':');if(!S.faits[key(+a[0],a[1])])noter(+a[0],a[1]);home()}
  else if((a=b.getAttribute('data-savetests'))){a=a.split(':');var q=a[0],o={};P.tests.forEach(function(t){o[t.k]=document.getElementById('t_'+t.k).value.trim().replace(',','.')});S.tests[q]=o;

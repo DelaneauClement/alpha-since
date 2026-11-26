@@ -207,6 +207,9 @@ def pages(g):
     bullets(MX + bw2 + 26, st['y'] + 36, bw2 - 32, [b(x) for x in P['calme']], size=10)
     st['y'] += hh + 14
     need(80)
+    need(90)
+    st['y'] += band(st['y'], 'TROUVER\nTA CHARGE', "Commence volontairement léger, fais le bas de la fourchette, puis demande-toi combien tu aurais pu en faire de plus. 4 ou plus : ajoute 1 à 2 kg et refais une série. 2 ou 3 : c'est ta charge. 0 ou 1 : redescends d'un cran. Le bouton « Trouver ma charge » de la séance guidée te guide pas à pas.", fill=WHITE, lc=INK, bc=INK) + 10
+    need(80)
     st['y'] += band(st['y'], 'LE TEMPO', "Descente contrôlée en 2 à 3 secondes, remontée franche. Le gainage se fait au chrono. Ne bloque pas ta respiration : souffle pendant l'effort.") + 10
 
     # ---------------------------------------------------------- 4 · les exercices
