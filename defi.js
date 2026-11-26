@@ -96,6 +96,8 @@ function duree(sem){var pa=D.PALIERS[palier(sem)],n=D.SEMAINES[sem-1].k.length,t
  D.MER.forEach(function(m){t+=m[1]});D.CALME.forEach(function(m){t+=m[1]});t+=D.TOURS*(n*pa[0]+(n-1)*pa[1])+(D.TOURS-1)*D.ENTRE;return Math.round(t/60)}
 function mmss(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
 function pause(){var t=0;for(var k in S.faits)if(S.faits[k]>t)t=S.faits[k];return t<1e12?0:Math.floor((Date.now()-t)/864e5)}
+function noter(d){var p=pause(),t=Date.now();if(S.pnote){S.pnote=0;p=0}if(p>=4){S.pauses=S.pauses||[];S.pauses.push(p)}if(!S.debut)S.debut=t;S.seances=(S.seances||0)+1;S.faits[d]=t}
+function ladate(t){return new Date(t).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}
 function suivant(){for(var d=1;d<=30;d++)if(!S.faits[d])return d;return 30}
 
 /* ---------- accueil ---------- */
@@ -132,7 +134,9 @@ function day(d){
 /* ---------- test ---------- */
 var TESTS=[['planche','Planche'],['lateraleD','Planche latérale droite'],['lateraleG','Planche latérale gauche']];
 function testPage(d){var cle=d===1?'j1':'j29',h='<h1>'+(d===1?'Jour 1 · Ton test de départ':d===29?'Jour 29 · Ton test final':'Jour 30 · Ton bilan')+'</h1>';
- if(d===30){var a=S.test.j1||{},b=S.test.j29||{};h+='<p class="lead">Récupération, et le chemin parcouru :</p><table><tr><th></th><th>Jour 1</th><th>Jour 29</th><th>Écart</th></tr>';
+ if(d===30){var a=S.test.j0||S.test.j1||{},b=S.test.j29||{},deb=S.debut,fi=S.faits[30]||Date.now(),nj=deb?Math.round((fi-deb)/864e5)+1:0,pz=S.pauses||[],lg=pz.length?Math.max.apply(null,pz):0;
+  h+='<div class="box"><b>Ton parcours</b>'+(nj?'<p>Commencé le '+ladate(deb)+' : '+nj+' jours pour boucler les 30 jours du défi.</p>':'')+'<p>'+(S.seances||0)+' jours cochés'+(S.seances>30?', dont '+(S.seances-30)+' refaits après une pause':'')+'.</p><p>'+(pz.length?pz.length+' pause'+(pz.length>1?'s':'')+' de plus de 3 jours (la plus longue : '+lg+' jours), et tu es revenu à chaque fois.':'Aucune pause de plus de 3 jours.')+'</p>'+(S.reprises?'<p>'+S.reprises+' reprise'+(S.reprises>1?'s':'')+' avec un pas en arrière, pour mieux repartir.</p>':'')+'<p>Chaque marche franchie compte, même celles qu’il a fallu remonter.</p></div>';
+  h+='<p class="lead">Récupération, et le chemin parcouru :</p><table><tr><th></th><th>'+(S.test.j0?'Premier test':'Jour 1')+'</th><th>Jour 29</th><th>Écart</th></tr>';
   TESTS.forEach(function(t){var x=a[t[0]],y=b[t[0]];h+='<tr><td>'+t[1]+'</td><td>'+(x?x+' s':'–')+'</td><td>'+(y?y+' s':'–')+'</td><td><b>'+(x&&y?(y-x>0?'+':'')+(y-x)+' s':'–')+'</b></td></tr>'});
   h+='</table><p>Qu’est-ce qui a changé au quotidien ? Le dos le soir, la posture, les escaliers, ta séance de sport ? Le gainage ne suffit pas pour devenir fort : il a préparé le terrain. La suite, ce sont les charges : S’y remettre en 6 semaines pour apprendre les gestes, puis un programme de force de 12 semaines. Garde le circuit de la semaine 4 en échauffement.</p><a class="btn-o" style="text-align:center;line-height:46px;text-decoration:none" href="/programmes">Voir les programmes de force</a><button type="button" class="btn-y" data-fait="30">'+(S.faits[30]?'Défi terminé ✓':'Valider mon défi')+'</button>';return h}
  h+='<p class="lead">Échauffe-toi 2 minutes, puis tiens chaque position le plus longtemps possible <b>en restant parfaitement aligné</b>. Arrête le chrono au premier défaut. 2 minutes de repos entre chaque test.</p>';
@@ -179,7 +183,7 @@ function play(d){var j=jour(d),st=etapes(j.sem),i=0,left=st[0].t,last=Date.now()
   var tm=document.getElementById('tm');if(tm)tm.textContent=mmss(left);
   document.getElementById('pb').style.width=Math.min(100,(done+e.t-left)/tot*100)+'%';
   if(left<=0){next()}if(i<st.length)raf=requestAnimationFrame(tick)}
- function fin(){cancelAnimationFrame(raf);S.faits[d]=Date.now();save();beep(660,.2);setTimeout(function(){beep(880,.2)},220);setTimeout(function(){beep(1100,.4)},440);buzz([200,100,200]);
+ function fin(){cancelAnimationFrame(raf);noter(d);save();beep(660,.2);setTimeout(function(){beep(880,.2)},220);setTimeout(function(){beep(1100,.4)},440);buzz([200,100,200]);
   document.getElementById('pm').innerHTML='<div class="pl-kind">Jour '+d+'</div><div class="pl-name">Séance faite</div><div class="pl-time">✓</div><p class="pl-rep">Bravo. Un jour de plus de coché : la régularité fait le reste.</p>';
   document.querySelector('.pl-ctl').innerHTML='<button type="button" class="main" style="grid-column:1/-1" data-fin>Revenir à mes 30 jours</button>';lock(false)}
  pl.onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
@@ -198,8 +202,8 @@ app.addEventListener('click',function(e){var b=e.target.closest('button');if(!b|
  else if(b.hasAttribute('data-go')){play(+b.getAttribute('data-go'))}
  else if(b.hasAttribute('data-test')){app.innerHTML='<button type="button" class="back" data-jour="1">← Jour 1</button>'+testPage(1)}
  else if(b.hasAttribute('data-chrono')){var c=b.getAttribute('data-chrono').split(':');chrono(c[0],c[1])}
- else if(b.hasAttribute('data-fait')){var d=+b.getAttribute('data-fait');S.faits[d]=S.faits[d]?0:Date.now();save();day(d)}
- else if(b.hasAttribute('data-reprise')){var x=+b.getAttribute('data-reprise');for(var k in S.faits)if(+k>=x)delete S.faits[k];save();day(x)}});
+ else if(b.hasAttribute('data-fait')){var d=+b.getAttribute('data-fait');if(S.faits[d])S.faits[d]=0;else noter(d);save();day(d)}
+ else if(b.hasAttribute('data-reprise')){var x=+b.getAttribute('data-reprise');S.reprises=(S.reprises||0)+1;var pp=pause();if(pp>=4){S.pauses=S.pauses||[];S.pauses.push(pp);S.pnote=1}if(x===1&&S.test.j1&&!S.test.j0)S.test.j0=S.test.j1;for(var k in S.faits)if(+k>=x)delete S.faits[k];save();day(x)}});
 app.addEventListener('change',function(e){var t=e.target;if(t.id==='fac'){S.facile=t.checked;save()}
  else if(t.hasAttribute('data-recul')){S.recul[t.getAttribute('data-recul')]=t.checked?1:0;save();day(+location.hash.slice(2)||suivant())}});
 var _day=day;day=function(d){if(d==='T1'){app.innerHTML='<button type="button" class="back" data-jour="1">← Jour 1</button>'+testPage(1);return}location.hash='j'+d;_day(d)};

@@ -150,7 +150,7 @@ body:`<h3>Pourquoi les fessiers comptent autant</h3>
 <li><b>Patience</b> : les premiers effets se sentent en 4 à 6 semaines, au quotidien avant le miroir. Les escaliers paraissent plus faciles, le dos tire moins le soir.</li>
 </ul>
 <p>Si tu as une douleur de hanche, de genou ou de dos, ou une prothèse, demande l’avis de ton médecin ou de ton kinésithérapeute avant de commencer.</p>
-<p>Le programme « Force & fessiers 40+ » d’Alpha est construit sur ces exercices, avec une progression semaine après semaine. Tu le trouveras sur la page Programmes.</p>`,
+<p>Le programme « Tonicité & fermeté » d’Alpha est construit sur ces exercices, avec une progression semaine après semaine. Tu le trouveras sur la page Programmes.</p>`,
 sources:['Distefano L. J. et al., Gluteal muscle activation during common therapeutic exercises, Journal of Orthopaedic & Sports Physical Therapy, 2009.','Contreras B. et al., A comparison of gluteus maximus, biceps femoris, and vastus lateralis electromyographic activity in the back squat and barbell hip thrust exercises, Journal of Applied Biomechanics, 2015.','Organisation mondiale de la santé, Lignes directrices sur l’activité physique et la sédentarité, 2020.'],
 cta:['/programmes','Voir les programmes']},
 

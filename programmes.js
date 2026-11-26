@@ -13,10 +13,13 @@ const enc=s=>encodeURIComponent(s).replace(/'/g,'%27');
 const P=[
  {nom:'Défi gainage 30 jours',duree:'30 jours',prix:'9 €',unite:'',pour:'Pour tout le monde, dès le premier jour.',
   txt:'Un test pour fixer ton niveau, un circuit qui change chaque semaine et une séance guidée sur ton téléphone qui enchaîne tout pour toi. 15 à 20 minutes, 5 jours sur 7, sans matériel. À deux : 14 € pour deux accès, et le plus gros progrès gagne.'},
- {nom:'Force & fessiers 40+',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
-  txt:'Force, fessiers et santé des os, avec de vraies charges : une paire d’haltères suffit à la maison. 2 à 3 séances par semaine, des séries courtes et lourdes qui progressent chaque semaine. Une version salle pour chaque exercice.'},
  {nom:'S’y remettre en 6 semaines',duree:'6 semaines',prix:'18 €',unite:'soit 3 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
-  txt:'Un test pour partir à ton niveau, 2 séances de 30 à 35 minutes par semaine avec une chaise et un sac à dos, et une séance guidée sur ton téléphone. Squats, pompes, fentes, rowing : les gestes de la force, appris pas à pas, avant de passer aux charges.'}
+  txt:'Un test pour partir à ton niveau, 2 séances de 30 à 35 minutes par semaine avec une chaise et un sac à dos, et une séance guidée sur ton téléphone. Squats, pompes, fentes, rowing : les gestes de la force, appris pas à pas, avant de passer aux charges.'},
+ {nom:'Tonicité & fermeté',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
+  txt:'Des cuisses, des fessiers et des bras plus fermes, des os plus solides : ça se construit avec de vraies charges, et une paire d’haltères suffit à la maison. 2 à 3 séances par semaine, des séries courtes et lourdes qui progressent chaque semaine. Une version salle pour chaque exercice.'},
+ {nom:'Force & carrure',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les hommes qui veulent devenir forts.',
+  txt:'Des épaules et un dos qui se dessinent, un ventre plus sec, des charges qui montent chaque semaine. 3 séances par semaine avec des haltères et une barre de traction, ou en salle. Après S’y remettre en 6 semaines, ou si tu as déjà la base.'}
+
 ];
 module.exports=function(T){
  const B=T['Bilan.html'];
@@ -24,7 +27,7 @@ module.exports=function(T){
  if(h<0||f<h)die('gabarit Bilan introuvable');
  let head=B.slice(0,h);
  const TITLE='Programmes d’entraînement à la maison, dès 9 € | Alpha Since';
- const DESC='Des programmes écrits à suivre chez toi, à ton rythme : Défi gainage 30 jours, Force & fessiers 40+, S’y remettre en 6 semaines. Sans abonnement, dès 9 €.';
+ const DESC='Des programmes écrits à suivre chez toi, à ton rythme : Défi gainage 30 jours, Tonicité & fermeté, Force & carrure, S’y remettre en 6 semaines. Sans abonnement, dès 9 €.';
  const rep=(re,v,n)=>{const c=(head.match(re)||[]).length;if(c!==n)die('balise '+re+' : '+c);head=head.replace(re,v)};
  rep(/<title>[^<]*<\/title>/g,'<title>'+TITLE+'</title>',1);
  rep(/<meta property="og:title" content="[^"]*">/g,'<meta property="og:title" content="'+TITLE+'">',1);
@@ -35,7 +38,7 @@ module.exports=function(T){
  rep(/<a href="\/bilan" aria-current="page">Bilan<\/a>/g,'<a href="/bilan">Bilan</a>',1);
  head=head.replace(/<script src="\/bilan[^"]*"[^>]*><\/script>\n?/g,'');
  head=head.replace('</head>','<style>'+
-  '.p-grid{display:grid;gap:16px}@media (min-width:960px){.p-grid{grid-template-columns:repeat(3,1fr)}}'+
+  '.p-grid{display:grid;gap:16px}@media (min-width:960px){.p-grid{grid-template-columns:repeat(2,1fr)}}'+
   '.p-card{display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:20px;background:var(--ink);color:var(--cream);border:1px solid rgba(228,225,184,.16)}'+
   '.p-card h3{margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:28px;line-height:1.05;letter-spacing:.01em}'+
   '.p-card .p-pour{font-weight:700;color:var(--sand)}.p-card p{margin:0;line-height:1.5}'+
@@ -59,7 +62,7 @@ module.exports=function(T){
  const Q=[
   ['C’est un abonnement ?','Non. Tu paies une fois, le programme est à toi. Pas de prélèvement, rien à résilier.'],
   ['Il y a un suivi ou un coach ?','Non. Les programmes sont écrits pour être suivis seul, à ton rythme : chaque séance est expliquée, avec une version plus facile et une version plus dure de chaque exercice. Pour savoir par lequel commencer, fais le <a href="/bilan">bilan Alpha gratuit</a>.'],
-  ['Il faut du matériel ?','Pour le Défi gainage, rien. Pour S’y remettre en 6 semaines, une chaise, un sac à dos et un tapis. Pour Force & fessiers 40+, une paire d’haltères réglables. Chaque exercice a aussi sa version salle.'],
+  ['Il faut du matériel ?','Pour le Défi gainage, rien. Pour S’y remettre en 6 semaines, une chaise, un sac à dos et un tapis. Pour Tonicité & fermeté et Force & carrure, une paire d’haltères réglables (et une barre de traction pour Force & carrure). Chaque exercice a aussi sa version salle.'],
   ['Je reprends après une longue pause, ou j’ai un problème de santé.','Demande l’avis de ton médecin avant de commencer. Les programmes ne remplacent pas un avis médical, et en cas de douleur, on s’arrête.'],
   ['Quand seront-ils disponibles ?','Bientôt. Clique sur « Me prévenir à la sortie » sous le programme qui t’intéresse : tu seras prévenu en premier.']
  ];
@@ -108,7 +111,7 @@ module.exports=function(T){
   '<h2 class="a-h2">La motivation te fait commencer. <span class="a-y">Un bon programme te fait continuer.</span></h2>\n'+
   '<p class="a-lead">Devenir plus fort, le redevenir, et rester en bonne santé. Des programmes écrits par Clément, à suivre chez toi, à ton rythme, sans abonnement.</p>\n'+
   '</div>\n<div class="a-coach-box a-rv">\n<span class="a-kick">À partir de</span>\n<span class="a-price">9 €</span>\n'+
-  '<ul><li>Défi gainage 30 jours</li><li>Force &amp; fessiers 40+</li><li>S’y remettre en 6 semaines</li></ul>\n'+
+  '<ul><li>Défi gainage 30 jours</li><li>Tonicité &amp; fermeté</li><li>Force &amp; carrure</li><li>S’y remettre en 6 semaines</li></ul>\n'+
   '<a class="a-btn a-btn-y" href="/programmes">Voir les programmes</a>\n</div>\n</div>\n</section>'+M.slice(b+10);
  const r='<a class="a-route" href="/programmes"><span class="a-route-t"><b>Je veux être suivi</b><span>Un coach qui part de ton bilan et ajuste ton programme. Sans engagement.</span></span>';
  if(M.split(r).length!==2)die('raccourci « Je veux être suivi » introuvable');
