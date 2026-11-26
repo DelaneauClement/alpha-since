@@ -16,7 +16,7 @@ const P=[
  {nom:'Force & fessiers 40+',duree:'12 semaines',prix:'24 €',unite:'soit 2 € par semaine',pour:'Pour les femmes de 40 ans et plus.',
   txt:'Force, fessiers et santé des os, avec de vraies charges : une paire d’haltères suffit à la maison. 2 à 3 séances par semaine, des séries courtes et lourdes qui progressent chaque semaine. Une version salle pour chaque exercice.'},
  {nom:'S’y remettre en 6 semaines',duree:'6 semaines',prix:'18 €',unite:'soit 3 € par semaine',pour:'Pour ceux qui commencent, ou recommencent.',
-  txt:'Un test pour partir à ton niveau, 2 séances de 30 minutes par semaine avec une chaise et un sac à dos, et une séance guidée sur ton téléphone. Squats, pompes, fentes, rowing : les gestes de la force, appris pas à pas, avant de passer aux charges.'}
+  txt:'Un test pour partir à ton niveau, 2 séances de 30 à 35 minutes par semaine avec une chaise et un sac à dos, et une séance guidée sur ton téléphone. Squats, pompes, fentes, rowing : les gestes de la force, appris pas à pas, avant de passer aux charges.'}
 ];
 module.exports=function(T){
  const B=T['Bilan.html'];

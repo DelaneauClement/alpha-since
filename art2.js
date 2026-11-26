@@ -82,7 +82,7 @@ cta:['/preparation','Construire ma préparation']},
 title:'Préparation physique des jeunes rugbymen : les bases',
 desc:'Vitesse, coordination, force au poids du corps, prévention des blessures : ce qui compte vraiment dans la préparation physique des jeunes joueurs de rugby.',
 lead:'Chez les jeunes joueurs de rugby, la tentation est grande de faire de la musculation d’adulte. Pourtant, avant 16 ans, ce qui construit un joueur solide, c’est la coordination, la vitesse et la maîtrise de son poids de corps.',
-body:`<p>Cet article s’appuie sur plus de vingt-cinq ans de terrain, comme joueur, entraîneur, responsable d’un pôle jeunes et créateur de la cellule performance d’un club, en lien avec médecin, kiné et ostéopathe.</p>
+body:`<p>Cet article s’appuie sur plus de vingt-cinq ans de terrain, comme joueur puis entraîneur de rugby, aux côtés de préparateurs physiques, kinés, ostéopathes, médecins et anciens joueurs professionnels.</p>
 
 <h3>Chaque âge a sa priorité</h3>
 <div class="a-table" role="table" aria-label="Priorités par catégorie">
