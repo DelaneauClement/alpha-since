@@ -9,7 +9,7 @@
 const OLD='https://alpha-since.vercel.app';
 const MAIL='alphasince.contact@gmail.com';
 // Lien Stripe « prix libre » pour soutenir Alpha. Vide : le bloc « Soutenir Alpha » n'apparaît pas.
-const SOUTIEN='';
+const SOUTIEN='https://buy.stripe.com/3cIfZadyP44w27hbYka3u01';
 const die=m=>{console.error('PROGRAMMES',m);process.exit(1)};
 const enc=s=>encodeURIComponent(s).replace(/'/g,'%27');
 const P=[
