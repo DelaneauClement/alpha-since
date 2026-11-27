@@ -8,6 +8,8 @@
 // La mention « relu par un professionnel de santé » ne sera ajoutée qu'une fois la relecture faite.
 const OLD='https://alpha-since.vercel.app';
 const MAIL='alphasince.contact@gmail.com';
+// Lien Stripe « prix libre » pour soutenir Alpha. Vide : le bloc « Soutenir Alpha » n'apparaît pas.
+const SOUTIEN='';
 const die=m=>{console.error('PROGRAMMES',m);process.exit(1)};
 const enc=s=>encodeURIComponent(s).replace(/'/g,'%27');
 const P=[
@@ -70,6 +72,10 @@ module.exports=function(T){
   '<p class="p-ok" role="status" hidden></p>'+
   '<p class="p-small">Ton prénom, ton e-mail et ton message servent uniquement à te répondre et à t’envoyer le programme. <a href="/legal#confidentialite">Confidentialité</a>. Le formulaire ne marche pas ? Écris à <a href="mailto:'+MAIL+'?subject='+enc('Demande de programme')+'">'+MAIL+'</a>.</p>'+
   '</form>\n</div></section>\n';
+ const SOUT=SOUTIEN?'<section class="a-sec t-cream"><div class="a-wrap a-narrow a-stack">\n<h2 class="a-h2">Soutenir Alpha</h2>\n'+
+  '<p class="a-lead">Les programmes sont offerts. Si l’un d’eux t’a aidé et que tu veux participer, tu choisis le montant. C’est facultatif, et ça ne change rien à ton accès.</p>\n'+
+  '<div class="a-ctas"><a class="a-btn a-btn-y" href="'+SOUTIEN+'" target="_blank" rel="noopener">Soutenir Alpha</a></div>\n'+
+  '<p class="p-small" style="color:inherit">Paiement sécurisé par Stripe. Ce n’est pas un don ouvrant droit à réduction d’impôt.</p>\n</div></section>\n':'';
  const FORMJS='<script>(function(){var f=document.getElementById("p-form");if(!f)return;'+
   'document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-prog]");if(a){var s=f.querySelector("select");s.value=a.getAttribute("data-prog")}});'+
   'f.addEventListener("submit",function(e){e.preventDefault();var ok=f.querySelector(".p-ok"),b=f.querySelector("button[type=submit]"),d={};["prenom","email","programme","message","site"].forEach(function(k){d[k]=(f.elements[k].value||"").trim()});d.news=f.elements.news.checked;'+
@@ -93,7 +99,7 @@ module.exports=function(T){
   '<h1 class="a-h1 a-h1-sm">Programmes Alpha</h1>\n'+
   '<p class="a-lead">Des programmes écrits, à suivre seul et à ton rythme, avec une séance guidée sur ton téléphone. Pendant le lancement, ils sont offerts : fais ta demande, je t’envoie ton accès.</p>\n'+
   '</div></section>\n'+
-  '<section class="a-sec t-cream"><div class="a-wrap"><div class="p-grid">'+cards+'</div></div></section>\n'+DEMANDE+
+  '<section class="a-sec t-cream"><div class="a-wrap"><div class="p-grid">'+cards+'</div></div></section>\n'+DEMANDE+SOUT+
   '<section class="a-sec t-cream"><div class="a-wrap a-narrow a-stack">\n'+
   '<h2 class="a-h2">Comment ils sont construits</h2>\n'+
   '<ul class="p-list"><li><b>De vraies charges</b> : c’est la charge qui construit la force et protège les os. À la maison, une paire d’haltères suffit ; chaque exercice a sa version salle.</li>'+
